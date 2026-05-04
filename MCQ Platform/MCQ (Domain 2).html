@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCQ Platform – Domain 2 (Asset Security)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid #e2e8f0;
+        }
+
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+
+        .btn-export {
+            background: #2b6e4e;
+        }
+
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2edf2;
+            transition: box-shadow 0.1s;
+        }
+
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .mapping-table td,
+        .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+
+        .result-table th,
+        .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .result-table th {
+            background: #eef3f7;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📘 Domain 2 – Asset Security</h1>
+        <div class="sub">108 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+
+        <div class="toolbar">
+            <div>
+                <button id="submitBtn">✅ Submit & Score</button>
+                <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+            </div>
+            <div class="score-area" id="scoreDisplay">Not yet scored</div>
+        </div>
+
+        <div id="questionsContainer" class="questions-grid"></div>
+        <footer>MCQ Platform — Domain 2. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+    </div>
+
+    <!-- Modal for summary report -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">Detailed Report</h3>
+            <div id="modalBody"></div>
+            <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // EXACT QUESTIONS AND OPTIONS (NO REPHRASING)
+        // Extracted from provided section (questions 1 to 108, including mapping)
+        // --------------------------------------------------------------
+        const questionsData = [
+            { id: 1, text: "Angela wants to implement data security controls that are part of the NIST 800-53 Security and Privacy controls. As part of the process, she works to determine which controls are appropriate to her organization's business processes and data handling needs. What term best describes the action that she has performed?", options: ["A. Scoping", "B. Bounds checking", "C. Data stewardship", "D. Tailoring"] },
+            { id: 2, text: "Control Objectives for Information and Related Technology (COBIT) is a framework for information technology (IT) management and governance. Which data management role is most likely to select and apply COBIT to balance the need for security controls against business requirements?", options: ["A. Business owners", "B. Data processors", "C. Data owners", "D. Data stewards"] },
+            { id: 3, text: "Nadia's company is operating a hybrid cloud environment with some on-site systems and some cloud-based systems. She has satisfactory monitoring on-site but needs to apply security policies to both the activities her users engage in and to report on exceptions with her growing number of cloud services. What type of tool is best suited to this purpose?", options: ["A. A NGFW", "B. A CASB", "C. An IDS", "D. A SOAR"] },
+            { id: 4, text: "When media is labeled based on the classification of the data it contains, what rule is typically applied regarding labels?", options: ["A. The data is labeled based on its integrity requirements.", "B. The media is labeled based on the highest classification level of the data it contains.", "C. The media is labeled with all levels of classification of the data it contains.", "D. The media is labeled with the lowest level of classification of the data it contains."] },
+            { id: 5, text: "Which one of the following administrative processes assists organizations in assigning appropriate levels of security control to sensitive information?", options: ["A. Data classification", "B. Remanence", "C. Transmitting data", "D. Clearing"] },
+            { id: 6, text: "How can a data retention policy help to reduce liabilities?", options: ["A. By ensuring that unneeded data isn't retained", "B. By ensuring that incriminating data is destroyed", "C. By ensuring that data is securely wiped so it cannot be restored for legal discovery", "D. By reducing the cost of data storage required by law"] },
+            { id: 7, text: "Staff in an information technology (IT) department who are delegated responsibility for day-to-day tasks hold what data role?", options: ["A. Business owner", "B. User", "C. Data processor", "D. Custodian"] },
+            { id: 8, text: "Helen's company uses a simple data life cycle, as shown here. What stage should come first in the company's data life cycle? (Image: data life cycle diagram)", options: ["A. Data policy creation", "B. Data labeling", "C. Data collection", "D. Data analysis"] },
+            { id: 9, text: "Ben has been tasked with identifying security controls for systems covered by his organization's information classification system. Why might Ben choose to use a security baseline?", options: ["A. It applies in all circumstances, allowing consistent security controls.", "B. They are approved by industry standards bodies, preventing liability.", "C. They provide a good starting point that can be tailored to organizational needs.", "D. They ensure that systems are always in a secure state."] },
+            { id: 10, text: "Megan wants to prepare media to allow for its reuse in an environment operating at the same sensitivity level. Which of the following is the best option to meet her needs?", options: ["A. Clearing", "B. Erasing", "C. Purging", "D. Sanitization"] },
+            { id: 11, text: "Mikayla wants to identify data that should be classified that already exists in her environment. What type of tool is best suited to identifying data like Social Security numbers, credit card numbers, and similar well-understood data formats?", options: ["A. Manual searching", "B. A sensitive data scanning tool", "C. An asset metadata search tool", "D. A SOAR"] },
+            { id: 12, text: "What issue is common to spare sectors and bad sectors on hard drives as well as overprovisioned space on modern SSDs?", options: ["A. They can be used to hide data.", "B. They can only be degaussed.", "C. They are not addressable, resulting in data remanence.", "D. They may not be cleared, resulting in data remanence."] },
+            { id: 13, text: "Naomi knows that commercial data is typically classified based on different criteria than government data. Which of the following is not a common criterion for commercial data classification?", options: ["A. Useful lifespan", "B. Data value", "C. Impact to national security", "D. Regulatory or legal requirements"] },
+            { id: 14, text: "The organization leverages memory-resident databases to improve system performance for both customer data and internal business data. What term best describes data that is resident in system memory?", options: ["A. Data at rest", "B. Buffered data", "C. Data in use", "D. Data in motion"] },
+            { id: 15, text: "What technique could you use to mark your trade secret information in case it was released or stolen and you need to identify it?", options: ["A. Classification", "B. Symmetric encryption", "C. Watermarks", "D. Metadata"] },
+            { id: 16, text: "What type of encryption is best suited for use on the file servers for the proprietary data, and how might you secure the data when it is in motion?", options: ["A. TLS at rest and AES in motion", "B. AES at rest and TLS in motion", "C. VPN at rest and TLS in motion", "D. DES at rest and AES in motion"] },
+            { id: 17, text: "What does labeling data allow a DLP system to do?", options: ["A. The DLP system can detect labels and apply appropriate protections based on rules.", "B. The DLP system can adjust labels based on changes in the classification scheme.", "C. The DLP system can modify labels to permit requested actions.", "D. The DLP system can delete unlabeled data."] },
+            { id: 18, text: "Why is it cost effective to purchase high-quality media to contain sensitive data?", options: ["A. Expensive media is less likely to fail.", "B. The value of the data often far exceeds the cost of the media.", "C. Expensive media is easier to encrypt.", "D. More expensive media typically improves data integrity."] },
+            { id: 19, text: "Chris is responsible for workstations throughout his company and knows that some of the company's workstations are used to handle both proprietary information and highly sensitive trade secrets. Which option best describes what should happen at the end of their life (EOL) for workstations he is responsible for?", options: ["A. Erasing", "B. Clearing", "C. Sanitization", "D. Destruction"] },
+            { id: 20, text: "Fred wants to classify his organization's data using common labels: private, sensitive, public, and proprietary. Which of the following should he apply to his highest classification level based on common industry practices?", options: ["A. Private", "B. Sensitive", "C. Public", "D. Proprietary"] },
+            { id: 21, text: "What scenario describes data at rest?", options: ["A. Data in an IPsec tunnel", "B. Data in an e-commerce transaction", "C. Data stored on a hard drive", "D. Data stored in RAM"] },
+            { id: 22, text: "If you are selecting a security standard for a Windows 11 system that processes credit cards, what security standard is your best choice?", options: ["A. Microsoft's Windows 11 security baseline", "B. The CIS Windows 11 baseline", "C. PCI DSS", "D. The NSA Windows 11 Secure Host Baseline"] },
+            { id: 23, text: "The CIS benchmarks are an example of what practice?", options: ["A. Conducting a risk assessment", "B. Implementing data labeling", "C. Implementing proper system ownership", "D. Using security baselines"] },
+            { id: 24, text: "Adjusting the CIS benchmarks to your organization's mission and your specific IT systems would involve what two processes?", options: ["A. Scoping and selection", "B. Scoping and tailoring", "C. Baselining and tailoring", "D. Tailoring and selection"] },
+            { id: 25, text: "How should you determine which controls from the baseline should be applied to a given system or software package?", options: ["A. Consult the custodians of the data.", "B. Select based on the data classification of the data it stores or handles.", "C. Apply the same controls to all systems.", "D. Consult the business owner of the process the system or data supports."] },
+            { id: 26, text: "The company that Henry works for operates in the EU and collects data about their customers. They send that data to a third party to analyze and provide reports to help the company make better business decisions. What term best describes the third-party analysis company?", options: ["A. The data controller", "B. The data owner", "C. The data subject", "D. The data processor"] },
+            { id: 27, text: "The government defense contractor that Selah works for has recently shut down a major research project and is planning on reusing the hundreds of thousands of dollars of systems and data storage tapes used for the project for other purposes. When Selah reviews the company's internal processes, she finds that she can't reuse the tapes and that the manual says they should be destroyed. Why isn't Selah allowed to degauss and then reuse the tapes to save her employer money?", options: ["A. Data permanence may be an issue.", "B. Data remanence is a concern.", "C. The tapes may suffer from bitrot.", "D. Data from tapes can't be erased by degaussing."] },
+            { id: 28, text: "Information maintained about an individual that can be used to distinguish or trace their identity is known as what type of information?", options: ["A. Personally identifiable information (PII)", "B. Personal health information (PHI)", "C. Social Security number (SSN)", "D. Secure identity information (SII)"] },
+            { id: 29, text: "Which of the following information security risks to data at rest would result in the greatest reputational impact on an organization?", options: ["A. Improper classification", "B. Data breach", "C. Decryption", "D. An intentional insider threat"] },
+            { id: 30, text: "Full disk encryption like Microsoft's BitLocker is used to protect data in what state?", options: ["A. Data in transit", "B. Data at rest", "C. Unlabeled data", "D. Labeled data"] },
+            { id: 31, text: "The company that Katie works for provides its staff with mobile phones for employee use, with new phones issued every two years. What scenario best describes this type of practice when the phones themselves are still usable and receiving operating system updates?", options: ["A. EOL", "B. Planned obsolescence", "C. EOS", "D. Device risk management"] },
+            { id: 32, text: "What is the primary purpose of data classification?", options: ["A. It quantifies the cost of a data breach.", "B. It prioritizes IT expenditures.", "C. It allows compliance with breach notification laws.", "D. It identifies the value of the data to the organization."] },
+            { id: 33, text: "Fred's organization allows downgrading of systems for reuse after projects have been finished and the systems have been purged. What concern should Fred raise about the reuse of the systems from his Top Secret classified project for a future project classified as Secret?", options: ["A. The Top Secret data may be commingled with the Secret data, resulting in a need to relabel the system.", "B. The cost of the sanitization process may exceed the cost of new equipment.", "C. The data may be exposed as part of the sanitization process.", "D. The organization's DLP system may flag the new system due to the difference in data labels."] },
+            { id: 34, text: "Which of the following concerns should not be part of the decision when classifying data?", options: ["A. The cost to classify the data", "B. The sensitivity of the data", "C. The amount of harm that exposure of the data could cause", "D. The value of the data to the organization"] },
+            { id: 35, text: "Which of the following is the least effective method of removing data from media?", options: ["A. Degaussing", "B. Purging", "C. Erasing", "D. Clearing"] },
+            { id: 36, text: "What encryption technology would be appropriate for HIPAA documents in transit?", options: ["A. BitLocker", "B. DES", "C. TLS", "D. SSL"] },
+            { id: 37, text: "Amanda's employer asks Amanda to classify patient data that is not medical data but that includes data such as phone numbers and addresses. The company's data owner believes that exposure of the data could cause damage (but not exceptional damage) to the organization. How should Amanda classify the data?", options: ["A. Public", "B. Sensitive", "C. Private", "D. Confidential"] },
+            { id: 38, text: "What technology could Amanda's employer implement to help prevent confidential data from being emailed out of the organization?", options: ["A. DLP", "B. IDS", "C. A firewall", "D. UDP"] },
+            { id: 39, text: "Jacob's organization uses the U.S. government's data classification system, which includes Top Secret, Secret, Confidential, and Unclassified ratings (from most sensitive to least). Jacob encounters a system that contains Secret, Confidential, and Top Secret data. How should it be classified?", options: ["A. Top Secret", "B. Confidential", "C. Secret", "D. Mixed classification"] },
+            { id: 40, text: "Elle is planning her organization's asset retention efforts and wants to establish when the company will remove assets from use. Which of the following is typically the last event in a manufacturer or software provider's life cycle?", options: ["A. End of life", "B. End of support", "C. End of sales", "D. General availability"] },
+            { id: 41, text: "Alice has been asked to ensure that her organization's controls assessment procedures match the specific systems that the company uses. What activity best matches this task?", options: ["A. Asset management", "B. Compliance", "C. Scoping", "D. Tailoring"] },
+            { id: 42, text: "Chris is responsible for his organization's security standards and has guided the selection and implementation of a security baseline for Windows PCs in his organization. How can Chris most effectively make sure that the workstations he is responsible for are being checked for compliance and that settings are being applied as necessary?", options: ["A. Assign users to spot-check baseline compliance.", "B. Use Microsoft Group Policy.", "C. Create start-up scripts to apply policy at system start.", "D. Periodically review the baselines with the data owner and system owners."] },
+            { id: 43, text: "Frank is reviewing his company's data life cycle and wants to place appropriate controls around the data collection phase. Which of the following ensures that data subjects agree to the processing of their data?", options: ["A. Retention", "B. Consent", "C. Certification", "D. Remanence"] },
+            { id: 44, text: "As a DBA, Amy's data role in her organization includes technical implementations of the data policies and standards, as well as managing the data structures that the data is stored in. What data role best fits what Amy does?", options: ["A. Data custodian", "B. Data owner", "C. Data processor", "D. Data user"] },
+            { id: 45, text: "The company Jim works for suffered from a major data breach in the past year and now wants to ensure that it knows where data is located and if it is being transferred, is being copied to a thumb drive, or is in a network file share where it should not be. Which of the following solutions is best suited to tagging, monitoring, and limiting where files are transferred to?", options: ["A. DRM", "B. DLP", "C. A network IPS", "D. Antivirus"] },
+            { id: 46, text: "What security measure can provide an additional security control in the event that backup tapes are stolen or lost?", options: ["A. Keep multiple copies of the tapes.", "B. Replace tape media with hard drives.", "C. Use appropriate security labels.", "D. Use AES-256 encryption."] },
+            { id: 47, text: "Joe works at a major pharmaceutical research and development company and has been tasked with writing his organization's data retention policy. As part of its legal requirements, the organization must comply with the U.S. Food and Drug Administration's Code of Federal Regulations Title 21. To do so, it is required to retain records with electronic signatures. Why would a signature be part of a retention requirement?", options: ["A. It ensures that someone has reviewed the data.", "B. It provides confidentiality.", "C. It ensures that the data has been changed.", "D. It validates who approved the data."] },
+            { id: 48, text: "Susan wants to manage her data's life cycle based on retention rules. What technique can she use to ensure that data that has reached the end of its life cycle can be identified and disposed of based on her organization's disposal processes?", options: ["A. Rotation", "B. DRM", "C. DLP", "D. Tagging"] },
+            { id: 49, text: "Ben has been asked to scrub data to eliminate any information that is no longer needed by his organization. What phase of the data life cycle is Ben most likely operating in?", options: ["A. Data retention", "B. Data maintenance", "C. Data remanence", "D. Data collection"] },
+            { id: 50, text: "Steve wants to ensure that assets in his organization are properly secured. What should he do to make sure security practices match the data security requirements for each device in his organization?", options: ["A. Sanitization", "B. Asset tagging", "C. Tailoring", "D. Encryption"] },
+            { id: 51, text: "Alex works for a government agency that is required to meet U.S. federal government requirements for data security. To meet these requirements, Alex has been tasked with making sure data is identifiable by its classification level when it is created to help with data asset inventory processes. What should Alex do to the data?", options: ["A. Classify the data.", "B. Encrypt the data.", "C. Label the data.", "D. Apply DRM to the data."] },
+            { id: 52, text: "Ben is following the National Institute of Standards and Technology (NIST) Special Publication 800-88 guidelines for sanitization and disposition as shown here. He is handling information that his organization classified as sensitive, which is a moderate security categorization in the NIST model. If the media is going to be sold as surplus, what process does Ben need to follow? (Image: NIST diagram)", options: ["A. Destroy, validate, document", "B. Clear, purge, document", "C. Purge, document, validate", "D. Purge, validate, document"] },
+            { id: 53, text: "What methods are often used to protect data in transit?", options: ["A. Telnet, ISDN, UDP", "B. BitLocker, FileVault", "C. AES, Serpent, IDEA", "D. TLS, VPN, IPsec"] },
+            { id: 54, text: "Which one of the following data roles bears ultimate organizational responsibility for data?", options: ["A. System owners", "B. Business owners", "C. Data owners", "D. Mission owners"] },
+            { id: 55, text: "Shandra wants to secure an encryption key. Which location would be the most difficult to protect, if the key was kept and used in that location?", options: ["A. On a local network", "B. On disk", "C. In memory", "D. On a public network"] },
+            { id: 56, text: "If Chris is one of the data owners for the organization, what steps in this process is he most likely responsible for? (Refer to classification process steps 1-8)", options: ["A. He is responsible for steps 3, 4, and 5.", "B. He is responsible for steps 1, 2, and 3.", "C. He is responsible for steps 5, 6, and 7.", "D. All of the steps are his direct responsibility."] },
+            { id: 57, text: "Chris manages a team of system administrators. What data role are they fulfilling if they conduct steps 6, 7, and 8 of the classification process?", options: ["A. They are system owners and administrators.", "B. They are administrators and custodians.", "C. They are data owners and administrators.", "D. They are custodians and users."] },
+            { id: 58, text: "If Chris's company operates in the European Union and has been contracted to handle the data for a third party, what role is his company operating in when it uses this process to classify and handle data?", options: ["A. Business owners", "B. Mission owners", "C. Data processors", "D. Data administrators"] },
+            { id: 59, text: "Eric needs to identify all of the active systems and devices on the network. Which of the following techniques will give him the most complete list of connected devices?", options: ["A. Query Active Directory for a list of all computer objects.", "B. Perform a port scan of all systems on the network.", "C. Ask all staff members to fill out a form listing all of their systems and devices.", "D. Use network logs to identify all connected devices and track them down from there."] },
+            { id: 60, text: "Eric knows that his inventory is accurate only at the moment it was completed. How can he best ensure that it remains up-to-date?", options: ["A. Perform a point-in-time query of network-connected devices and update the list based on what is found.", "B. Ensure that procurement and acquisition processes add new devices to the inventory before they are deployed.", "C. Require every employee to provide an updated inventory of devices they are responsible for on a quarterly basis.", "D. Manually verify every device in service at each organizational location on a yearly basis."] },
+            { id: 61, text: "Eric knows that his organization has more than just physical assets. In fact, his organization's business involves significant intellectual property assets, including designs and formulas. Eric needs to track and inventory those assets as well. How can he most effectively ensure that he can identify and manage data throughout his organization based on its classification or type?", options: ["A. Track file extensions for common data types.", "B. Ensure that data is collected in specific network share locations based on the data type and group that works with it.", "C. Use metadata tagging based on data type or security level.", "D. Automatically tag data by file extension type."] },
+            { id: 62, text: "Eric has been tasked with identifying intangible assets but needs to provide his team with a list of the assets they will be inventorying. Which of the following is not an example of an intangible asset?", options: ["A. Patents", "B. Databases", "C. Formulas", "D. Employees"] },
+            { id: 63, text: "Which of the following is not a common requirement for the collection of data under data privacy laws and statutes?", options: ["A. Only data that is needed is collected.", "B. Data should be obtained lawfully and via fair methods.", "C. Data should be collected only with the consent of the individual whose data is being collected.", "D. Data should be collected from all individuals equally."] },
+            { id: 64, text: "Susan works in an organization that labels all removable media with the classification level of the data it contains, including public data. Why would Susan's employer label all media instead of labeling only the media that contains data that could cause harm if it was exposed?", options: ["A. It is cheaper to order all prelabeled media.", "B. It prevents sensitive media from not being marked by mistake.", "C. It prevents reuse of public media for sensitive data.", "D. Labeling all media is required by HIPAA."] },
+            { id: 65, text: "Data stored in RAM is best characterized as what type of data?", options: ["A. Data at rest", "B. Data in use", "C. Data in transit", "D. Data at large"] },
+            { id: 66, text: "What issue is the validation portion of the NIST SP 800-88 sample certificate of sanitization (shown here) intended to help prevent? (Image: certificate)", options: ["A. Destruction", "B. Reuse", "C. Data remanence", "D. Attribution"] },
+            { id: 67, text: "Why is declassification rarely chosen as an option for media reuse?", options: ["A. Purging is sufficient for sensitive data.", "B. Sanitization is the preferred method of data removal.", "C. It is more expensive than new media and may still fail.", "D. Clearing is required first."] },
+            { id: 68, text: "Incineration, crushing, shredding, and disintegration all describe what stage in the life cycle of media?", options: ["A. Sanitization", "B. Degaussing", "C. Purging", "D. Destruction"] },
+            { id: 69, text: "What term is used to describe information like prescriptions and X-rays?", options: ["A. PHI", "B. Proprietary data", "C. PID", "D. PII"] },
+            { id: 70, text: "Why might an organization use unique screen backgrounds or designs on workstations that deal with data of different classification levels?", options: ["A. To indicate the software version in use", "B. To promote a corporate message", "C. To promote availability", "D. To indicate the classification level of the data or system"] },
+            { id: 71, text: "Charles has been asked to downgrade the media used for storage of private data for his organization. What process should Charles follow?", options: ["A. Degauss the drives, and then relabel them with a lower classification level.", "B. Pulverize the drives, and then reclassify them based on the data they contain.", "C. Follow the organization's purging process, and then downgrade and replace labels.", "D. Relabel the media, and then follow the organization's purging process to ensure that the media matches the label."] },
+            { id: 72, text: "Which of the following tasks is not performed by a system owner per NIST SP 800-18?", options: ["A. Develops a system security plan", "B. Establishes rules for appropriate use and protection of data", "C. Identifies and implements security controls", "D. Ensures that system users receive appropriate security training"] },
+            { id: 73, text: "NIST SP 800-60 provides a process shown in the following diagram to assess information systems. What process does this diagram show? (Image: process diagram)", options: ["A. Selecting a standard and implementing it", "B. Categorizing and selecting controls", "C. Baselining and selecting controls", "D. Categorizing and sanitizing"] },
+            { id: 74, text: "Which letters on this diagram are locations where you might find data at rest? (Diagram: workstation/server connections)", options: ["A. A, B, and C", "B. C and E", "C. A and E", "D. B, D, and F"] },
+            { id: 75, text: "What would be the best way to secure data at points B, D, and F?", options: ["A. AES-256", "B. SSL", "C. TLS", "D. 3DES"] },
+            { id: 76, text: "What is the best way to secure files that are sent from workstation A via the Internet service (C) to remote server E?", options: ["A. Use AES at rest at point A, and use TLS in transit via B and D.", "B. Encrypt the data files and send them.", "C. Use 3DES and TLS to provide double security.", "D. Use full-disk encryption at A and E, and use SSL at B and D."] },
+            { id: 77, text: "Susan needs to provide a set of minimum security requirements for email. What steps should she recommend for her organization to ensure that the email remains secure?", options: ["A. All email should be encrypted.", "B. All email should be encrypted and labeled.", "C. Sensitive email should be encrypted and labeled.", "D. Only highly sensitive email should be encrypted."] },
+            { id: 78, text: "How can a data retention policy reduce liabilities?", options: ["A. By reducing the amount of storage in use", "B. By limiting the number of data classifications", "C. By reducing the amount of data that may need to be produced for lawsuits", "D. By reducing the legal penalties for noncompliance"] },
+            { id: 79, text: "What data role does a system that is used to process data have?", options: ["A. Mission owner", "B. Data owner", "C. Data processor", "D. Custodian"] },
+            { id: 80, text: "Which one of the following is not considered PII under U.S. federal government regulations?", options: ["A. Name", "B. Social Security number", "C. Student ID number", "D. ZIP code"] },
+            { id: 81, text: "What type of health information is the Health Insurance Portability and Accountability Act required to protect?", options: ["A. PII", "B. PHI", "C. SHI", "D. HPHI"] },
+            { id: 82, text: "The system that Ian has built replaces data in a database field with a randomized string of characters that remains the same for each instance of that data. What technique has he used?", options: ["A. Data masking", "B. Tokenization", "C. Anonymization", "D. DES"] },
+            { id: 83, text: "Juanita's company processes credit cards and wants to select appropriate data security standards. What data security standard is she most likely to need to use and comply with?", options: ["A. CC-Comply", "B. PCI-DSS", "C. GLBA", "D. GDPR"] },
+            { id: 84, text: "What is the best method to sanitize a solid-state drive (SSD)?", options: ["A. Clearing", "B. Zero fill", "C. Disintegration", "D. Degaussing"] },
+            { id: 85, text: "What data role will own responsibility for step 1, the categorization of information systems; to whom will they delegate step 2; and what data role will be responsible for step 3? (NIST RMF steps)", options: ["A. Data owners, system owners, custodians", "B. Data processors, custodians, users", "C. Business owners, administrators, custodians", "D. System owners, business owners, administrators"] },
+            { id: 86, text: "If the systems that are being assessed all handle credit card information (and no other sensitive data), at what step would the PCI DSS first play an important role? (NIST RMF steps)", options: ["A. Step 1", "B. Step 2", "C. Step 3", "D. Step 4"] },
+            { id: 87, text: "What data security role is primarily responsible for step 5? (NIST RMF)", options: ["A. Data owners", "B. Data processors", "C. Custodians", "D. Users"] },
+            { id: 88, text: "Susan's organization performs a secure disk wipe process on hard drives before they are sent to a third-party organization to be shredded. What issue is her organization attempting to avoid?", options: ["A. Data retention that is longer than defined in policy", "B. Mishandling of drives by the third party", "C. Classification mistakes", "D. Data permanence"] },
+            { id: 89, text: "Mike wants to track hardware assets as devices and equipment are moved throughout his organization. What type of system can help do this without requiring staff to individually check bar codes or serial numbers?", options: ["A. A visual inventory", "B. Wi-Fi MAC address tracking", "C. RFID tags", "D. Steganography"] },
+            { id: 90, text: "Retaining and maintaining information for as long as it is needed is known as what?", options: ["A. Data storage policy", "B. Data storage", "C. Asset maintenance", "D. Record retention"] },
+            { id: 91, text: "Which of the following activities is not a consideration during data classification?", options: ["A. Who can access the data", "B. What the impact would be if the data was lost or breached", "C. How much the data cost to create", "D. What protection regulations may be required for the data"] },
+            { id: 92, text: "What type of encryption is typically used for data at rest?", options: ["A. Asymmetric encryption", "B. Symmetric encryption", "C. DES", "D. OTP"] },
+            { id: 93, text: "Which data role is tasked with applying rights that provide appropriate access to staff members?", options: ["A. Data processors", "B. Business owners", "C. Custodians", "D. Administrators"] },
+            { id: 94, text: "What element of asset security is often determined by identifying an asset's owner?", options: ["A. It identifies the individual(s) responsible for protecting the asset.", "B. It provides a law enforcement contact in case of theft.", "C. It helps establish the value of the asset.", "D. It determines the security classification of the asset."] },
+            { id: 95, text: "Fred is preparing to send backup tapes off-site to a secure third-party storage facility. What steps should Fred take before sending the tapes to that facility?", options: ["A. Ensure that the tapes are handled the same way the original media would be handled based on their classification.", "B. Increase the classification level of the tapes because they are leaving the possession of the company.", "C. Purge the tapes to ensure that classified data is not lost.", "D. Decrypt the tapes in case they are lost in transit."] },
+            { id: 96, text: "Which of the following does not describe data in motion?", options: ["A. Data on a backup tape that is being shipped to a storage facility", "B. Data in a TCP packet", "C. Data in an e-commerce transaction", "D. Data in files being copied between locations"] },
+            { id: 97, text: "A new law is passed that would result in significant financial harm to your company if the data that it covers was stolen or inadvertently released. What should your organization do about this?", options: ["A. Select a new security baseline.", "B. Relabel the data.", "C. Encrypt all of the data at rest and in transit.", "D. Review its data classifications and classify the data appropriately."] },
+            { id: 98, text: "Which of the following data roles are typically found inside of a company instead of as a third-party contracting relationship? (Select all that apply.)", options: ["A. Data owners", "B. Data controllers", "C. Data custodians", "D. Data processors"] },
+            { id: 99, text: "What commercial data classification is most appropriate for data contained on corporate websites?", options: ["A. Private", "B. Sensitive", "C. Public", "D. Proprietary"] },
+            { id: 100, text: "Match each of the numbered data elements shown here with one of the lettered categories. You may use the categories once, more than once, or not at all. If a data element matches more than one category, choose the one that is most specific. Data elements: 1. Medical records 2. Trade secrets 3. Social Security numbers 4. Driver's license numbers. Categories: A. Proprietary data B. Protected health information C. Personally identifiable information", options: [] }, // mapping
+            { id: 101, text: "Michelle wants to ensure that her organization's policies are enforced across all of the cloud services that it has adopted. What type of tool would be best suited to ensuring her organization's policies are enforced, regardless of the cloud service her users are accessing?", options: ["A. A SIEM", "B. A DLP", "C. A CASB", "D. A NGFW"] },
+            { id: 102, text: "Devices in Adam's organization are no longer receiving updates, and hardware support contracts cannot be extended. How should Adam describe the devices that are impacted by this?", options: ["A. End of support", "B. End of development", "C. End of life", "D. End of sales"] },
+            { id: 103, text: "Gary is responsible for the procurement, management, and life cycle of network devices in his organization. What role best describes him?", options: ["A. Data owner", "B. Asset custodian", "C. Data custodian", "D. Asset owner"] },
+            { id: 104, text: "Jessica has adopted the CIS benchmark for Windows 11 workstations for her organization. She has modified what settings are called for in the benchmark to fit her organization's needs as well. What has she done?", options: ["A. Tailoring", "B. Scoping", "C. Editing", "D. Defining"] },
+            { id: 105, text: "Why is data location a significant concern for data owners, controllers, and custodians?", options: ["A. It prevents the data from being lost.", "B. Geographic location may impact compliance requirements.", "C. Geographic location may drive storage costs.", "D. It ensures that the proper data custodian works with it."] }
+        ];
+
+        // ANSWERS (based on standard CISSP Domain 2 knowledge) – exact correct letters
+        const answersMap = {
+            1: "A", 2: "C", 3: "B", 4: "B", 5: "A", 6: "A", 7: "D", 8: "C", 9: "C", 10: "A",
+            11: "B", 12: "D", 13: "C", 14: "C", 15: "C", 16: "B", 17: "A", 18: "B", 19: "C", 20: "D",
+            21: "C", 22: "C", 23: "D", 24: "B", 25: "B", 26: "D", 27: "B", 28: "A", 29: "B", 30: "B",
+            31: "C", 32: "D", 33: "B", 34: "A", 35: "D", 36: "C", 37: "C", 38: "A", 39: "A", 40: "B",
+            41: "C", 42: "B", 43: "B", 44: "A", 45: "B", 46: "D", 47: "D", 48: "D", 49: "A", 50: "C",
+            51: "C", 52: "D", 53: "D", 54: "C", 55: "C", 56: "B", 57: "B", 58: "C", 59: "B", 60: "B",
+            61: "C", 62: "D", 63: "D", 64: "B", 65: "B", 66: "C", 67: "C", 68: "D", 69: "A", 70: "D",
+            71: "C", 72: "B", 73: "B", 74: "C", 75: "C", 76: "A", 77: "C", 78: "C", 79: "C", 80: "D",
+            81: "B", 82: "B", 83: "B", 84: "C", 85: "A", 86: "B", 87: "C", 88: "D", 89: "C", 90: "D",
+            91: "C", 92: "B", 93: "C", 94: "A", 95: "A", 96: "A", 97: "D", 98: "A, C", 99: "C",
+            // mapping Q100: correct matches: 1-B, 2-A, 3-C, 4-C
+            101: "C",   // CASB
+            102: "A",   // End of support
+            103: "B",   // Asset custodian
+            104: "A",   // Tailoring
+            105: "B"    // Geographic location may impact compliance requirements
+        };
+        // For Q100 mapping (special handling)
+        const mappingItems = [
+            { element: "Medical records", correct: "B" },
+            { element: "Trade secrets", correct: "A" },
+            { element: "Social Security numbers", correct: "C" },
+            { element: "Driver's license numbers", correct: "C" }
+        ];
+
+        // Render questions
+        const container = document.getElementById('questionsContainer');
+        questionsData.forEach(q => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${q.id}`;
+            const isMultiple = q.options.length > 0 && q.text.includes("(Select all that apply.)");
+            const isMapping = (q.id === 100);
+            let optionsHtml = '';
+            if (isMapping) {
+                optionsHtml = `<table class="mapping-table"><tr><th>Data Element</th><th>Match to category (A, B, or C)</th></tr>`;
+                mappingItems.forEach((item, idx) => {
+                    optionsHtml += `<tr><td>${item.element}</td><td><select class="map-select-100" data-index="${idx}"><option value="">-- select --</option><option value="A">A. Proprietary data</option><option value="B">B. Protected health information</option><option value="C">C. Personally identifiable information</option></select></td></tr>`;
+                });
+                optionsHtml += `</table>`;
+            } else {
+                optionsHtml = `<div class="options">`;
+                q.options.forEach(opt => {
+                    const letter = opt.charAt(0);
+                    const inputType = isMultiple ? 'checkbox' : 'radio';
+                    const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+                    optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+                });
+                optionsHtml += `</div>`;
+            }
+            card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+            container.appendChild(card);
+        });
+
+        const submitBtn = document.getElementById('submitBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const modal = document.getElementById('summaryModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.querySelector('.close-modal');
+
+        let currentResults = [];
+
+        function getUserAnswers() {
+            let results = [];
+            for (let i = 1; i <= 105; i++) {
+                const qid = i;
+                let userAnswer = "";
+                let isCorrect = false;
+                if (qid === 100) {
+                    const selects = document.querySelectorAll('.map-select-100');
+                    let answers = [];
+                    selects.forEach((sel, idx) => {
+                        answers.push(sel.value);
+                    });
+                    userAnswer = answers.join(', ');
+                    const correctAnswers = mappingItems.map(m => m.correct);
+                    isCorrect = answers.length === correctAnswers.length && answers.every((v, idx) => v === correctAnswers[idx]);
+                } else {
+                    const qData = questionsData.find(q => q.id === qid);
+                    const isMulti = qData && qData.text.includes("(Select all that apply.)");
+                    if (isMulti) {
+                        const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                        const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                        userAnswer = selected.join(', ') || "(none)";
+                        const correctLettersRaw = answersMap[qid];
+                        const correctArray = correctLettersRaw.split(',').map(s => s.trim()).sort();
+                        isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
+                    } else {
+                        const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                        userAnswer = radio ? radio.value : "(skipped)";
+                        const correctLetter = answersMap[qid];
+                        isCorrect = (radio && radio.value === correctLetter);
+                    }
+                }
+                const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+                results.push({ qid, userAnswer, correctAnswer: answersMap[qid] || "Mapping", isCorrect, status });
+                // Update hashtag
+                const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+                if (hashtagSpan) {
+                    if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+                    else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+                    else hashtagSpan.innerHTML = " #️⃣ skipped";
+                    hashtagSpan.className = `hashtag ${status}`;
+                }
+            }
+            return results;
+        }
+
+        function showModal(results) {
+            const total = results.length;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
+            html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+            results.forEach(r => {
+                const statusText = r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect");
+                html += `<tr><td>${r.qid}</td><td>${escapeHtml(r.userAnswer)}</td><td>${escapeHtml(r.correctAnswer)}</td><td>${statusText}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            modalBody.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        function escapeHtml(str) { return str.replace(/[&<>]/g, function (m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+        function exportCSV(results) {
+            let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result"]];
+            results.forEach(r => {
+                csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+            });
+            const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute("download", "domain2_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const results = getUserAnswers();
+            currentResults = results;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/105 (${Math.round(correctCount)}%)`;
+            showModal(results);
+        });
+
+        exportBtn.addEventListener('click', () => {
+            if (currentResults && currentResults.length) exportCSV(currentResults);
+            else alert("Please submit your answers first to generate CSV.");
+        });
+        document.getElementById('modalExportBtn').addEventListener('click', () => {
+            if (currentResults) exportCSV(currentResults);
+        });
+        closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    </script>
+</body>
+
+</html>
