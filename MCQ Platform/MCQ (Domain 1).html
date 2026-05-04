@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCQ Platform – Domain 2 (Asset Security)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255, 255, 255, 0.92);
+            border: 1px solid #e2e8f0;
+        }
+
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+
+        .btn-export {
+            background: #2b6e4e;
+        }
+
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2edf2;
+            transition: box-shadow 0.1s;
+        }
+
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 700px;
+        }
+
+        .mapping-table td,
+        .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+
+        .result-table th,
+        .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        .result-table th {
+            background: #eef3f7;
+        }
+
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📘 Domain 2 – Asset Security</h1>
+        <div class="sub">108 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+
+        <div class="toolbar">
+            <div>
+                <button id="submitBtn">✅ Submit & Score</button>
+                <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+            </div>
+            <div class="score-area" id="scoreDisplay">Not yet scored</div>
+        </div>
+
+        <div id="questionsContainer" class="questions-grid"></div>
+        <footer>MCQ Platform — Domain 2. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+    </div>
+
+    <!-- Modal for summary report -->
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">Detailed Report</h3>
+            <div id="modalBody"></div>
+            <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+        </div>
+    </div>
+
+    <script>
+        // --------------------------------------------------------------
+        // EXACT QUESTIONS AND OPTIONS (NO REPHRASING)
+        // Extracted from provided section (questions 1 to 108, including mapping)
+        // --------------------------------------------------------------
+        const questionsData = [
+            { id: 1, text: "Alyssa is responsible for her organization's security awareness program. She is concerned that changes in technology may make the content outdated. What control can she put in place to protect against this risk?", options: ["A. Gamification", "B. Computer-based training", "C. Content reviews", "D. Live training"] },
+            { id: 2, text: "Gavin is creating a report for management on the results of his most recent risk assessment. In his report, he would like to identify the remaining level of risk to the organization after adopting security controls. What term best describes this current level of risk?", options: ["A. Inherent risk", "B. Residual risk", "C. Control risk", "D. Mitigated risk"] },
+            { id: 3, text: "Francine is a security specialist for an online service provider in the United States. She recently received a claim from a copyright holder that a user is storing information on her service that violates the third party's copyright. What law governs the actions that Francine must take?", options: ["A. Copyright Act", "B. Lanham Act", "C. Digital Millennium Copyright Act", "D. Gramm-Leach-Bliley Act"] },
+            { id: 4, text: "FlyAway Travel has offices in both the European Union (EU) and the United States and transfers personal information between those offices regularly. They have recently received a request from an EU customer requesting that their account be terminated. Under the General Data Protection Regulation (GDPR), which requirement for processing personal information states that individuals may request that their data no longer be disseminated or processed?", options: ["A. The right to access", "B. Privacy by Design", "C. The right to erasure", "D. The right of data portability"] },
+            { id: 5, text: "After conducting a qualitative risk assessment of her organization, Sally recommends purchasing cybersecurity breach insurance. What type of risk response behavior is she recommending?", options: ["A. Accept", "B. Transfer", "C. Reduce", "D. Reject"] },
+            { id: 6, text: "Which one of the following elements of information is not considered personally identifiable information that would trigger most United States state data breach laws?", options: ["A. Student identification number", "B. Social Security number", "C. Driver's license number", "D. Credit card number"] },
+            { id: 7, text: "Renee is purchasing a new software product and is working with the vendor on the negotiation of a license agreement that will specify customized terms of use and a discounted price. What type of agreement would normally be used to document the results of this negotiation?", options: ["A. Perpetual license", "B. Subscription license", "C. Enterprise license agreement", "D. End-user license agreement"] },
+            { id: 8, text: "Henry recently assisted one of his co-workers in preparing for the CISSP exam. During this process, Henry disclosed confidential information about the content of the exam, in violation of Canon IV of the Code of Ethics: “Advance and protect the profession.” Who may bring ethics charges against Henry for this violation?", options: ["A. Anyone may bring charges.", "B. Any certified or licensed professional may bring charges.", "C. Only Henry's employer may bring charges.", "D. Only the affected employee may bring charges."] },
+            { id: 9, text: "Wanda is working with one of her organization's European Union business partners to facilitate the exchange of customer information. Wanda's organization is located in the United States. What would be the best method for Wanda to use to ensure GDPR compliance?", options: ["A. Binding corporate rules", "B. Privacy Shield", "C. Standard contractual clauses", "D. Safe harbor"] },
+            { id: 10, text: "Yolanda is the chief privacy officer for a financial institution and is researching privacy requirements related to customer checking accounts. Which one of the following laws is most likely to apply to this situation?", options: ["A. GLBA", "B. SOX", "C. HIPAA", "D. FERPA"] },
+            { id: 11, text: "Tim's organization recently received a contract to conduct sponsored research as a government contractor. What law now likely applies to the information systems involved in this contract?", options: ["A. FISMA", "B. PCI DSS", "C. HIPAA", "D. GISRA"] },
+            { id: 12, text: "Chris is advising travelers from his organization who will be visiting many different countries overseas. He is concerned about compliance with export control laws. Which of the following technologies is most likely to trigger these regulations?", options: ["A. Memory chips", "B. Office productivity applications", "C. Hard drives", "D. Encryption software"] },
+            { id: 13, text: "Bobbi is investigating a security incident and discovers that an attacker began with a normal user account but managed to exploit a system vulnerability to provide that account with administrative rights. What type of attack took place under the STRIDE threat model?", options: ["A. Spoofing", "B. Repudiation", "C. Tampering", "D. Elevation of privilege"] },
+            { id: 14, text: "You are completing your business continuity planning effort and have decided that you want to accept one of the risks. What should you do next?", options: ["A. Implement new security controls to reduce the risk level.", "B. Design a disaster recovery plan.", "C. Repeat the business impact assessment.", "D. Document your decision-making process."] },
+            { id: 15, text: "You are completing a review of the controls used to protect a media storage facility in your organization and would like to properly categorize each control that is currently in place. Which of the following control categories accurately describe a fence around a facility? (Select all that apply.)", options: ["A. Physical", "B. Detection", "C. Deterrent", "D. Preventive"] },
+            { id: 16, text: "Tony is developing a business continuity plan and is having difficulty prioritizing resources because of the difficulty of combining information about tangible and intangible assets. What would be the most effective risk assessment approach for him to use?", options: ["A. Quantitative risk assessment", "B. Qualitative risk assessment", "C. Neither quantitative nor qualitative risk assessment", "D. Combination of quantitative and qualitative risk assessment"] },
+            { id: 17, text: "Vincent believes that a former employee took trade secret information from his firm and brought it with him to a competitor. He wants to pursue legal action. Under what law could he pursue charges?", options: ["A. Copyright law", "B. Lanham Act", "C. Glass-Steagall Act", "D. Economic Espionage Act"] },
+            { id: 18, text: "Which one of the following principles imposes a standard of care upon an individual that is broad and equivalent to what one would expect from a reasonable person under the circumstances?", options: ["A. Due diligence", "B. Separation of duties", "C. Due care", "D. Least privilege"] },
+            { id: 19, text: "Brenda's organization recently completed the acquisition of a competitor firm. Which one of the following tasks would be LEAST likely to be part of the organizational processes addressed during the acquisition?", options: ["A. Consolidation of security functions", "B. Integration of security tools", "C. Protection of intellectual property", "D. Documentation of security policies"] },
+            { id: 20, text: "Kelly believes that an employee engaged in the unauthorized use of computing resources for a side business. After consulting with management, she decides to launch an administrative investigation. What is the burden of proof that she must meet in this investigation?", options: ["A. Preponderance of the evidence.", "B. Beyond a reasonable doubt.", "C. Beyond the shadow of a doubt.", "D. There is no standard."] },
+            { id: 21, text: "Keenan Systems recently developed a new manufacturing process for microprocessors. The company wants to license the technology to other companies for use but wants to prevent unauthorized use of the technology. What type of intellectual property protection is best suited for this situation?", options: ["A. Patent", "B. Trade secret", "C. Copyright", "D. Trademark"] },
+            { id: 22, text: "Which one of the following actions might be taken as part of a business continuity plan?", options: ["A. Restoring from backup tapes", "B. Implementing RAID", "C. Relocating to a cold site", "D. Restarting business operations"] },
+            { id: 23, text: "When developing a business impact analysis, the team should first create a list of assets. What should happen next?", options: ["A. Identify vulnerabilities in each asset.", "B. Determine the risks facing the asset.", "C. Develop a value for each asset.", "D. Identify threats facing each asset."] },
+            { id: 24, text: "Mike recently implemented an intrusion prevention system designed to block common network attacks from affecting his organization. What type of risk management strategy is Mike pursuing?", options: ["A. Risk acceptance", "B. Risk avoidance", "C. Risk mitigation", "D. Risk transference"] },
+            { id: 25, text: "Laura has been asked to perform a security controls assessment (SCA). What type of organization is she most likely in?", options: ["A. Higher education", "B. Banking", "C. Government", "D. Healthcare"] },
+            { id: 26, text: "Carl is a federal agent investigating a computer crime case. He identified an attacker who engaged in illegal conduct and wants to pursue a case against that individual that will lead to imprisonment. What standard of proof must Carl meet?", options: ["A. Beyond the shadow of a doubt", "B. Preponderance of the evidence", "C. Beyond a reasonable doubt", "D. Majority of the evidence"] },
+            { id: 27, text: "ISC2 uses the logo shown here to represent itself online and in a variety of forums. What type of intellectual property protection can it use to protect its rights in this logo? (Image: ISC2 logo)", options: ["A. Copyright", "B. Patent", "C. Trade secret", "D. Trademark"] },
+            { id: 28, text: "Mary is helping a computer user who sees the following message appear on his computer screen. What type of attack has occurred? (Image: CryptoLocker ransomware screenshot)", options: ["A. Availability", "B. Confidentiality", "C. Disclosure", "D. Distributed"] },
+            { id: 29, text: "Which one of the following organizations would not be automatically subject to the privacy and security requirements of HIPAA if they engage in electronic transactions?", options: ["A. Healthcare provider", "B. Health and fitness application developer", "C. Health information clearinghouse", "D. Health insurance plan"] },
+            { id: 30, text: "John's network begins to experience symptoms of slowness. Upon investigation, he realizes that the network is being bombarded with TCP SYN packets and believes that his organization is the victim of a denial-of-service attack. What principle of information security is being violated?", options: ["A. Availability", "B. Integrity", "C. Confidentiality", "D. Denial"] },
+            { id: 31, text: "Renee is designing a long-term security plan for her organization and has a three- to five-year planning horizon. Her primary goal is to align the security function with the broader plans and objectives of the business. What type of plan is she developing?", options: ["A. Operational", "B. Tactical", "C. Summary", "D. Strategic"] },
+            { id: 32, text: "Gina is working to protect a logo that her company will use for a new product they are launching. She has questions about the intellectual property protection process for this logo. What U.S. government agency would be best able to answer her questions?", options: ["A. USPTO", "B. Library of Congress", "C. NSA", "D. NIST"] },
+            { id: 33, text: "The Acme Widgets Company is putting new controls in place for its accounting department. Management is concerned that a rogue accountant may be able to create a new false vendor and then issue checks to that vendor as payment for services that were never rendered. What security control can best help prevent this situation?", options: ["A. Mandatory vacation", "B. Segregation of duties", "C. Defense in depth", "D. Job rotation"] },
+            { id: 34, text: "Which one of the following categories of organizations is most likely to be covered by the provisions of FISMA?", options: ["A. Banks", "B. Defense contractors", "C. School districts", "D. Hospitals"] },
+            { id: 35, text: "Robert is responsible for securing systems used to process credit card information. What security control framework should guide his actions?", options: ["A. HIPAA", "B. PCI DSS", "C. SOX", "D. GLBA"] },
+            { id: 36, text: "Which one of the following individuals is normally responsible for fulfilling the operational data protection responsibilities delegated by senior management, such as validating data integrity, testing backups, and managing security policies?", options: ["A. Data custodian", "B. Data owner", "C. User", "D. Auditor"] },
+            { id: 37, text: "Alan works for an e-commerce company that recently had some content stolen by another website and republished without permission. What type of intellectual property protection would best preserve Alan's company's rights?", options: ["A. Trade secret", "B. Copyright", "C. Trademark", "D. Patent"] },
+            { id: 38, text: "Florian receives a flyer from a U.S. federal government agency announcing that a new administrative law will affect his business operations. Where should he go to find the text of the law?", options: ["A. U.S. Code", "B. Supreme Court rulings", "C. Code of Federal Regulations", "D. Compendium of Laws"] },
+            { id: 39, text: "Tom enables an application firewall provided by his cloud infrastructure as a service provider that is designed to block many types of application attacks. When viewed from a risk management perspective, what metric is Tom attempting to lower by implementing this countermeasure?", options: ["A. Impact", "B. RPO", "C. MTO", "D. Likelihood"] },
+            { id: 40, text: "Which one of the following individuals would be the most effective organizational owner for an information security program?", options: ["A. CISSP-certified analyst", "B. Chief information officer (CIO)", "C. Manager of network security", "D. President and CEO"] },
+            { id: 41, text: "What important function do senior managers normally fill on a business continuity planning team?", options: ["A. Arbitrating disputes about criticality", "B. Evaluating the legal environment", "C. Training staff", "D. Designing failure controls"] },
+            { id: 42, text: "You are the CISO for a major hospital system and are preparing to sign a contract with a software-as-a-service (SaaS) email vendor. You want to perform a control assessment to ensure that its business continuity planning measures are reasonable. What type of audit might you request to meet this goal?", options: ["A. SOC 1", "B. FISMA", "C. PCI DSS", "D. SOC 2"] },
+            { id: 43, text: "Gary is analyzing a security incident and, during his investigation, encounters a user who denies having performed an action that Gary believes he did perform. What type of threat has taken place under the STRIDE model?", options: ["A. Repudiation", "B. Information disclosure", "C. Tampering", "D. Elevation of privilege"] },
+            { id: 44, text: "Beth is the security administrator for a public school district. She is implementing a new student information system and is testing the code to ensure that students are not able to alter their own grades. What principle of information security is Beth enforcing?", options: ["A. Integrity", "B. Availability", "C. Confidentiality", "D. Denial"] },
+            { id: 45, text: "Which one of the following issues is not normally addressed in a service-level agreement (SLA)?", options: ["A. Confidentiality of customer information", "B. Failover time", "C. Uptime", "D. Maximum consecutive downtime"] },
+            { id: 46, text: "Joan is seeking to protect a piece of computer software that she developed under intellectual property law. Which one of the following avenues of protection would not apply to a piece of software?", options: ["A. Trademark", "B. Copyright", "C. Patent", "D. Trade secret"] },
+            { id: 47, text: "Users in the two offices would like to access each other's file servers over the internet. What control would provide confidentiality for those communications?", options: ["A. Digital signatures", "B. Virtual private network", "C. Virtual LAN", "D. Digital content management"] },
+            { id: 48, text: "You are also concerned about the availability of data stored on each office's server. You would like to add technology that would enable continued access to files located on the server even if a hard drive in a server fails. What control allows you to add robustness without adding additional servers?", options: ["A. Server clustering", "B. Load balancing", "C. RAID", "D. Scheduled backups"] },
+            { id: 49, text: "Finally, there are historical records stored on the server that are extremely important to the business and should never be modified. You would like to add an integrity control that allows you to verify on a periodic basis that the files were not modified. What control can you add?", options: ["A. Hashing", "B. ACLs", "C. Read-only attributes", "D. Firewalls"] },
+            { id: 50, text: "Beth is a human resources specialist preparing to assist in the termination of an employee. Which of the following is not typically part of a termination process?", options: ["A. An exit interview", "B. Recovery of organizational property", "C. Account termination", "D. Signing an NCA"] },
+            { id: 51, text: "Frances is reviewing her organization's business continuity plan documentation for completeness. Which one of the following is not normally included in business continuity plan documentation?", options: ["A. Statement of accounts", "B. Statement of importance", "C. Statement of priorities", "D. Statement of organizational responsibility"] },
+            { id: 52, text: "An accounting employee at Doolittle Industries was recently arrested for participation in an embezzlement scheme. The employee transferred money to a personal account and then shifted funds around between other accounts every day to disguise the fraud for months. Which one of the following controls might have best allowed the earlier detection of this fraud?", options: ["A. Separation of duties", "B. Least privilege", "C. Defense in depth", "D. Mandatory vacation"] },
+            { id: 53, text: "Jeff would like to adopt an industry-standard approach for assessing the processes his organization uses to manage risk. What maturity model would be most appropriate for his use?", options: ["A. CMM", "B. SW-CMM", "C. RMM", "D. COBIT"] },
+            { id: 54, text: "Chris' organization recently suffered an attack that rendered their website inaccessible to paying customers for several hours. Which information security goal was most directly impacted?", options: ["A. Confidentiality", "B. Integrity", "C. Availability", "D. Denial"] },
+            { id: 55, text: "Yolanda is writing a document that will provide configuration information regarding the minimum level of security that every system in the organization must meet. What type of document is she preparing?", options: ["A. Policy", "B. Baseline", "C. Guideline", "D. Procedure"] },
+            { id: 56, text: "Who should receive initial business continuity plan training in an organization?", options: ["A. Senior executives", "B. Those with specific business continuity roles", "C. Everyone in the organization", "D. First responders"] },
+            { id: 57, text: "James is conducting a risk assessment for his organization and is attempting to assign an asset value to the servers in his data center. The organization's primary concern is ensuring that it has sufficient funds available to rebuild the data center in the event it is damaged or destroyed. Which one of the following asset valuation methods would be most appropriate in this situation?", options: ["A. Purchase cost", "B. Depreciated cost", "C. Replacement cost", "D. Opportunity cost"] },
+            { id: 58, text: "Roger's organization suffered a breach of customer credit card records. Under the terms of PCI DSS, what organization may choose to pursue an investigation of this matter?", options: ["A. FBI", "B. Local law enforcement", "C. Bank", "D. PCI SSC"] },
+            { id: 59, text: "Rick recently engaged critical employees in each of his organization's business units to ask for their assistance with his security awareness program. They will be responsible for sharing security messages with their peers and answering questions about cybersecurity matters. What term best describes this relationship?", options: ["A. Security champion", "B. Security expert", "C. Gamification", "D. Peer review"] },
+            { id: 60, text: "Frank discovers a keylogger hidden on the laptop of his company's chief executive officer. What information security principle is the keylogger most likely designed to disrupt?", options: ["A. Confidentiality", "B. Integrity", "C. Availability", "D. Denial"] },
+            { id: 61, text: "Elise is helping her organization prepare to evaluate and adopt a new cloud-based human resource management (HRM) system vendor. What would be the most appropriate minimum security standard for her to require of possible vendors?", options: ["A. Compliance with all laws and regulations", "B. Handling information in the same manner her organization would", "C. Elimination of all identified security risks", "D. Compliance with the vendor's own policies"] },
+            { id: 62, text: "The following graphic shows the NIST risk management framework with a step missing. What is the missing step? (Image: NIST RMF diagram)", options: ["A. Assess security controls.", "B. Determine control gaps.", "C. Remediate control gaps.", "D. Evaluate user activity."] },
+            { id: 63, text: "HAL Systems recently decided to stop offering public NTP services because of a fear that its NTP servers would be used in amplification DDoS attacks. What type of risk management strategy did HAL pursue with respect to its NTP services?", options: ["A. Risk mitigation", "B. Risk acceptance", "C. Risk transference", "D. Risk avoidance"] },
+            { id: 64, text: "Susan is working with the management team in her company to classify data in an attempt to apply extra security controls that will limit the likelihood of a data disclosure breach. What principle of information security is Susan trying to enforce?", options: ["A. Availability", "B. Denial", "C. Confidentiality", "D. Integrity"] },
+            { id: 65, text: "Which one of the following components should be included in an organization's emergency response guidelines?", options: ["A. List of individuals who should be notified of an emergency incident", "B. Long-term business continuity protocols", "C. Activation procedures for the organization's cold sites", "D. Contact information for ordering equipment"] },
+            { id: 66, text: "Chas recently completed the development of his organization's business continuity plan (BCP). Who is the ideal person to approve an organization's business continuity plan?", options: ["A. Chief information officer", "B. Chief executive officer", "C. Chief information security officer", "D. Chief operating officer"] },
+            { id: 67, text: "Which one of the following actions is not normally part of the project scope and planning phase of business continuity planning?", options: ["A. Structured analysis of the organization", "B. Review of the legal and regulatory landscape", "C. Creation of a BCP team", "D. Documentation of the plan"] },
+            { id: 68, text: "Gary is implementing a new website architecture that uses multiple small web servers behind a load balancer. What principle of information security is Gary seeking to enforce?", options: ["A. Denial", "B. Confidentiality", "C. Integrity", "D. Availability"] },
+            { id: 69, text: "Becka recently signed a contract with an alternate data processing facility that will provide her company with space in the event of a disaster. The facility includes HVAC, power, and communications circuits but no hardware. What type of facility is Becka using?", options: ["A. Cold site", "B. Warm site", "C. Hot site", "D. Mobile site"] },
+            { id: 70, text: "Greg's company recently experienced a significant data breach involving the personal data of many of their customers. The company operates only in the United States and has facilities in several different states. The personal information relates only to residents of the United States. Which breach laws should they review to ensure that they are taking appropriate action?", options: ["A. The breach laws in the state where they are headquartered along with federal breach laws.", "B. The breach laws of states they do business in or where their customers reside along with federal breach laws.", "C. Only federal breach laws.", "D. Breach laws only cover government agencies, not private businesses."] },
+            { id: 71, text: "Ben is seeking a control objective framework that is widely accepted around the world and focuses specifically on information security controls. Which one of the following frameworks would best meet his needs?", options: ["A. ITIL", "B. ISO 27002", "C. CMM", "D. PMBOK Guide"] },
+            { id: 72, text: "Matt works for a telecommunications firm and was approached by a federal agent seeking assistance with wiretapping one of Matt's clients pursuant to a search warrant. Which one of the following laws requires that communications service providers cooperate with law enforcement requests?", options: ["A. ECPA", "B. CALEA", "C. Privacy Act", "D. HITECH Act"] },
+            { id: 73, text: "Every year, Gary receives privacy notices in the mail from financial institutions where he has accounts. What law requires the institutions to send Gary these notices?", options: ["A. FERPA", "B. GLBA", "C. HIPAA", "D. HITECH"] },
+            { id: 74, text: "Which one of the following agreements typically requires that a vendor not disclose confidential information learned during the scope of an engagement?", options: ["A. NCA", "B. SLA", "C. NDA", "D. RTO"] },
+            { id: 75, text: "The ISC2 Code of Ethics applies to all CISSP holders. Which of the following is not one of the four mandatory canons of the code?", options: ["A. Protect society, the common good, the necessary public trust and confidence, and the infrastructure.", "B. Disclose breaches of privacy, trust, and ethics.", "C. Provide diligent and competent service to the principals.", "D. Advance and protect the profession."] },
+            { id: 76, text: "Which one of the following stakeholders is not typically included on a business continuity planning team?", options: ["A. Core business function leaders", "B. Information technology staff", "C. CEO", "D. Support departments"] },
+            { id: 77, text: "Ben is designing a messaging system for a bank and would like to include a feature that allows the recipient of a message to prove to a third party that the message did indeed come from the purported originator. What goal is Ben trying to achieve?", options: ["A. Authentication", "B. Authorization", "C. Integrity", "D. Nonrepudiation"] },
+            { id: 78, text: "What principle of information security states that an organization should implement overlapping security controls whenever possible?", options: ["A. Least privilege", "B. Separation of duties", "C. Defense in depth", "D. Security through obscurity"] },
+            { id: 79, text: "Ryan is a CISSP-certified cybersecurity professional working in a nonprofit organization. Which of the following ethical obligations apply to his work? (Select all that apply.)", options: ["A. ISC2 Code of Ethics", "B. Organizational code of ethics", "C. Federal code of ethics", "D. RFC 1087"] },
+            { id: 80, text: "Ben is responsible for the security of payment card information stored in a database. Policy directs that he remove the information from the database, but he cannot do this for operational reasons. He obtained an exception to policy and is seeking an appropriate compensating control to mitigate the risk. What would be his best option?", options: ["A. Purchasing insurance", "B. Encrypting the database contents", "C. Removing the data", "D. Objecting to the exception"] },
+            { id: 81, text: "The Domer Industries risk assessment team recently conducted a qualitative risk assessment and developed a matrix similar to the one shown here. Which quadrant contains the risks that require the most immediate attention? (Image: risk matrix with quadrants I, II, III, IV)", options: ["A. I", "B. II", "C. III", "D. IV"] },
+            { id: 82, text: "Tom is planning to terminate an employee this afternoon for fraud and expects that the meeting will be somewhat hostile. He is coordinating the meeting with human resources and wants to protect the company against damage. Which one of the following steps is most important to coordinate in time with the termination meeting?", options: ["A. Informing other employees of the termination", "B. Retrieving the employee's photo ID", "C. Calculating the final paycheck", "D. Revoking electronic access rights"] },
+            { id: 83, text: "Rolando is a risk manager with a large-scale enterprise. The firm recently evaluated the risk of California mudslides on its operations in the region and determined that the cost of responding outweighed the benefits of any controls it could implement. The company chose to take no action at this time. What risk management strategy did Rolando's organization pursue?", options: ["A. Risk avoidance", "B. Risk mitigation", "C. Risk transference", "D. Risk acceptance"] },
+            { id: 84, text: "Helen is the owner of a U.S. website that provides information for middle and high school students preparing for exams. She is writing the site's privacy policy and would like to ensure that it complies with the provisions of the Children's Online Privacy Protection Act (COPPA). What is the cutoff age below which parents must give consent in advance of the collection of personal information from their children under COPPA?", options: ["A. 13", "B. 15", "C. 17", "D. 18"] },
+            { id: 85, text: "Tom is considering locating a business in the downtown area of Miami, Florida. He consults the FEMA flood plain map for the region, shown here, and determines that the area he is considering lies within a 100-year flood plain. What is the ARO of a flood in this area? (Image: flood map)", options: ["A. 100", "B. 1", "C. 0.1", "D. 0.01"] },
+            { id: 86, text: "You discover that a user on your network has been using the Wireshark tool, as shown here. Further investigation revealed that he was using it for illicit purposes. What pillar of information security has most likely been violated? (Image: Wireshark screenshot)", options: ["A. Integrity", "B. Denial", "C. Availability", "D. Confidentiality"] },
+            { id: 87, text: "Alan is performing threat modeling and decides that it would be useful to decompose the system into the core elements shown here. What tool is he using? (Image: threat modeling flowchart)", options: ["A. Vulnerability assessment", "B. Fuzzing", "C. Reduction analysis", "D. Data modeling"] },
+            { id: 88, text: "Shahla is reviewing the privacy laws that apply to a new enterprise that her company will be launching in South Africa. This is the company's first expansion into that country, and the enterprise will involve handling the personal information of residents of South Africa. What law will likely affect this operation?", options: ["A. PIPL", "B. PCI DSS", "C. PIPEDA", "D. POPIA"] },
+            { id: 89, text: "Which type of business impact assessment tool is most appropriate when attempting to evaluate the impact of a failure on customer confidence?", options: ["A. Quantitative", "B. Qualitative", "C. Annualized loss expectancy", "D. Reduction"] },
+            { id: 90, text: "Ryan is a security risk analyst for an insurance company. He is currently examining a scenario in which a malicious hacker might use a SQL injection attack to deface a web server due to a missing patch in the company's web application. In this scenario, what is the threat?", options: ["A. Unpatched web application", "B. Web defacement", "C. Malicious hacker", "D. Operating system"] },
+            { id: 91, text: "Based upon the information in this scenario, what is the exposure factor for the effect of a tornado on Atwood Landing's data center? (Scenario: replacement cost $10M, damage $5M, tornado once per 200 years)", options: ["A. 10%", "B. 25%", "C. 50%", "D. 75%"] },
+            { id: 92, text: "Based upon the information in this scenario, what is the annualized rate of occurrence for a tornado at Atwood Landing's data center?", options: ["A. 0.0025", "B. 0.005", "C. 0.01", "D. 0.015"] },
+            { id: 93, text: "Based upon the information in this scenario, what is the annualized loss expectancy for a tornado at Atwood Landing's data center?", options: ["A. $25,000", "B. $50,000", "C. $250,000", "D. $500,000"] },
+            { id: 94, text: "John is analyzing an attack against his company in which the attacker found comments embedded in HTML code that provided the clues needed to exploit a software vulnerability. Using the STRIDE model, what type of attack did he uncover?", options: ["A. Spoofing", "B. Repudiation", "C. Information disclosure", "D. Elevation of privilege"] },
+            { id: 95, text: "Chris is worried that the laptops that his organization has recently acquired were modified by a third party to include keyloggers before they were delivered. Where should he focus his efforts to prevent this?", options: ["A. His supply chain", "B. His vendor contracts", "C. His post-purchase build process", "D. The original equipment manufacturer (OEM)"] },
+            { id: 96, text: "In her role as a developer for an online bank, Lisa is required to submit her code for testing and review. After it passes through this process and it is approved, another employee moves the code to the production environment. What security management does this process describe?", options: ["A. Regression testing", "B. Code review", "C. Change management", "D. Fuzz testing"] },
+            { id: 97, text: "After completing the first year of his security awareness program, Charles reviews the data about how many staff completed training compared to how many were assigned the training to determine whether he hit the 95% completion rate he was aiming for. What is this type of measure called?", options: ["A. A KPI", "B. A metric", "C. An awareness control", "D. A return on investment rate"] },
+            { id: 98, text: "Which of the following is not typically included in a prehire screening process?", options: ["A. A drug test", "B. A background check", "C. Social media review", "D. Fitness evaluation"] },
+            { id: 99, text: "Which of the following would normally be considered a supply chain risk? (Select all that apply.)", options: ["A. Adversary tampering with hardware prior to being shipped to the end customer", "B. Adversary hacking into a web server run by the organization in an IaaS environment", "C. Adversary using social engineering to compromise an employee of a SaaS vendor to gain access to customer accounts", "D. Adversary conducting a denial-of-service attack using a botnet"] },
+            { id: 100, text: "Match the following numbered laws or industry standards to their lettered description: Laws and industry standards: 1. GLBA 2. PCI DSS 3. HIPAA 4. SOX. Descriptions: A. A U.S. law that requires covered financial institutions to provide their customers with a privacy notice on a yearly basis. B. A U.S. law that requires internal controls assessments, including IT transaction flows for publicly traded companies. C. An industry standard that covers organizations that handle payment cards. D. A U.S. law that provides data privacy and security requirements for medical information.", options: [] }
+        ];
+
+        // ANSWERS (based on standard CISSP Domain 2 knowledge) – exact correct letters
+        const answersMap = {
+            1: "C", 2: "B", 3: "C", 4: "C", 5: "B", 6: "A", 7: "C", 8: "B", 9: "C", 10: "A",
+            11: "A", 12: "D", 13: "D", 14: "D", 15: "A, C, D", 16: "D", 17: "D", 18: "C", 19: "C", 20: "D",
+            21: "A", 22: "B", 23: "C", 24: "C", 25: "C", 26: "C", 27: "D", 28: "A", 29: "B", 30: "A",
+            31: "D", 32: "A", 33: "B", 34: "B", 35: "B", 36: "A", 37: "B", 38: "C", 39: "D", 40: "B",
+            41: "A", 42: "D", 43: "A", 44: "A", 45: "A", 46: "A", 47: "B", 48: "C", 49: "A", 50: "D",
+            51: "A", 52: "D", 53: "C", 54: "C", 55: "B", 56: "C", 57: "C", 58: "C", 59: "A", 60: "A",
+            61: "B", 62: "A", 63: "D", 64: "C", 65: "A", 66: "B", 67: "D", 68: "D", 69: "A", 70: "B",
+            71: "B", 72: "B", 73: "B", 74: "C", 75: "B", 76: "C", 77: "D", 78: "C", 79: "A, B", 80: "B",
+            81: "A", 82: "D", 83: "D", 84: "A", 85: "D", 86: "D", 87: "C", 88: "D", 89: "B", 90: "C",
+            91: "C", 92: "B", 93: "A", 94: "C", 95: "A", 96: "C", 97: "A", 98: "D", 99: "A, C",
+            // Q100 mapping: correct pairs
+        };
+        // For Q100 mapping (special handling)
+        const mappingItems = [
+            { element: "GLBA", correct: "A" },
+            { element: "PCI DSS", correct: "C" },
+            { element: "HIPAA", correct: "D" },
+            { element: "SOX", correct: "B" }
+        ];
+
+        // Render questions
+        const container = document.getElementById('questionsContainer');
+        questionsData.forEach(q => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${q.id}`;
+            const isMultiple = q.options.length > 0 && q.text.includes("(Select all that apply.)");
+            const isMapping = (q.id === 100);
+            let optionsHtml = '';
+            if (isMapping) {
+                optionsHtml = `<table class="mapping-table">
+        <tr><th>Law / Standard</th><th>Match to description (select letter)</th></tr>`;
+                mappingItems.forEach((item, idx) => {
+                    optionsHtml += `<tr>
+            <td><strong>${item.element}</strong></td>
+            <td>
+                <select class="map-select-100" data-index="${idx}">
+                    <option value="">-- select --</option>
+                    <option value="A">A. A U.S. law that requires covered financial institutions to provide their customers with a privacy notice on a yearly basis</option>
+                    <option value="B">B. A U.S. law that requires internal controls assessments, including IT transaction flows for publicly traded companies</option>
+                    <option value="C">C. An industry standard that covers organizations that handle payment cards</option>
+                    <option value="D">D. A U.S. law that provides data privacy and security requirements for medical information</option>
+                </select>
+            </td>
+        </tr>`;
+                });
+                optionsHtml += `</table>`;
+            } else {
+                optionsHtml = `<div class="options">`;
+                q.options.forEach(opt => {
+                    const letter = opt.charAt(0);
+                    const inputType = isMultiple ? 'checkbox' : 'radio';
+                    const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+                    optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+                });
+                optionsHtml += `</div>`;
+            }
+            card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+            container.appendChild(card);
+        });
+
+        const submitBtn = document.getElementById('submitBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const modal = document.getElementById('summaryModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.querySelector('.close-modal');
+
+        let currentResults = [];
+
+        function getUserAnswers() {
+            let results = [];
+            for (let i = 1; i <= 100; i++) {
+                const qid = i;
+                let userAnswer = "";
+                let isCorrect = false;
+                if (qid === 100) {
+                    const selects = document.querySelectorAll('.map-select-100');
+                    let answers = [];
+                    selects.forEach((sel) => answers.push(sel.value));
+                    userAnswer = answers.join(', ') || "(no selection)";
+                    const correctAnswers = mappingItems.map(m => m.correct);
+                    isCorrect = answers.length === correctAnswers.length && answers.every((v, idx) => v === correctAnswers[idx]);
+                    // 👇 Add this line to store a readable correct answer string
+                    const correctAnswerStr = "GLBA: A, PCI DSS: C, HIPAA: D, SOX: B";
+                    // Then when pushing results, use correctAnswerStr instead of "Mapping"
+                } else {
+                    const qData = questionsData.find(q => q.id === qid);
+                    const isMulti = qData && qData.text.includes("(Select all that apply.)");
+                    if (isMulti) {
+                        const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                        const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                        userAnswer = selected.join(', ') || "(none)";
+                        const correctLettersRaw = answersMap[qid];
+                        const correctArray = correctLettersRaw.split(',').map(s => s.trim()).sort();
+                        isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
+                    } else {
+                        const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                        userAnswer = radio ? radio.value : "(skipped)";
+                        const correctLetter = answersMap[qid];
+                        isCorrect = (radio && radio.value === correctLetter);
+                    }
+                }
+                const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+                results.push({ qid, userAnswer, correctAnswer: (qid === 100 ? "GLBA: A, PCI DSS: C, HIPAA: D, SOX: B" : (answersMap[qid] || "Mapping")), isCorrect, status });
+                // Update hashtag
+                const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+                if (hashtagSpan) {
+                    if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+                    else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+                    else hashtagSpan.innerHTML = " #️⃣ skipped";
+                    hashtagSpan.className = `hashtag ${status}`;
+                }
+            }
+            return results;
+        }
+
+        function showModal(results) {
+            const total = results.length;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
+            html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+            results.forEach(r => {
+                const statusText = r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect");
+                html += `<tr><td>${r.qid}</td><td>${escapeHtml(r.userAnswer)}</td><td>${escapeHtml(r.correctAnswer)}</td><td>${statusText}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            modalBody.innerHTML = html;
+            modal.style.display = 'flex';
+        }
+
+        function escapeHtml(str) { return str.replace(/[&<>]/g, function (m) { if (m === '&') return '&amp;'; if (m === '<') return '&lt;'; if (m === '>') return '&gt;'; return m; }); }
+
+        function exportCSV(results) {
+            let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result"]];
+            results.forEach(r => {
+                csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+            });
+            const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute("download", "domain2_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
+
+        submitBtn.addEventListener('click', () => {
+            const results = getUserAnswers();
+            currentResults = results;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/100 (${Math.round(correctCount)}%)`;
+            showModal(results);
+        });
+
+        exportBtn.addEventListener('click', () => {
+            if (currentResults && currentResults.length) exportCSV(currentResults);
+            else alert("Please submit your answers first to generate CSV.");
+        });
+        document.getElementById('modalExportBtn').addEventListener('click', () => {
+            if (currentResults) exportCSV(currentResults);
+        });
+        closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    </script>
+</body>
+
+</html>
