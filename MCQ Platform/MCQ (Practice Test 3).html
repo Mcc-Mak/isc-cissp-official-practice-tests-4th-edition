@@ -655,11 +655,11 @@ function showModal(results) {
     results.forEach(r => {
         const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
         html += `<tr>
-            <td style="white-space: nowrap;">${r.qid}</td
-            <td>${escapeHtml(r.userAnswer)}</td
-            <td>${escapeHtml(r.correctAnswer)}</td
-            <td>${statusText}</td
-            <td>${escapeHtml(r.explanation)}</td
+            <td style="white-space: nowrap;">${r.qid}</td>
+            <td>${escapeHtml(r.userAnswer)}</td>
+            <td>${escapeHtml(r.correctAnswer)}</td>
+            <td>${statusText}</td>
+            <td>${escapeHtml(r.explanation)}</td>
         </tr>`;
     });
     html += `</tbody></table></div>`;
