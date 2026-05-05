@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Practice Test 3 – CISSP (All Domains)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+        .btn-export {
+            background: #2b6e4e;
+        }
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 900px;
+        }
+        .mapping-table td, .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .result-table th {
+            background: #eef3f7;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+        @media (max-width: 760px) {
+            .question-card { padding: 1rem; }
+            .options { margin-left: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Practice Test 3 – CISSP (All Domains)</h1>
+    <div class="sub">127 questions • Single choice | Multiple‑select | Mapping (exact wording)</div>
+
+    <div class="toolbar">
+        <div>
+            <button id="submitBtn">✅ Submit & Score</button>
+            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        </div>
+        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+    </div>
+
+    <div id="questionsContainer" class="questions-grid"></div>
+    <footer>Practice Test — CISSP (All Domains). Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+</div>
+
+<div id="summaryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle">Detailed Report</h3>
+        <div id="modalBody"></div>
+        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    </div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – PRACTICE TEST 3
+// Extracted from provided XML (questions 1 to 127)
+// --------------------------------------------------------------
+const questionsData = [
+    { id: 1, text: "Fred's data role requires him to maintain system security plans and to ensure that system users and support staff get the training they need about security practices and acceptable use. What is the role that Fred is most likely to hold in the organization?", options: ["A. Data owner", "B. System owner", "C. User", "D. Custodian"] },
+    { id: 2, text: "Sally is using IPsec's ESP component in transport mode. What important information should she be aware of about transport mode?", options: ["A. Transport mode provides full encryption of the entire IP packet.", "B. Transport mode adds a new, unencrypted header to ensure that packets reach their destination.", "C. Transport mode does not encrypt the header of the packet.", "D. Transport mode provides no encryption; only tunnel mode provides encryption."] },
+    { id: 3, text: "Which one of the following is not an essential process area for the Repeatable phase of the Software Capability Maturity Model (SW-CMM)?", options: ["A. Software Project Planning", "B. Software Quality Management", "C. Software Project Tracking", "D. Software Subcontract Management"] },
+    { id: 4, text: "Ben wants to provide predictive information about his organization's risk exposure in an automated way as part of an ongoing organizational risk management plan. What should he use to do this?", options: ["A. KRIs", "B. Quantitative risk assessments", "C. KPIs", "D. Penetration tests"] },
+    { id: 5, text: "In the image shown here, what does system B send to system A at step 2 of the three-way TCP handshake? (Image: TCP handshake)", options: ["A. SYN", "B. ACK", "C. FIN/ACK", "D. SYN/ACK"] },
+    { id: 6, text: "Chris is conducting reconnaissance on a remote target and discovers that pings are allowed through his target's border firewall. What can he learn by using pings to probe the remote network?", options: ["A. Which systems respond to pings, a rough network topology, and potentially the location of additional firewalls", "B. A list of all of the systems behind the target's firewall", "C. The hostnames and time to live (TTL) for each pingable system and the ICMP types allowed through the firewall", "D. Router advertisements, echo request responses, and potentially which hosts are tarpitted"] },
+    { id: 7, text: "Jake is conducting a review of his organization's identity and access management program. During his review, he is verifying the privileges assigned to each user and ensuring that they match with business requirements. What element of the program is he reviewing?", options: ["A. Identification", "B. Accounting", "C. Authorization", "D. Authentication"] },
+    { id: 8, text: "Faith is looking at the /etc/passwd file on a system configured to use shadowed passwords. When she examines a line in the file for a user with interactive login permissions, what should she expect to see in the password field?", options: ["A. Plaintext password", "B. Hashed password", "C. x", "D. *"] },
+    { id: 9, text: "Berta is analyzing the logs of the Windows Firewall on one of her servers and comes across the entries shown in this figure. What type of attack do these entries indicate? (Image: firewall log)", options: ["A. SQL injection", "B. Port scan", "C. Teardrop", "D. Land"] },
+    { id: 10, text: "Danielle is testing tax software, and part of her testing process requires her to input a variety of actual tax forms to verify that the software produces the right answers. What type of testing is Danielle performing?", options: ["A. Use-case testing", "B. Dynamic testing", "C. Fuzzing", "D. Misuse testing"] },
+    { id: 11, text: "After 10 years working in her organization, Cassandra is moving into her fourth role, this time as a manager in the accounting department. What issue is likely to show up during an account review if her organization does not have strong account maintenance practices?", options: ["A. An issue with least privilege", "B. Privilege creep", "C. Account creep", "D. Account termination"] },
+    { id: 12, text: "IP addresses like 10.10.10.10 and 172.19.24.21 are both examples of what type of IP address?", options: ["A. Public IP addresses", "B. Prohibited IP addresses", "C. Private IP addresses", "D. Class B IP ranges"] },
+    { id: 13, text: "Ben is reviewing the password recovery mechanism used by his website and discovers that the approach uses cognitive authentication through the use of security questions. What is the major issue with this approach?", options: ["A. It prevents the use of tokens.", "B. The question's answer may be easy to find on the Internet.", "C. Cognitive passwords require users to think to answer the question, and not all users may be able to solve the problems presented.", "D. Cognitive passwords don't support long passwords."] },
+    { id: 14, text: "Megan needs to create a forensic copy of a hard drive that will be used in an investigation. Which of the following tools is best suited to her work?", options: ["A. xcopy", "B. dd", "C. DBAN", "D. ImageMagick"] },
+    { id: 15, text: "Kay is selecting an application management approach for her organization. Employees need the flexibility to install software on their systems, but Kay wants to prevent them from installing certain prohibited packages. What type of approach should she use?", options: ["A. Antivirus", "B. Whitelist", "C. Blacklist", "D. Heuristic"] },
+    { id: 16, text: "Donna is a security administrator for a healthcare provider located in the United States and is reviewing their payment processing system. It contains data relating to the past, present, or future payment for the provision of healthcare to an individual. How would this information be classified under HIPAA?", options: ["A. PCI", "B. Personal billing data", "C. PHI", "D. PII"] },
+    { id: 17, text: "Harold's company has a strong password policy that requires a minimum length of 12 characters and the use of both alphanumeric characters and symbols. What technique would be the most effective way for an attacker to compromise passwords in Harold's organization?", options: ["A. Brute-force attack", "B. Dictionary attack", "C. Rainbow table attack", "D. Social engineering attack"] },
+    { id: 18, text: "While traveling, James is held at knifepoint and forced to log into his laptop. What is this called?", options: ["A. Duress", "B. Antisocial engineering", "C. Distress", "D. Knifepoint hacking"] },
+    { id: 19, text: "Kayla recently took a position at a new start-up company that runs entirely in the cloud. The company leverages a major IaaS provider for hosting its web services and a SaaS email system. Both of these providers operate multitenant environments. What term best describes the type of cloud environment this organization uses?", options: ["A. Public cloud", "B. Dedicated cloud", "C. Private cloud", "D. Hybrid cloud"] },
+    { id: 20, text: "Cameron is responsible for backing up his company's primary file server. He configured a backup schedule that performs full backups every Monday evening at 9 p.m. and incremental backups on other days of the week at that same time. How many files will be copied in Wednesday's backup? (Image: file changes)", options: ["A. 1", "B. 2", "C. 5", "D. 6"] },
+    { id: 21, text: "Susan uses a SPAN port to monitor traffic to her production website and uses a monitoring tool to identify performance issues in real time. What type of monitoring is she conducting?", options: ["A. Passive monitoring", "B. Active monitoring", "C. Synthetic monitoring", "D. Signature-based monitoring"] },
+    { id: 22, text: "In what type of attack do attackers manage to insert themselves into a connection between a user and a legitimate website?", options: ["A. Man-in-the-middle attack", "B. Fraggle attack", "C. Wardriving attack", "D. Meet-in-the-middle attack"] },
+    { id: 23, text: "Which one of the following would be considered an example of infrastructure-as-a-service cloud computing?", options: ["A. Payroll system managed by a vendor and delivered over the web", "B. Application platform managed by a vendor that runs customer code", "C. Servers provisioned by customers on a vendor-managed virtualization platform", "D. Web-based email service provided by a vendor"] },
+    { id: 24, text: "Based on the information in this scenario, what is the exposure factor for the effect of a fire on the Roscommon Agricultural Products data center? (Scenario: replacement cost $2M, fire damage $750k)", options: ["A. 7.5%", "B. 15.0%", "C. 27.5%", "D. 37.5%"] },
+    { id: 25, text: "Based on the information in this scenario, what is the annualized rate of occurrence for a fire at the Roscommon Agricultural Products data center? (Expect a fire once every 50 years)", options: ["A. 0.002", "B. 0.005", "C. 0.02", "D. 0.05"] },
+    { id: 26, text: "Based on the information in this scenario, what is the annualized loss expectancy for a fire at the Roscommon Agricultural Products data center?", options: ["A. $15,000", "B. $25,000", "C. $75,000", "D. $750,000"] },
+    { id: 27, text: "Which one of the following techniques uses statistical methods to select a small number of log records from a large pool for further analysis with the goal of choosing a set of records that is representative of the entire pool?", options: ["A. Clipping", "B. Randomization", "C. Sampling", "D. Selection"] },
+    { id: 28, text: "Mike wants to ensure that third-party users of his service's API can be tracked to prevent abuse of the API. What should he implement to help with this?", options: ["A. Session IDs", "B. An API firewall", "C. API keys", "D. An API buffer"] },
+    { id: 29, text: "Fran is a web developer who works for an online retailer. Her boss asked her to create a way that customers can easily integrate themselves with Fran's company's site. They need to be able to check inventory in real time, place orders, and check order status programmatically without having to access the web page. What can Fran create to most directly facilitate this interaction?", options: ["A. An API", "B. A web scraper", "C. A data dictionary", "D. A call center"] },
+    { id: 30, text: "Todd's data center facility recently experienced a series of events that involved the momentary loss of power. What term best describes these events?", options: ["A. Fault", "B. Blackout", "C. Sag", "D. Brownout"] },
+    { id: 31, text: "Lauren's team of system administrators each deals with hundreds of systems with varying levels of security requirements and finds it difficult to handle the multitude of usernames and passwords they each have. What type of solution should she recommend to ensure that passwords are properly handled and that features like logging and password rotation occur?", options: ["A. A credential management system", "B. A strong password policy", "C. Separation of duties", "D. Single sign-on"] },
+    { id: 32, text: "Ed's Windows system can't connect to the network, and ipconfig shows the following: (Image: APIPA address 169.254.x.x). What has occurred on the system?", options: ["A. The system has been assigned an invalid IP address by its DHCP server.", "B. The system has a manually assigned IP address.", "C. The system has failed to get a DHCP address and has assigned itself an address.", "D. The subnet mask is set incorrectly, and the system cannot communicate with the gateway."] },
+    { id: 33, text: "Gina is performing the initial creation of user accounts for a batch of new employees. What phase of the provisioning process is she conducting?", options: ["A. Enrollment", "B. Clearance verification", "C. Background checks", "D. Initialization"] },
+    { id: 34, text: "Ravi is developing procedures for forensic investigations conducted by his organization and would like to differentiate based upon the evidentiary standards commonly used for each type of investigation. What type of forensic investigation typically has the highest evidentiary standards?", options: ["A. Administrative", "B. Criminal", "C. Civil", "D. Industry"] },
+    { id: 35, text: "What U.S. legal protection prevents law enforcement agencies from searching an American facility or electronic system without either probable cause or consent?", options: ["A. First Amendment", "B. Fourth Amendment", "C. Fifth Amendment", "D. Fifteenth Amendment"] },
+    { id: 36, text: "Tom believes that a customer of his Internet service provider has been exploiting a vulnerability in his system to read the email messages of other customers. If true, what law did the customer most likely violate?", options: ["A. ECPA", "B. CALEA", "C. HITECH", "D. Privacy Act"] },
+    { id: 37, text: "In the protection ring model shown here, what ring contains user programs and applications? (Image: ring diagram)", options: ["A. Ring 0", "B. Ring 1", "C. Ring 2", "D. Ring 3"] },
+    { id: 38, text: "In virtualization platforms, what name is given to the module that is responsible for controlling access to physical resources by virtual resources?", options: ["A. Guest machine", "B. SDN", "C. Kernel", "D. Hypervisor"] },
+    { id: 39, text: "In which cloud computing model does a customer share computing infrastructure with other customers of the cloud vendor where one customer may not know the other's identity?", options: ["A. Public cloud", "B. Private cloud", "C. Community cloud", "D. Shared cloud"] },
+    { id: 40, text: "Justin recently participated in a disaster recovery plan test where the team sat together and discussed the response to a scenario but did not actually activate any disaster recovery controls. What type of test did he participate in?", options: ["A. Read-through", "B. Full interruption test", "C. Parallel test", "D. Tabletop exercise"] },
+    { id: 41, text: "Susan wants to integrate her website to allow users to use accounts from sites like Google. What technology should she adopt?", options: ["A. Kerberos", "B. LDAP", "C. OpenID Connect", "D. SESAME"] },
+    { id: 42, text: "Tom is conducting a business continuity planning effort for Orange Blossoms, a fruit orchard located in Central Florida. During the assessment process, the committee determined that there is a small risk of snow in the region but that the cost of implementing controls to reduce the impact of that risk is not warranted. They elect to not take any specific action in response to the risk. What risk management strategy is Orange Blossoms pursuing?", options: ["A. Risk mitigation", "B. Risk transference", "C. Risk avoidance", "D. Risk acceptance"] },
+    { id: 43, text: "Paul is reviewing the contents of an audit report and discovers a finding that a manager in the accounting department has full access to perform every function in the financial system. What security principles have most likely been violated? (Select all that apply.)", options: ["A. Separation of duties", "B. Job rotation", "C. Management review", "D. Least privilege"] },
+    { id: 44, text: "Jack's organization is a multinational nonprofit that has small offices in many developing countries throughout the world. They need to implement an access control system that allows flexibility and that can work despite poor Internet connectivity at their locations. What is the best type of access control design for Jack's organization?", options: ["A. Centralized access control", "B. Mandatory access control", "C. Decentralized access control", "D. Rule-based access control"] },
+    { id: 45, text: "What U.S. government classification label is applied to information that, if disclosed, could cause serious damage to national security and also requires that the damage that would be caused is able to be described or identified by the classification authority?", options: ["A. Classified", "B. Secret", "C. Confidential", "D. Top Secret"] },
+    { id: 46, text: "When the certificate authority (CA) created Renee's digital certificate, what key was contained within the body of the certificate? (Scenario: asymmetric crypto)", options: ["A. Renee's public key", "B. Renee's private key", "C. CA's public key", "D. CA's private key"] },
+    { id: 47, text: "When the certificate authority (CA) created Renee's digital certificate, what key did it use to digitally sign the completed certificate?", options: ["A. Renee's public key", "B. Renee's private key", "C. CA's public key", "D. CA's private key"] },
+    { id: 48, text: "When Mike receives Renee's digital certificate, what key does he use to verify the authenticity of the certificate?", options: ["A. Renee's public key", "B. Renee's private key", "C. CA's public key", "D. CA's private key"] },
+    { id: 49, text: "Mike would like to send Renee a private message using the information gained during this exchange. What key should he use to encrypt the message?", options: ["A. Renee's public key", "B. Renee's private key", "C. CA's public key", "D. CA's private key"] },
+    { id: 50, text: "Which one of the following tools may be used to directly violate the confidentiality of communications on an unencrypted VoIP network?", options: ["A. Nmap", "B. Nessus", "C. Wireshark", "D. Nikto"] },
+    { id: 51, text: "Which of the following is not true about the ISC2 Code of Ethics?", options: ["A. Adherence to the code is a condition of certification.", "B. Failure to comply with the code may result in revocation of certification.", "C. The code applies to all members of the information security profession.", "D. Members who observe a breach of the code are required to report the possible violation."] },
+    { id: 52, text: "Which one of the following cryptographic algorithms supports the goal of nonrepudiation?", options: ["A. Blowfish", "B. DES", "C. AES", "D. RSA"] },
+    { id: 53, text: "Microsoft's STRIDE threat assessment framework uses six categories for threats: Spoofing, Tampering, Repudiation, Information Disclosure, Denial of Service, and Elevation of Privilege. If a penetration tester is able to modify audit logs, what STRIDE categories best describe this issue?", options: ["A. Tampering and information disclosure", "B. Elevation of privilege and tampering", "C. Repudiation and denial of service", "D. Repudiation and tampering"] },
+    { id: 54, text: "Carmen is reviewing her organization's web architecture and realizes that the web server is often under heavy load from users in different regions of the world. This load comes at unpredictable times. She would like to find a solution that minimizes the burden on her organization's servers and places content geographically closer to the user to decrease load time. What would be the best solution to Carmen's requirements?", options: ["A. Load balancer", "B. Content delivery network", "C. TLS acceleration", "D. Web application firewall"] },
+    { id: 55, text: "Brian recently joined an organization that runs the majority of its services on a virtualization platform located in its own data center but also leverages an IaaS provider for hosting its web services and an SaaS email system. What term best describes the type of cloud environment this organization uses?", options: ["A. Public cloud", "B. Dedicated cloud", "C. Private cloud", "D. Hybrid cloud"] },
+    { id: 56, text: "The government agency that Ben works at installed a new access control system. The system uses information such as Ben's identity, department, normal working hours, job category, and location to make authorization decisions. What type of access control system did Ben's employer adopt?", options: ["A. Role-based access control", "B. Attribute-based access control", "C. Administrative access control", "D. System discretionary access control"] },
+    { id: 57, text: "Ben is building his organization's security awareness and training program and would like to include interactive activities that better engage users. What techniques would best help him meet this goal? (Select all that apply.)", options: ["A. Policy reviews", "B. Gamification", "C. Classroom training", "D. Phishing simulations"] },
+    { id: 58, text: "Andrew believes that a digital certificate belonging to his organization was compromised and would like to add it to a certificate revocation list (CRL). Who must add the certificate to the CRL?", options: ["A. Andrew", "B. The root authority for the top-level domain", "C. The CA that issued the certificate", "D. The revocation authority for the top-level domain"] },
+    { id: 59, text: "Amanda is considering the implementation of a database recovery mechanism recommended by a consultant. In the recommended approach, an automated process will move records of transactions from the primary site to a backup site on an hourly basis. What type of database recovery technique is the consultant describing?", options: ["A. Electronic vaulting", "B. Transaction logging", "C. Remote mirroring", "D. Remote journaling"] },
+    { id: 60, text: "Ron is working to classify information used by his organization and would like to include all information that might trigger a U.S. state data breach notification law in his classification scheme. Which of the following categories of information should he include, assuming that they are connected to a specific individual? (Select all that apply.)", options: ["A. Bank account number and PIN", "B. Driver's license number", "C. Marital status", "D. Social Security number"] },
+    { id: 61, text: "Which one of the following investigation types has the loosest standards for the collection and preservation of information?", options: ["A. Civil investigation", "B. Operational investigation", "C. Criminal investigation", "D. Regulatory investigation"] },
+    { id: 62, text: "Sue was required to sign an NDA when she took a job at her new company. Why did the company require her to sign it?", options: ["A. To protect the confidentiality of their data", "B. To ensure that Sue did not delete their data", "C. To prevent Sue from directly competing with them in the future", "D. To require Sue to ensure the availability for their data as part of her job"] },
+    { id: 63, text: "Susan is concerned about the FAR associated with her biometric technology. What is the best method to deal with the FAR?", options: ["A. Adjust the CER.", "B. Change the sensitivity of the system to lower the FRR.", "C. Add a second factor.", "D. Replace the biometric system."] },
+    { id: 64, text: "Which data role in an organization is most likely to perform backups of critical systems to ensure that their availability is preserved?", options: ["A. Business owners", "B. Data users", "C. Data owners", "D. Data custodians"] },
+    { id: 65, text: "Ron is the CISO of a U.S. company that is entering into a business partnership with a European firm. The European firm will be sending his company customer records to run through Ron's firm's proprietary credit scoring algorithm. Under GDPR, what role will Ron's company have relative to the customer data?", options: ["A. Data controller", "B. Data owner", "C. Data subject", "D. Data processor"] },
+    { id: 66, text: "Tonya recently introduced a new security control in her organization for emergency access to system administrator privileges. Under this procedure, two qualified administrators must agree to retrieve emergency credentials. What term best describes this process?", options: ["A. Separation of duties", "B. Least privilege", "C. Two-person control", "D. Multifactor authentication"] },
+    { id: 67, text: "Attackers who compromise websites often acquire databases of hashed passwords. What technique can best protect these passwords against automated password cracking attacks that use precomputed values?", options: ["A. Using the MD5 hashing algorithm", "B. Using the SHA-1 hashing algorithm", "C. Salting", "D. Double-hashing"] },
+    { id: 68, text: "Jim starts a new job as a system engineer, and he is reviewing a team document entitled “Forensic Response Guidelines.” Which one of the following statements is not true?", options: ["A. Jim must comply with the information in this document.", "B. The document contains information about forensic examinations.", "C. Jim should read the document thoroughly.", "D. The document is likely based on industry best practices."] },
+    { id: 69, text: "Evan is reviewing his access control system to ensure that no user is able to read information that is above their security clearance level. What security model is he enforcing?", options: ["A. Bell–LaPadula", "B. Star security property", "C. Discretionary security property", "D. Biba"] },
+    { id: 70, text: "Ben needs to verify that the most recent patch for his organization's critical application did not introduce issues elsewhere. What type of testing does Ben need to conduct to ensure this?", options: ["A. Unit testing", "B. White box", "C. Regression testing", "D. Black box"] },
+    { id: 71, text: "Tamara recently decided to purchase cyber-liability insurance to cover her company's costs in the event of a data breach. What risk management strategy is she pursuing?", options: ["A. Risk acceptance", "B. Risk mitigation", "C. Risk transference", "D. Risk avoidance"] },
+    { id: 72, text: "Which of the following is not one of the four canons of the ISC2 Code of Ethics?", options: ["A. Avoid conflicts of interest that may jeopardize impartiality.", "B. Protect society, the common good, necessary public trust and confidence, and the infrastructure.", "C. Act honorably, honestly, justly, responsibly, and legally.", "D. Provide diligent and competent service to principals."] },
+    { id: 73, text: "Jim wants to allow a partner organization's Active Directory forest (B) to access his domain forest's (A)'s resources but doesn't want to allow users in his domain to access B's resources. He also does not want the trust to flow upward through the domain tree as it is formed. What should he do?", options: ["A. Set up a two-way transitive trust.", "B. Set up a one-way transitive trust.", "C. Set up a one-way nontransitive trust.", "D. Set up a two-way nontransitive trust."] },
+    { id: 74, text: "Susan's team is performing code analysis by manually reviewing the code for flaws. What type of analysis are they performing?", options: ["A. Gray box", "B. Static", "C. Dynamic", "D. Fuzzing"] },
+    { id: 75, text: "Kevin's organization recently suffered a ransomware attack, and he is considering paying the ransom. Which of the following statements are true about paying the ransom? (Select all that apply.)", options: ["A. There is no guarantee that he will receive the decryption key.", "B. The attackers have encrypted his data but do not have access to the data itself.", "C. Restoring from backup will not recover information.", "D. Paying ransoms may be illegal."] },
+    { id: 76, text: "What feature of a Trusted Platform Module (TPM) creates a hash summary of the system configuration to verify that changes have not been made?", options: ["A. Remote attestation", "B. Binding", "C. Sealing", "D. RNG"] },
+    { id: 77, text: "Gary is concerned that the environmental controls in his organization's data center may not be effectively controlling humidity. Which of the following circumstances may result from humidity issues? (Select all that apply.)", options: ["A. Static electricity damaging equipment", "B. Fires in power supplies", "C. Corrosion of equipment", "D. Physical access control failures"] },
+    { id: 78, text: "Evan recently built an alternate processing facility that includes all of the hardware and data necessary to restore operations in a matter of minutes or seconds. What type of facility has he built?", options: ["A. Hot site", "B. Warm site", "C. Cold site", "D. Mobile site"] },
+    { id: 79, text: "Hadley is reviewing network traffic logs and is searching for syslog activity on his network. When he creates a filter to look for this traffic, which UDP port should he include?", options: ["A. 443", "B. 514", "C. 515", "D. 445"] },
+    { id: 80, text: "Fred finds a packet that his protocol analyzer shows with both PSH and URG set. What type of packet is he looking at, and what do the flags mean?", options: ["A. A UDP packet; PSH and URG are used to indicate that the data should be sent at high speed", "B. A TCP packet; PSH and URG are used to clear the buffer and indicate that the data is urgent", "C. A TCP packet; PSH and URG are used to preset the header and indicate that the speed of the network is unregulated", "D. A UDP packet; PSH and URG are used to indicate that the UDP buffer should be cleared and that the data is urgent"] },
+    { id: 81, text: "What code review process is shown here? (Image: Fagan inspection diagram)", options: ["A. Static inspection", "B. Fagan inspection", "C. Dynamic inspection", "D. Interface testing"] },
+    { id: 82, text: "During a log review, Karen discovers that the system she needs to gather logs from has the log setting shown here. What problem is Karen likely to encounter? (Image: log properties with max log size 20480 KB, overwrite events as needed)", options: ["A. Too much log data will be stored on the system.", "B. The system is automatically purging archived logs.", "C. The logs will not contain the information needed.", "D. The logs will contain only the most recent 20 MB of log data."] },
+    { id: 83, text: "While investigating a widespread distributed denial-of-service attack, Matt types in the IP address of one of the attacking systems into his browser and sees the following page. What type of devices is the botnet likely composed of? (Image: IoT camera)", options: ["A. SCADA", "B. Cloud infrastructure", "C. Web servers", "D. IoT"] },
+    { id: 84, text: "What stage of the incident response process is Alejandro currently conducting? (Scenario: IDS alert, initial triage)", options: ["A. Detection", "B. Response", "C. Recovery", "D. Mitigation"] },
+    { id: 85, text: "If Alejandro's initial investigation determines that a security incident is likely taking place, what should be his next step?", options: ["A. Investigate the root cause.", "B. File a written report.", "C. Activate the incident response team.", "D. Attempt to restore the system to normal operations."] },
+    { id: 86, text: "As the incident response progresses, during which stage should the team conduct a root-cause analysis?", options: ["A. Response", "B. Reporting", "C. Remediation", "D. Lessons learned"] },
+    { id: 87, text: "Barry recently received a message from Melody that Melody encrypted using symmetric cryptography. What key should Barry use to decrypt the message?", options: ["A. Barry's public key", "B. Barry's private key", "C. Melody's public key", "D. Shared secret key"] },
+    { id: 88, text: "After you do automated functional testing with 100% coverage of an application, what type of error is most likely to remain?", options: ["A. Business logic errors", "B. Input validation errors", "C. Runtime errors", "D. Error handling errors"] },
+    { id: 89, text: "During what phase of the incident response process would security professionals analyze the process itself to determine whether any improvements are warranted?", options: ["A. Lessons learned", "B. Remediation", "C. Recovery", "D. Reporting"] },
+    { id: 90, text: "What U.S. law prevents the removal of protection mechanisms placed on a copyrighted work by the copyright holder?", options: ["A. HIPAA", "B. DMCA", "C. GLBA", "D. ECPA"] },
+    { id: 91, text: "Linda is selecting a disaster recovery facility for her organization, and she wants to retain independence from other organizations as much as possible. She would like to choose a facility that balances cost and recovery time, allowing activation in about one week after a disaster is declared. What type of facility should she choose?", options: ["A. Cold site", "B. Warm site", "C. Mutual assistance agreement", "D. Hot site"] },
+    { id: 92, text: "Helen's organization handles large quantities of highly sensitive information. To help address this risk, she purchased a cyber-liability insurance policy. What type of risk response action is Helen taking?", options: ["A. Transfer", "B. Avoid", "C. Mitigate", "D. Accept"] },
+    { id: 93, text: "What type of penetration testing provides detail on the scope of a penetration test—including items like what systems would be targeted—but does not provide full visibility into the configuration or other details of the systems or networks the penetration tester must test?", options: ["A. Crystal box", "B. White box", "C. Black box", "D. Gray box"] },
+    { id: 94, text: "Joanna would like to implement multifactor authentication for access to a restricted work area in her building. Which pairing of controls would best meet her requirement?", options: ["A. ID card and PIN", "B. Password and retinal scan", "C. ID card and access token", "D. Retinal scan and fingerprint scan"] },
+    { id: 95, text: "What network topology is used by modern-day Ethernet networks?", options: ["A. Star", "B. Mesh", "C. Ring", "D. Bus"] },
+    { id: 96, text: "Reed would like to add capabilities to his network that allow him to hide the identities of his users from remote web servers. Which one of the following tools would best meet his needs?", options: ["A. Proxy server", "B. Content filter", "C. Malware filter", "D. Caching server"] },
+    { id: 97, text: "Evelyn is preparing a training program that will provide cybersecurity advice to users who often travel internationally. Which of the following topics requires special training to ensure that users do not run afoul of U.S. export control laws?", options: ["A. Encryption software", "B. Content filtering", "C. Firewall rules", "D. Phishing simulations"] },
+    { id: 98, text: "Skip needs to transfer files from his PC to a remote server. What protocol should he use instead of FTP?", options: ["A. SCP", "B. SSH", "C. HTTP", "D. Telnet"] },
+    { id: 99, text: "Ben's New York–based commercial web service collects personal information from California residents. What does the California Online Privacy Protection Act require Ben to do to be compliant?", options: ["A. Ben must encrypt all personal data he receives.", "B. Ben must comply with the EU GDPR.", "C. Ben must have a conspicuously posted privacy policy on his site.", "D. Ben must provide notice and choice for users of his website."] },
+    { id: 100, text: "Grayson is reviewing his organization's password policies and would like to follow modern best practices. What is the recommended expiration period for passwords?", options: ["A. 30 days", "B. 90 days", "C. 180 days", "D. None"] },
+    { id: 101, text: "A consortium of colleges and universities recently worked to integrate their authentication systems so that students registered at one institution may use their credentials to access services at other institutions. What term best describes this arrangement?", options: ["A. Federation", "B. Identity proofing", "C. Enrollment", "D. Provisioning"] },
+    { id: 102, text: "Olivia is selecting a new biometric authentication technology and is considering purchasing iris scanners. What advantage do iris scans have over most other types of biometric factors?", options: ["A. Iris scanners are harder to deceive.", "B. Irises don't change as much as other factors.", "C. Iris scanners are cheaper than other factors.", "D. Iris scans cannot be easily replicated."] },
+    { id: 103, text: "Jen's firm received a new contract to develop information systems for use by a U.S. federal government agency. She is concerned about identifying any required security controls that must be in place. Which one of the following standards describes controls mandatory for use on U.S. government systems?", options: ["A. PCI DSS", "B. ISO 27001", "C. SABSA", "D. NIST 800-53"] },
+    { id: 104, text: "Matthew, Richard, and Christopher would like to exchange messages with each other using symmetric cryptography. They want to ensure that each individual can privately send a message to another individual without the third person being able to read the message. How many keys do they need?", options: ["A. 1", "B. 2", "C. 3", "D. 6"] },
+    { id: 105, text: "Colleen is responsible for protecting credit card numbers as part of her organization's efforts to comply with PCI DSS. She would like to select an appropriate control to protect those numbers while in transit over the network. Which of the following controls would best meet this need?", options: ["A. FDE", "B. SSL", "C. TPM", "D. TLS"] },
+    { id: 106, text: "Joe is concerned about the confidentiality of email messages as they are transiting the Internet from his organization's servers to their final destination. What is the best way that Joe can ensure email confidentiality in transit?", options: ["A. Use TLS between the client and server.", "B. Use SSL between the client and server.", "C. Encrypt the email content.", "D. Use a digital signature."] },
+    { id: 107, text: "Brenda is analyzing the web server logs after a successful compromise of her organization's web-based order processing application. She finds an entry in the log file showing that a user entered the following information as his last name when placing an order: Smith'; DROP TABLE orders;--. What type of attack was attempted?", options: ["A. Buffer overflow", "B. Cross-site scripting", "C. Cross-site request forgery", "D. SQL injection"] },
+    { id: 108, text: "Hannah's organization is implementing a new approach to user authentication that relies upon SAML. She would like to protect against eavesdropping on this traffic and also ensure that SAML traffic is not forged by an attacker. What should she do to protect against both types of attack?", options: ["A. Use SAML's secure mode to provide secure authentication.", "B. Implement TLS using a strong cipher suite, which will protect against both types of attacks.", "C. Implement TLS using a strong cipher suite and use digital signatures.", "D. Implement TLS using a strong cipher suite and message hashing."] },
+    { id: 109, text: "What is the goal of the BCP process?", options: ["A. RTO < MTD", "B. MTD < RTO", "C. RPO < MTD", "D. MTD < RPO"] },
+    { id: 110, text: "During which phase of the incident response process would administrators design new security controls intended to prevent a recurrence of the incident?", options: ["A. Reporting", "B. Recovery", "C. Remediation", "D. Lessons learned"] },
+    { id: 111, text: "Bethany received an email from one of her colleagues with an unusual attachment named smime.p7s. She does not recognize the attachment and is unsure what to do. What is the most likely scenario?", options: ["A. This is an encrypted email message.", "B. This is a phishing attack.", "C. This is embedded malware.", "D. This is a spoofing attack."] },
+    { id: 112, text: "Kim learned that the military is planning a classified mission that involves some ASI aircraft. She is concerned that employees not cleared for the mission may learn of it by noticing the movement of many aircraft to the region. Individual employees are cleared to know about the movement of an individual aircraft, but they are not cleared to know about the overall mission. What type of attack is Kim concerned about? (Scenario: multilevel security)", options: ["A. Aggregation", "B. SQL injection", "C. Inference", "D. Multilevel security"] },
+    { id: 113, text: "What technique can Kim employ to prevent employees not cleared for the mission from learning the true location of the aircraft?", options: ["A. Input validation", "B. Polyinstantiation", "C. Parameterization", "D. Server-side validation"] },
+    { id: 114, text: "Kim's database uniquely identifies aircrafts by using their tail number. Which one of the following terms would not necessarily accurately describe the tail number?", options: ["A. Database field", "B. Foreign key", "C. Primary key", "D. Candidate key"] },
+    { id: 115, text: "Kim would like to create a key that enforces referential integrity for the database. What type of key does she need to create?", options: ["A. Primary key", "B. Foreign key", "C. Candidate key", "D. Master key"] },
+    { id: 116, text: "Doug is choosing a software development life-cycle model for use in a project he is leading to develop a new business application. He has clearly defined requirements and would like to choose an approach that places an early emphasis on developing comprehensive documentation. He does not have a need for the production of rapid prototypes or iterative improvement. Which model is most appropriate for this scenario?", options: ["A. Agile", "B. Waterfall", "C. Spiral", "D. DevOps"] },
+    { id: 117, text: "Which individual bears the ultimate responsibility for data protection tasks?", options: ["A. Data owner", "B. Data custodian", "C. User", "D. Auditor"] },
+    { id: 118, text: "Carla is conducting a web application security test and would like to automatically generate input that is used to test the application. Which of the following tools would be best suited for this purpose?", options: ["A. Static application testing tool", "B. White-box testing tool", "C. Brute-force testing tool", "D. Fuzz testing tool"] },
+    { id: 119, text: "Warren's organization recently completed a massive phishing awareness campaign, and he would like to measure its effectiveness. Which of the following tools would best provide this measurement?", options: ["A. Survey", "B. Simulation", "C. Code review", "D. Third-party assessment"] },
+    { id: 120, text: "Which one of the following controls would be most effective in detecting zero-day attack attempts?", options: ["A. Signature-based intrusion detection", "B. Anomaly-based intrusion detection", "C. Strong patch management", "D. Full-disk encryption"] },
+    { id: 121, text: "Rob believes that an individual he met on an online forum used unapproved resources to cheat on the CISSP exam. He has evidence to back up his claim. Which one of the following statements is most correct?", options: ["A. Rob may report this situation to ISC2 as a violation of the Code of Ethics.", "B. Rob does not have standing to report this situation to ISC2 unless he is an employer of the individual in question.", "C. Rob does not have standing to report this situation to ISC2 unless he holds a professional license or certification that includes a code of ethics.", "D. Rob does not have standing to report this situation to ISC2 unless he is a member of ISC2 or holds an ISC2 certification."] },
+    { id: 122, text: "Which one of the following components should be included in an organization's emergency response guidelines?", options: ["A. Secondary response procedures for incident responders", "B. Long-term business continuity protocols", "C. Activation procedures for the organization's cold sites", "D. Contact information for ordering equipment"] },
+    { id: 123, text: "When Jim enters his organization's data center, he has to use a smartcard and code to enter and is allowed through one set of doors. The first set of doors closes, and he must then use his card again to get through a second set, which locks behind him. What type of control is this, and what is it called?", options: ["A. A physical control; a one-way trapdoor", "B. A logical control; a dual-swipe authorization", "C. A directive control; a one-way access corridor", "D. A preventive access control; an access control vestibule"] },
+    { id: 124, text: "Bill implemented RAID level 5 on a server that he operates using a total of three disks. How many disks may fail without the loss of data?", options: ["A. 0", "B. 1", "C. 2", "D. 3"] },
+    { id: 125, text: "Match the following numbered system and organization controls (SOC) levels to their matching lettered SOC report descriptions: SOC levels: 1. SOC 1, Type 1, 2. SOC 1, Type 2, 3. SOC 2, 4. SOC 3. SOC report descriptions: A. A general use report that reports on controls related to compliance and/or operations, B. A report that provides predefined, standard benchmarks for controls involving confidentiality, availability, integrity, and privacy of a system and the information it contains, generally for restricted use, C. A report that provides an assessment of the risk of material misstatement of financial statement assertions affected by the service organization's processing and that includes a description of the service auditor's tests of the controls and the results of the tests and their effectiveness, D. A report that provides the auditor's opinions of financial statements about controls at the service organization and that includes a report on the opinion on the presentation of the service organization's system as well as suitability of the controls.", options: [] }
+];
+
+// ANSWERS (single/multi-choice and mapping)
+const answersMap = {
+    1: "B", 2: "C", 3: "B", 4: "A", 5: "D", 6: "A", 7: "C", 8: "C", 9: "B", 10: "A",
+    11: "B", 12: "C", 13: "B", 14: "B", 15: "C", 16: "C", 17: "D", 18: "A", 19: "A", 20: "C",
+    21: "A", 22: "A", 23: "C", 24: "D", 25: "C", 26: "A", 27: "C", 28: "C", 29: "A", 30: "A",
+    31: "A", 32: "C", 33: "A", 34: "B", 35: "B", 36: "A", 37: "D", 38: "D", 39: "A", 40: "D",
+    41: "C", 42: "D", 43: "A, D", 44: "C", 45: "B", 46: "A", 47: "D", 48: "C", 49: "A", 50: "C",
+    51: "C", 52: "D", 53: "D", 54: "B", 55: "D", 56: "B", 57: "B, D", 58: "C", 59: "D", 60: "A, B, D",
+    61: "B", 62: "A", 63: "C", 64: "D", 65: "D", 66: "C", 67: "C", 68: "A", 69: "A", 70: "C",
+    71: "C", 72: "A", 73: "C", 74: "B", 75: "A, D", 76: "A", 77: "A, B, C", 78: "A", 79: "B", 80: "B",
+    81: "B", 82: "D", 83: "D", 84: "A", 85: "C", 86: "C", 87: "D", 88: "A", 89: "A", 90: "B",
+    91: "B", 92: "A", 93: "D", 94: "A", 95: "A", 96: "A", 97: "A", 98: "A", 99: "C", 100: "D",
+    101: "A", 102: "B", 103: "D", 104: "C", 105: "D", 106: "C", 107: "D", 108: "C", 109: "A", 110: "C",
+    111: "A", 112: "A", 113: "B", 114: "B", 115: "B", 116: "B", 117: "A", 118: "D", 119: "A", 120: "B",
+    121: "D", 122: "A", 123: "D", 124: "B"
+};
+
+// Mapping for Q125 (SOC levels)
+const mappingQ125 = [
+    { item: "SOC 1, Type 1", correct: "D" },
+    { item: "SOC 1, Type 2", correct: "C" },
+    { item: "SOC 2", correct: "B" },
+    { item: "SOC 3", correct: "A" }
+];
+
+// Render all questions
+const container = document.getElementById('questionsContainer');
+questionsData.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.id}`;
+    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 43 || q.id === 57 || q.id === 60 || q.id === 75 || q.id === 77);
+    const isMapping = (q.id === 125);
+    let optionsHtml = '';
+    if (isMapping) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>SOC Level</th><th>Match to description (A–D)</th></tr></thead><tbody>`;
+        mappingQ125.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-125" data-index="${idx}"><option value="">-- select --</option><option value="A">A. A general use report that reports on controls related to compliance and/or operations</option><option value="B">B. A report that provides predefined, standard benchmarks for controls involving confidentiality, availability, integrity, and privacy of a system and the information it contains, generally for restricted use</option><option value="C">C. A report that provides an assessment of the risk of material misstatement of financial statement assertions affected by the service organization's processing and that includes a description of the service auditor's tests of the controls and the results of the tests and their effectiveness</option><option value="D">D. A report that provides the auditor's opinions of financial statements about controls at the service organization and that includes a report on the opinion on the presentation of the service organization's system as well as suitability of the controls</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else {
+        optionsHtml = `<div class="options">`;
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+        });
+        optionsHtml += `</div>`;
+    }
+    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+    container.appendChild(card);
+});
+
+const submitBtn = document.getElementById('submitBtn');
+const exportBtn = document.getElementById('exportBtn');
+const modal = document.getElementById('summaryModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close-modal');
+let currentResults = [];
+
+function getUserAnswers() {
+    let results = [];
+    for (let i = 1; i <= 125; i++) {
+        const qid = i;
+        let userAnswer = "";
+        let isCorrect = false;
+        let correctAnswerStr = "";
+        if (qid === 125) {
+            const selects = document.querySelectorAll('.map-select-125');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ125.map(m => m.correct);
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "SOC 1 Type 1→D, SOC 1 Type 2→C, SOC 2→B, SOC 3→A";
+        } else {
+            const qData = questionsData.find(q => q.id === qid);
+            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 43 || qid === 57 || qid === 60 || qid === 75 || qid === 77);
+            if (isMulti) {
+                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                userAnswer = selected.join(', ') || "(none)";
+                const correctRaw = answersMap[qid];
+                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                correctAnswerStr = correctRaw;
+            } else {
+                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                userAnswer = radio ? radio.value : "(skipped)";
+                const correctLetter = answersMap[qid];
+                isCorrect = (radio && radio.value === correctLetter);
+                correctAnswerStr = correctLetter;
+            }
+        }
+        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr, isCorrect, status });
+        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+        if (hashtagSpan) {
+            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+            else hashtagSpan.innerHTML = " #️⃣ skipped";
+            hashtagSpan.className = `hashtag ${status}`;
+        }
+    }
+    return results;
+}
+
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+function showModal(results) {
+    const total = results.length;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
+    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    results.forEach(r => {
+        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+        html += `<tr><td>${r.qid}</td><td>${escapeHtml(String(r.userAnswer))}</td><td>${escapeHtml(String(r.correctAnswer))}</td><td>${statusText}</td></tr>`;
+    });
+    html += `</tbody></table>`;
+    modalBody.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function exportCSV(results) {
+    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    results.forEach(r => {
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+    });
+    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "practice_test3_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+submitBtn.addEventListener('click', () => {
+    const results = getUserAnswers();
+    currentResults = results;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    showModal(results);
+});
+exportBtn.addEventListener('click', () => {
+    if (currentResults && currentResults.length) exportCSV(currentResults);
+    else alert("Please submit your answers first to generate CSV.");
+});
+document.getElementById('modalExportBtn').addEventListener('click', () => {
+    if (currentResults) exportCSV(currentResults);
+});
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
