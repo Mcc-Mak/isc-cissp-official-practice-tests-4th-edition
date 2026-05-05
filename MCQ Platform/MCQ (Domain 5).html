@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCQ Platform – Domain 5 (Identity & Access Management)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+        .btn-export {
+            background: #2b6e4e;
+        }
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 800px;
+        }
+        .mapping-table td, .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .result-table th {
+            background: #eef3f7;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+        @media (max-width: 760px) {
+            .question-card { padding: 1rem; }
+            .options { margin-left: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Domain 5 – Identity & Access Management</h1>
+    <div class="sub">102 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+
+    <div class="toolbar">
+        <div>
+            <button id="submitBtn">✅ Submit & Score</button>
+            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        </div>
+        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+    </div>
+
+    <div id="questionsContainer" class="questions-grid"></div>
+    <footer>MCQ Platform — Domain 5. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+</div>
+
+<div id="summaryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle">Detailed Report</h3>
+        <div id="modalBody"></div>
+        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    </div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – DOMAIN 5
+// Extracted from provided XML (questions 1 to 102, including mapping)
+// --------------------------------------------------------------
+const questionsData = [
+    { id: 1, text: "Henry uses his organizationally provided credentials to log into his workstation and is then able to use services across the organization and in the cloud. What identity solution has his organization implemented?", options: ["A. An access control list", "B. Single sign-on", "C. Multifactor authentication", "D. Role-based access control"] },
+    { id: 2, text: "Jim's organization-wide implementation of IDaaS offers broad support for cloud-based applications. Jim's company does not have internal identity management staff and does not use centralized identity services. Instead, they rely upon Active Directory for AAA services. Which of the following options should Jim recommend to best handle the company's on-site identity needs?", options: ["A. Integrate on-site systems using OAuth.", "B. Use an on-premises third-party identity service.", "C. Integrate on-site systems using SAML.", "D. Design an internal solution to handle the organization's unique needs."] },
+    { id: 3, text: "What role does a policy enforcement point play in a zero trust environment?", options: ["A. It makes decisions for the policy engine.", "B. It is the workstation or mobile device used by the end user.", "C. It deploys role-based access controls based on local policy.", "D. It receives authorization requests and sends them to the policy decision point."] },
+    { id: 4, text: "Voice pattern recognition is what type of authentication factor?", options: ["A. Something you know", "B. Something you have", "C. Something you are", "D. Somewhere you are"] },
+    { id: 5, text: "If Susan's organization requires her to log in with her username, a PIN, a password, and a retina scan, how many distinct authentication factor types has she used?", options: ["A. One", "B. Two", "C. Three", "D. Four"] },
+    { id: 6, text: "Charles wants to deploy a credential management system (CMS). He wants to keep the keys as secure as possible. Which of the following is the best design option for his CMS implementation?", options: ["A. Use AES-256 instead of 3DES.", "B. Use long keys.", "C. Use an HSM.", "D. Change passphrases regularly."] },
+    { id: 7, text: "Brian is a researcher at a major university. As part of his research, he logs into a computing cluster hosted at another institution using his own university's credentials. Once logged in, he is able to access the cluster and use resources based on his role in a research project, as well as using resources and services in his home organization. What has Brian's home university implemented to make this happen?", options: ["A. Domain stacking", "B. Federated identity management", "C. Domain nesting", "D. Hybrid login"] },
+    { id: 8, text: "When Sally attempts to authenticate to her organization's services, she knows that the organization uses a mobile device management tool to check her location and whether she's logging in from her company-issued mobile device. What type of authentication is this?", options: ["A. Context-aware", "B. Knowledge-based", "C. Identity factoring", "D. Zero trust"] },
+    { id: 9, text: "What major issue often results from decentralized access control?", options: ["A. Access outages may occur.", "B. Control is not consistent.", "C. Control is too granular.", "D. Training costs are high."] },
+    { id: 10, text: "Callback to a landline phone number is an example of what type of factor?", options: ["A. Something you know", "B. Somewhere you are", "C. Something you have", "D. Something you are"] },
+    { id: 11, text: "What common behavior drives the NIST recommendation that passwords should not expire?", options: ["A. Attackers would not have enough time to compromise passwords if they expired.", "B. Users often make minimal changes to passwords to handle change requirements.", "C. Password expiration leads to too little support overhead.", "D. Re-hashing passwords when changes are required is computationally intensive."] },
+    { id: 12, text: "What three functions make up the AAA model?", options: ["A. Access control, authentication, and authorization", "B. Access, administration, and authorization", "C. Authentication, authorization, and accounting", "D. Accounting, auditing, and assessment"] },
+    { id: 13, text: "What directory-based technology underlies Microsoft Active Directory single sign-on?", options: ["A. LDAP", "B. zero trust", "C. Shibboleth", "D. RADIUS"] },
+    { id: 14, text: "Sameer's organization needs to perform identity proofing for new customers. What type of authentication is best suited to identity proofing in this scenario?", options: ["A. Cognitive passwords", "B. Knowledge-based authentication", "C. Palm scans", "D. USB tokens"] },
+    { id: 15, text: "What type of access controls allow the owner of a file to grant other users access to it using an access control list?", options: ["A. Role-based", "B. Nondiscretionary", "C. Rule-based", "D. Discretionary"] },
+    { id: 16, text: "Alex's job requires him to see protected health information (PHI) to ensure proper treatment of patients. His access to their medical records does not provide access to patient addresses or billing information. What access control concept best describes this control?", options: ["A. Separation of duties", "B. Constrained interfaces", "C. Context-dependent control", "D. Need to know"] },
+    { id: 17, text: "Ifemoa wants to ensure that users in her organization cannot change their password to a previously used password. What setting should she configure?", options: ["A. Password length", "B. Maximum password age", "C. An MFA requirement", "D. Password history"] },
+    { id: 18, text: "With a password history set, Ifeoma wants to prevent users from resetting their password multiple times to allow them to return to their original password. What setting should she apply?", options: ["A. A password complexity requirement", "B. A maximum password age", "C. A minimum password age", "D. A password length requirement"] },
+    { id: 19, text: "With her organization's password behavior under control, Ifeoma wants to ensure that a lost password will not result in easy compromise of her company's accounts. Which of the following controls provides the best protection against password loss or exposure-related compromise?", options: ["A. MFA", "B. SSO", "C. Federation", "D. Password rotation"] },
+    { id: 20, text: "Jacob is planning his organization's biometric authentication system and is considering retina scans. What concern may be raised about retina scans by others in his organization?", options: ["A. Retina scans can reveal information about medical conditions.", "B. Retina scans are painful because they require a puff of air in the user's eye.", "C. Retina scanners are the most expensive type of biometric device.", "D. Retina scanners have a high false positive rate and will cause support issues."] },
+    { id: 21, text: "Mandatory access control is based on what type of model?", options: ["A. Discretionary", "B. Group-based", "C. Lattice-based", "D. Rule-based"] },
+    { id: 22, text: "Greg wants to control access to iPads used throughout his organization as point-of-sale terminals. Which of the following methods should he use to allow logical access control for the devices in a shared environment?", options: ["A. Use a shared PIN for all point-of-sale terminals to make them easier to use.", "B. Use OAuth to allow cloud logins for each user.", "C. Issue a unique PIN to each user for the iPad they are issued.", "D. Use Active Directory and user accounts for logins to the iPads using the AD user ID and password."] },
+    { id: 23, text: "What is the best way to provide accountability for the use of identities?", options: ["A. Logging", "B. Authorization", "C. Digital signatures", "D. Type 1 authentication"] },
+    { id: 24, text: "Jim has worked in human relations, payroll, and customer service roles in his company over the past few years. What type of process should his company perform to ensure that he has appropriate rights?", options: ["A. Re-provisioning", "B. Account review", "C. Privilege creep", "D. Account revocation"] },
+    { id: 25, text: "Biba is what type of access control model?", options: ["A. MAC", "B. DAC", "C. Role BAC", "D. ABAC"] },
+    { id: 26, text: "Which of the following is a client-server protocol designed to allow network access servers to authenticate remote users by sending access request messages to a central server?", options: ["A. Kerberos", "B. EAP", "C. RADIUS", "D. OAuth"] },
+    { id: 27, text: "Henry is working with a web application development team on their authentication and authorization process for his company's new application. The team wants to make session IDs as secure as possible. Which of the following is not a best practice that Henry should recommend?", options: ["A. The session ID token should be predictable.", "B. The session ID should have at least 64 bits of entropy.", "C. The session length should be at least 128 bits.", "D. The session ID should be meaningless."] },
+    { id: 28, text: "Angela uses her smartphone's built-in biometric authentication and an application provided by her employer to log into her account. What type of authentication has she used?", options: ["A. Extended", "B. Passwordless", "C. Alternative", "D. SPOT"] },
+    { id: 29, text: "What type of access control best describes NAC's posture assessment capability?", options: ["A. A mandatory access control", "B. A risk-based access control", "C. A discretionary access control", "D. A role-based access control"] },
+    { id: 30, text: "When an application or system allows a logged-in user to perform specific actions, it is an example of what?", options: ["A. Roles", "B. Group management", "C. Logins", "D. Authorization"] },
+    { id: 31, text: "Alex has been employed by his company for more than a decade and has held a number of positions in the company. During an audit, it is discovered that he has access to shared folders and applications because of his former roles. What issue has Alex's company encountered?", options: ["A. Excessive provisioning", "B. Unauthorized access", "C. Privilege creep", "D. Account review"] },
+    { id: 32, text: "Geoff wants to prevent privilege escalation attacks in his organization. Which of the following practices is most likely to prevent horizontal privilege escalation?", options: ["A. Multifactor authentication", "B. Limiting permissions for groups and accounts", "C. Disabling unused ports and services", "D. Sanitizing user inputs to applications"] },
+    { id: 33, text: "Jim's Microsoft Exchange environment includes servers that are located in local data centers at multiple business offices around the world as well as an Office 365 deployment for employees who are not located at one of those offices. Identities are created and used in both environments and will work in both. What type of federated system is Jim running?", options: ["A. A primary cloud system", "B. A primary on-premises system", "C. A hybrid system", "D. A multitenant system"] },
+    { id: 34, text: "What type of access control scheme is shown in the following table? (Table with colors)", options: ["A. RBAC", "B. DAC", "C. MAC", "D. TBAC"] },
+    { id: 35, text: "Michelle's company is creating a new division by splitting the marketing and communications departments into two separate groups. She wants to create roles that provide access to resources used by each group. What should she do to maintain the appropriate security and rights for each group?", options: ["A. Put both the marketing and communications teams into the existing group because they will have similar access requirements.", "B. Keep the marketing team in the existing group and create a new communications group based on their specific needs.", "C. Keep the communications' team in the existing group and create a new marketing group based on their specific needs.", "D. Create two new groups, assess which rights they need to perform their roles, and then add additional rights if required."] },
+    { id: 36, text: "When a subject claims an identity, what process is occurring?", options: ["A. Login", "B. Identification", "C. Authorization", "D. Token presentation"] },
+    { id: 37, text: "Which of the following is a common account setting for a service account?", options: ["A. Disable password expiration.", "B. Set maximum password age to 90 days.", "C. Set minimum password age to 1 day.", "D. Disable complexity requirements."] },
+    { id: 38, text: "Susan's organization is updating its password policy and wants to use the strongest possible passwords. What password requirement will have the highest impact in preventing brute-force attacks?", options: ["A. Change the maximum age from 1 year to 180 days.", "B. Increase the minimum password length from 8 characters to 16 characters.", "C. Increase the password complexity so that at least three character classes (such as uppercase, lowercase, numbers, and symbols) are required.", "D. Retain a password history of at least four passwords to prevent reuse."] },
+    { id: 39, text: "Alaina is performing a regularly scheduled review for service accounts. Which of the following events should she be most concerned about?", options: ["A. An interactive login for the service account", "B. A password change for the service account", "C. Limitations placed on the service account's rights", "D. Local use of the service account"] },
+    { id: 40, text: "When might an organization using biometrics choose to allow a higher FRR instead of a higher FAR?", options: ["A. When security is more important than usability", "B. When false rejection is not a concern due to data quality", "C. When the CER of the system is not known", "D. When the CER of the system is very high"] },
+    { id: 41, text: "After recent reports of undesired access to workstations after hours, Derek has been asked to find a way to ensure that maintenance staff cannot log into workstations in business offices. The maintenance staff members do have systems in their break rooms and their offices for the organization, which they still need access to. What should Derek do to meet this need?", options: ["A. Require multifactor authentication and allow only office staff to have multifactor tokens.", "B. Use rule-based access control to prevent logins after hours in the business area.", "C. Use role-based access control by setting up a group that contains all maintenance staff and then give that group rights to log into only the designated workstations.", "D. Use geofencing to only allow logins in maintenance areas."] },
+    { id: 42, text: "Nick wants to do session management for his web application. Which of the following are common web application session management techniques or methods? (Select all that apply.)", options: ["A. IP tracking", "B. Cookies", "C. URL rewriting", "D. TLS tokens"] },
+    { id: 43, text: "Alex is concerned about eavesdropping on the SAML traffic and also wants to ensure that forged assertions will not be successful. What should he do to prevent these potential attacks?", options: ["A. Use SAML's secure mode to provide secure authentication.", "B. Implement TLS using a strong cipher suite, which will protect against both types of attacks.", "C. Implement TLS using a strong cipher suite and use digital signatures.", "D. Implement TLS using a strong cipher suite and message hashing."] },
+    { id: 44, text: "If Alex's organization is one that is primarily made up of off-site, traveling users, what availability risk does integration of critical business applications to on-site authentication create, and how could he solve it?", options: ["A. Third-party integration may not be trustworthy; use SSL and digital signatures.", "B. If the home organization is offline, traveling users won't be able to access third-party applications; implement a hybrid cloud/local authentication system.", "C. Local users may not be properly redirected to the third-party services; implement a local gateway.", "D. Browsers may not properly redirect; use host files to ensure that issues with redirects are resolved."] },
+    { id: 45, text: "What solution can best help address concerns about third parties that control SSO redirects as shown in step 2 in the diagram?", options: ["A. An awareness campaign about trusted third parties", "B. TLS", "C. Handling redirects at the local site", "D. Implementing an IPS to capture SSO redirect attacks"] },
+    { id: 46, text: "Susan has been asked to recommend whether her organization should use a MAC scheme or a DAC scheme. If flexibility and scalability are important requirements for implementing access controls, which scheme should she recommend and why?", options: ["A. MAC, because it provides greater scalability and flexibility because you can simply add more labels as needed", "B. DAC, because allowing individual administrators to make choices about the objects they control provides scalability and flexibility", "C. MAC, because compartmentalization is well suited to flexibility and adding compartments will allow it to scale well", "D. DAC, because a central decision process allows quick responses and will provide scalability by reducing the number of decisions required and flexibility by moving those decisions to a central authority"] },
+    { id: 47, text: "Which of the following tools is not typically used to verify that a provisioning process was followed in a way that ensures that the organization's security policy is being followed?", options: ["A. Log review", "B. Manual review of permissions", "C. Signature-based detection", "D. Review the audit trail"] },
+    { id: 48, text: "Jessica wants to adopt an open standard to provide authentication, authorization, and attribute information as part of her cloud identity federation efforts. What standard should she adopt to leverage the flexibility of XML as part of her efforts?", options: ["A. SAML", "B. SOAP", "C. OAuth", "D. OpenID Connect"] },
+    { id: 49, text: "During a penetration test, Chris recovers a file containing hashed passwords for the system he is attempting to access. What type of attack is most likely to succeed against the hashed passwords?", options: ["A. A brute-force attack", "B. A pass-the-hash attack", "C. A rainbow table attack", "D. A salt recovery attack"] },
+    { id: 50, text: "Google's identity integration with a variety of organizations and applications across domains is an example of which of the following?", options: ["A. PKI", "B. Federation", "C. Single sign-on", "D. Provisioning"] },
+    { id: 51, text: "Amanda starts at her new job and finds that she has access to a variety of systems that she does not need to accomplish her job. What problem has she encountered?", options: ["A. Privilege creep", "B. Rights collision", "C. Least privilege", "D. Excessive privileges"] },
+    { id: 52, text: "When Chris verifies an individual's identity and adds a unique identifier like a user ID to an identity system, what process has occurred?", options: ["A. Identity proofing", "B. Registration", "C. Directory management", "D. Session management"] },
+    { id: 53, text: "Selah wants to provide accountability for actions performed via her organization's main line-of-business application. What controls are most frequently used to provide accountability in a situation like this? (Select all that apply.)", options: ["A. Enable audit logging.", "B. Provide every staff member with a unique account and enable multifactor authentication.", "C. Enable time- and location-based login requirements.", "D. Provide every staff member with a unique account and require a self-selected password."] },
+    { id: 54, text: "Charles wants to provide authorization services as part of his web application. What standard should he use if he wants to integrate easily with other web identity providers?", options: ["A. OpenID", "B. TACACS+", "C. RADIUS", "D. OAuth"] },
+    { id: 55, text: "The company that Cameron works for uses a system that allows users to request privileged access to systems when necessary. Cameron requests access, and the request is pre-approved due to his role. He is then able to access the system to perform the task. Once he is done, the rights are removed. What type of system is he using?", options: ["A. Zero trust", "B. Federated identity management", "C. Single sign-on", "D. Just-in-time access"] },
+    { id: 56, text: "Elle is responsible for building a banking website. She needs proof of the identity of the users who register for the site. How should she validate user identities?", options: ["A. Require users to create unique questions that only they will know.", "B. Require new users to bring their driver's license or passport in person to the bank.", "C. Use information that both the bank and the user have such as questions pulled from their credit report.", "D. Call the user on their registered phone number to verify that they are who they claim to be."] },
+    { id: 57, text: "Susan's organization is part of a federation that allows users from multiple organizations to access resources and services at other federated sites. When Susan wants to use a service at a partner site, which identity provider is used?", options: ["A. Susan's home organization's identity provider.", "B. The service provider's identity provider.", "C. Both their identity provider and the service provider's identity provider.", "D. The service provider creates a new identity."] },
+    { id: 58, text: "A new customer at a bank that uses fingerprint scanners to authenticate its users is surprised when he scans his fingerprint and is logged into another customer's account. What type of biometric factor error occurred?", options: ["A. A registration error", "B. A Type 1 error", "C. A Type 2 error", "D. A time of use, method of use error"] },
+    { id: 59, text: "What type of access control is typically used by firewalls?", options: ["A. Discretionary access controls", "B. Rule-based access controls", "C. Task-based access control", "D. Mandatory access controls"] },
+    { id: 60, text: "When you input a user ID and password, you are performing what important identity and access management activity?", options: ["A. Authorization", "B. Validation", "C. Authentication", "D. Login"] },
+    { id: 61, text: "Kathleen works for a data center hosting facility that provides physical data center space for individuals and organizations. Until recently, each client was given a magnetic-strip-based keycard to access the section of the facility where their servers are located, and they were also given a key to access the cage or rack where their servers reside. In the past month, a number of servers have been stolen, but the logs for the passcards show only valid IDs. What is Kathleen's best option to make sure that the users of the passcards are who they are supposed to be?", options: ["A. Add a reader that requires a PIN for passcard users.", "B. Add a camera system to the facility to observe who is accessing servers.", "C. Add a biometric factor.", "D. Replace the magnetic stripe keycards with smartcards."] },
+    { id: 62, text: "Theresa wants to allow her staff to securely store and manage passwords for systems including service accounts and other rarely used administrative credentials. What type of tool should she implement to enable this?", options: ["A. Single sign-on", "B. A federated identity system", "C. A password vault", "D. A multifactor authentication system"] },
+    { id: 63, text: "Olivia wants to limit the commands that a user can run via sudo to limit the potential for privilege escalation attacks. What Linux file should she modify to allow this?", options: ["A. The bash .bin configuration file", "B. The sudoers file", "C. The bash .allowed configuration file", "D. The sudont file"] },
+    { id: 64, text: "Which objects and subjects have a label in a MAC model?", options: ["A. Objects and subjects that are classified as Confidential, Secret, or Top Secret have a label.", "B. All objects have a label, and all subjects have a compartment.", "C. All objects and subjects have a label.", "D. All subjects have a label and all objects have a compartment."] },
+    { id: 65, text: "When the e-commerce application creates an account for a Google user, where should that user's password be stored?", options: ["A. The password is stored in the e-commerce application's database.", "B. The password is stored in memory on the e-commerce application's server.", "C. The password is stored in Google's account management system.", "D. The password is never stored; instead, a salted hash is stored in Google's account management system."] },
+    { id: 66, text: "Which of the following is responsible for user authentication for Google users?", options: ["A. The e-commerce application.", "B. Both the e-commerce application and Google servers.", "C. Google servers.", "D. The diagram does not provide enough information to determine this."] },
+    { id: 67, text: "What type of attack is the creation and exchange of state tokens intended to prevent?", options: ["A. XSS", "B. CSRF", "C. SQL injection", "D. XACML"] },
+    { id: 68, text: "Questions like “What is your pet's name?” are examples of what type of identity proofing?", options: ["A. Knowledge-based authentication", "B. Dynamic knowledge-based authentication", "C. Out-of-band identity proofing", "D. A Type 3 authentication factor"] },
+    { id: 69, text: "Madhuri creates a table that includes assigned privileges, objects, and subjects to manage access control for the systems she is responsible for. Each time a subject attempts to access an object, the systems check the table to ensure that the subject has the appropriate rights to the object. What type of access control system is Madhuri using?", options: ["A. A capability table", "B. An access control list", "C. An access control matrix", "D. A subject/object rights management system"] },
+    { id: 70, text: "During a review of support tickets, Ben's organization discovered that password changes accounted for more than a quarter of its help desk's cases. Which of the following options would be most likely to decrease that number significantly?", options: ["A. Two-factor authentication", "B. Biometric authentication", "C. Self-service password reset", "D. Passphrases"] },
+    { id: 71, text: "Brian's large organization has used RADIUS for AAA services for its network devices for years and has recently become aware of security issues with the unencrypted information transferred during authentication. How should Brian implement encryption for RADIUS?", options: ["A. Use the built-in encryption in RADIUS.", "B. Implement RADIUS over its native UDP using TLS for protection.", "C. Implement RADIUS over TCP using TLS for protection.", "D. Use an AES256 pre-shared cipher between devices."] },
+    { id: 72, text: "Jim wants to allow cloud-based applications to act on his behalf to access information from other sites. Which of the following tools can allow that?", options: ["A. Kerberos", "B. OAuth", "C. OpenID", "D. LDAP"] },
+    { id: 73, text: "Ben's organization has had an issue with unauthorized access to applications and workstations during the lunch hour when employees aren't at their desk. What are the best types of session management solutions for Ben to recommend to help prevent this type of access?", options: ["A. Use session IDs for all access and verify system IP addresses of all workstations.", "B. Set session timeouts for applications and use password-protected screensavers with inactivity timeouts on workstations.", "C. Use session IDs for all applications, and use password-protected screensavers with inactivity timeouts on workstations.", "D. Set session timeouts for applications and verify system IP addresses of all workstations."] },
+    { id: 74, text: "What type of authentication scenario is shown in the following diagram? (Diagram: on-premises data center and cloud service provider trust)", options: ["A. Hybrid federation", "B. On-premise federation", "C. Cloud federation", "D. Kerberos federation"] },
+    { id: 75, text: "Chris wants to control access to his facility while still identifying individuals. He also wants to ensure that the individuals are the people who are being admitted without significant ongoing costs. Which solutions from the following options would meet all of these requirements? (Select all that apply.)", options: ["A. Security guards and photo identification badges", "B. RFID badges and readers with PIN pads", "C. Magstripe badges and readers with PIN pads", "D. Security guards and magstripe readers"] },
+    { id: 76, text: "A device like Yubikey or Titan Security Key is what type of Type 2 authentication factor?", options: ["A. A token", "B. A biometric identifier", "C. A smart card", "D. A PIV"] },
+    { id: 77, text: "What authentication technology can be paired with OAuth to perform identity verification and obtain user profile information using a RESTful API?", options: ["A. SAML", "B. Shibboleth", "C. OpenID Connect", "D. Higgins"] },
+    { id: 78, text: "Jim wants to implement an access control scheme that will ensure that users cannot delegate access. He also wants to enforce access control at the operating system level. What access control mechanism best fits these requirements?", options: ["A. Role-based access control", "B. Discretionary access control", "C. Mandatory access control", "D. Attribute-based access control"] },
+    { id: 79, text: "Jesse wants to access a resource protected by a zero trust solution. What component of the system will he connect through to conduct a transaction?", options: ["A. The constrained interface", "B. The policy engine", "C. The policy decision point", "D. A policy enforcement point"] },
+    { id: 80, text: "Ben uses a software-based token that changes its code every minute. What type of token is he using?", options: ["A. Asynchronous", "B. Smart card", "C. Synchronous", "D. Static"] },
+    { id: 81, text: "Which of the following is not a commonly used single sign-on solution for internal networks?", options: ["A. Kerberos", "B. SENTRY", "C. RADIUS", "D. TACACS+"] },
+    { id: 82, text: "Michelle works for a financial services company and wants to register customers for her web application. What type of authentication mechanism could she use for the initial login if she wants to quickly and automatically verify that the person is who they claim to be without having a previous relationship with them?", options: ["A. Request their Social Security number.", "B. Use knowledge-based authentication.", "C. Perform manual identity verification.", "D. Use a biometric factor."] },
+    { id: 83, text: "Megan's company wants to use Google accounts to allow users to quickly adopt their web application. What common cloud federation technologies will Megan need to implement? (Select all that apply.)", options: ["A. Kerberos", "B. OpenID", "C. OAuth", "D. RADIUS"] },
+    { id: 84, text: "Session ID length and session ID entropy are both important to prevent what type of attack?", options: ["A. Denial of service", "B. Cookie theft", "C. Session guessing", "D. Man-in-the-middle attacks"] },
+    { id: 85, text: "Naomi's organization employs an access control system that evaluates the security readiness of a device before granting network access. The system checks whether the device is fully patched, if the latest antimalware scans are clean, and if the firewall is active. If there are potential issues that may indicate a compromise, she is not permitted to connect and must contact support. What type of access control scheme best describes this type of process?", options: ["A. MAC", "B. Rule-based access control", "C. Role-based access control", "D. Risk-based access control"] },
+    { id: 86, text: "Isabelle wants to prevent privilege escalation attacks via her organization's service accounts. Which of the following security practices is best suited to this?", options: ["A. Remove unnecessary rights.", "B. Disable interactive login for service accounts.", "C. Limit when accounts can log in.", "D. Use meaningless or randomized names for service accounts."] },
+    { id: 87, text: "In the NIST zero trust model, what component includes the Policy Engine and the Policy Administrator as shown here?", options: ["A. The control plane module", "B. The policy decision point", "C. The enterprise management console", "D. The zero trust engine"] },
+    { id: 88, text: "Jim's organization has joined a federation and has begun to allow users from other organizations in the federation to use their services. What services will the members of other organizations be able to use?", options: ["A. All of the services provided by Jim's company", "B. Only the services their own organization provides", "C. Services that Jim's company grants access to on a per-user or per-organization basis", "D. Only services that they pay for that Jim's company provides"] },
+    { id: 89, text: "Kristen wants to control access to an application in her organization based on a combination of staff member's job titles, the permissions each group of titles need for the application, and the time of day and location. What type of control scheme should she select?", options: ["A. ABAC", "B. DAC", "C. MAC", "D. Role BAC"] },
+    { id: 90, text: "When Alex sets the permissions shown here as one of many users on a Linux server, what type of access control model is he leveraging? (Image: chmod 731 Alex.txt)", options: ["A. Role-based access control", "B. Rule-based access control", "C. Mandatory access control (MAC)", "D. Discretionary access control (DAC)"] },
+    { id: 91, text: "Joanna leads her organization's identity management team and wants to ensure that roles are properly updated when staff members change to new positions. What issue should she focus on for those staff members to avoid future issues with role definition?", options: ["A. Registration", "B. Privilege creep", "C. Deprovisioning", "D. Accountability"] },
+    { id: 92, text: "What type of authorization mechanism is shown in the following chart? (Table with groups: System Administrators, Application Administrators, Database Administrators, Users)", options: ["A. RBAC", "B. ABAC", "C. MAC", "D. DAC"] },
+    { id: 93, text: "Samantha wants to log all sudo activity under individual user accounts. What first step should she take to ensure that she captures privileged use like this?", options: ["A. Prevent the use of sudo su -.", "B. Add all users to the sudoers file.", "C. Remove all users from the sudoers.", "D. Disable sudo."] },
+    { id: 94, text: "Brian wants to explain the benefits of an on-premises federation approach for identity to his organization's leadership. Which of the following is not a common benefit of a federated identity system?", options: ["A. Ease of account management", "B. Single sign-on", "C. Prevention of brute-force attacks", "D. Increased productivity"] },
+    { id: 95, text: "The bank that Aaron works for wants to allow customers to use a new add-on application from a third-party partner they are working with. Since not every customer will want or need an account, Aaron has suggested that the bank use a SAML-based workflow that creates an account when a user downloads the app and tries to log in. What type of provisioning system has he suggested?", options: ["A. JIT", "B. OpenID", "C. OAuth", "D. Kerberos"] },
+    { id: 96, text: "What authentication protocol does Windows use by default for Active Directory systems?", options: ["A. RADIUS", "B. Kerberos", "C. OAuth", "D. TACACS+"] },
+    { id: 97, text: "Valerie needs to control access to applications that are deployed to mobile devices in a BYOD environment. What type of solution will best allow her to exercise control over the applications while ensuring that they do not leave remnant data on the devices used by her end users?", options: ["A. Deploy the applications to the BYOD devices and require unique PINs on every device.", "B. Deploy the application to desktop systems and require users to use remote desktop to access them using enterprise authentication.", "C. Deploy the applications to the BYOD devices using application containers and require unique PINs on every device.", "D. Use a virtual hosted application environment that requires authentication using enterprise credentials."] },
+    { id: 98, text: "Match the following authorization mechanisms with their descriptions: (1. Role-BAC, 2. Rule BAC, 3. DAC, 4. ABAC, 5. MAC)", options: [] },
+    { id: 99, text: "Match each of the numbered authentication techniques with the appropriate lettered category. (1. Password, 2. ID card, 3. Retinal scan, 4. Smartphone token, 5. Fingerprint analysis)", options: [] },
+    { id: 100, text: "Match the following identity and access controls with the asset type they are best suited to protect. (1. Information assets, 2. Systems, 3. Mobile devices, 4. Facilities, 5. Partner applications)", options: [] }
+];
+
+// Map IDs 98, 99, 100 as mapping questions
+const mappingQ98 = {
+    items: ["Role-BAC", "Rule BAC", "DAC", "ABAC", "MAC"],
+    correct: ["E", "B", "D", "C", "A"]  // Based on standard CISSP: Role-BAC -> E (job/function), Rule BAC -> B (parameters), DAC -> D (owner grants rights), ABAC -> C (policy-based, attributes), MAC -> A (OS enforced)
+};
+const mappingQ99 = {
+    items: ["Password", "ID card", "Retinal scan", "Smartphone token", "Fingerprint analysis"],
+    correct: ["B", "A", "C", "A", "C"]  // B=something you know, A=something you have, C=something you are
+};
+const mappingQ100 = {
+    items: ["Information assets", "Systems", "Mobile devices", "Facilities", "Partner applications"],
+    correct: ["A", "E", "D", "B", "C"]  // A=Discretionary access controls, E=User accounts with MFA, D=Biometric authentication, B=Badge readers, C=Federated identity management
+};
+
+// Answers for single/multi-choice questions (1-97)
+const answersMap = {
+    1: "B", 2: "C", 3: "D", 4: "C", 5: "B", 6: "C", 7: "B", 8: "A", 9: "B", 10: "C",
+    11: "B", 12: "C", 13: "A", 14: "B", 15: "D", 16: "D", 17: "D", 18: "C", 19: "A", 20: "A",
+    21: "C", 22: "C", 23: "A", 24: "B", 25: "A", 26: "C", 27: "A", 28: "B", 29: "B", 30: "D",
+    31: "C", 32: "B", 33: "C", 34: "C", 35: "D", 36: "B", 37: "A", 38: "B", 39: "A", 40: "A",
+    41: "C", 42: "A, B, C", 43: "C", 44: "B", 45: "C", 46: "B", 47: "C", 48: "A", 49: "C", 50: "B",
+    51: "D", 52: "B", 53: "A, B", 54: "D", 55: "D", 56: "C", 57: "A", 58: "C", 59: "B", 60: "C",
+    61: "C", 62: "C", 63: "B", 64: "C", 65: "C", 66: "C", 67: "B", 68: "A", 69: "C", 70: "C",
+    71: "C", 72: "B", 73: "B", 74: "A", 75: "B, C", 76: "A", 77: "C", 78: "C", 79: "D", 80: "C",
+    81: "B", 82: "B", 83: "B, C", 84: "C", 85: "D", 86: "B", 87: "B", 88: "C", 89: "A", 90: "D",
+    91: "B", 92: "A", 93: "A", 94: "C", 95: "A", 96: "B", 97: "D"
+};
+
+// Render all questions
+const container = document.getElementById('questionsContainer');
+questionsData.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.id}`;
+    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 42 || q.id === 53 || q.id === 75 || q.id === 83);
+    const isMapping = (q.id === 98 || q.id === 99 || q.id === 100);
+    let optionsHtml = '';
+    if (isMapping && q.id === 98) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Authorization Mechanism</th><th>Match to description (A–E)</th></tr></thead><tbody>`;
+        mappingQ98.items.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item}</strong></td><td><select class="map-select-98" data-index="${idx}"><option value="">-- select --</option><option value="A">A. An access control model enforced by the operating system.</option><option value="B">B. Permissions or rights are granted based on parameters like an IP address, time, or other specific details that match requirements.</option><option value="C">C. Sometimes called policy-based access control, this model uses information about the subject to assign permissions.</option><option value="D">D. A model where subjects with the proper rights can assign or pass those rights to other subjects.</option><option value="E">E. Used to assign permissions based on job or function.</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else if (isMapping && q.id === 99) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Authentication Technique</th><th>Match to category (A, B, or C)</th></tr></thead><tbody>`;
+        mappingQ99.items.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item}</strong></td><td><select class="map-select-99" data-index="${idx}"><option value="">-- select --</option><option value="A">A. Something you have</option><option value="B">B. Something you know</option><option value="C">C. Something you are</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else if (isMapping && q.id === 100) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Asset Type</th><th>Match to control (A–E)</th></tr></thead><tbody>`;
+        mappingQ100.items.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item}</strong></td><td><select class="map-select-100" data-index="${idx}"><option value="">-- select --</option><option value="A">A. Discretionary access controls</option><option value="B">B. Badge readers</option><option value="C">C. Federated identity management</option><option value="D">D. Biometric authentication</option><option value="E">E. User accounts with multifactor authentication</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else {
+        optionsHtml = `<div class="options">`;
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+        });
+        optionsHtml += `</div>`;
+    }
+    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+    container.appendChild(card);
+});
+
+const submitBtn = document.getElementById('submitBtn');
+const exportBtn = document.getElementById('exportBtn');
+const modal = document.getElementById('summaryModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close-modal');
+let currentResults = [];
+
+function getUserAnswers() {
+    let results = [];
+    for (let i = 1; i <= 100; i++) {
+        const qid = i;
+        let userAnswer = "";
+        let isCorrect = false;
+        let correctAnswerStr = "";
+        if (qid === 98) {
+            const selects = document.querySelectorAll('.map-select-98');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ98.correct;
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Role-BAC→E, Rule BAC→B, DAC→D, ABAC→C, MAC→A";
+        } else if (qid === 99) {
+            const selects = document.querySelectorAll('.map-select-99');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ99.correct;
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Password→B, ID card→A, Retinal scan→C, Smartphone token→A, Fingerprint analysis→C";
+        } else if (qid === 100) {
+            const selects = document.querySelectorAll('.map-select-100');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ100.correct;
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Information assets→A, Systems→E, Mobile devices→D, Facilities→B, Partner applications→C";
+        } else {
+            const qData = questionsData.find(q => q.id === qid);
+            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 42 || qid === 53 || qid === 75 || qid === 83);
+            if (isMulti) {
+                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                userAnswer = selected.join(', ') || "(none)";
+                const correctRaw = answersMap[qid];
+                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                correctAnswerStr = correctRaw;
+            } else {
+                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                userAnswer = radio ? radio.value : "(skipped)";
+                const correctLetter = answersMap[qid];
+                isCorrect = (radio && radio.value === correctLetter);
+                correctAnswerStr = correctLetter;
+            }
+        }
+        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr || answersMap[qid] || "Mapping", isCorrect, status });
+        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+        if (hashtagSpan) {
+            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+            else hashtagSpan.innerHTML = " #️⃣ skipped";
+            hashtagSpan.className = `hashtag ${status}`;
+        }
+    }
+    return results;
+}
+
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+function showModal(results) {
+    const total = results.length;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
+    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    results.forEach(r => {
+        const statusText = r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect");
+        html += `<tr><td>${r.qid}</td><td>${escapeHtml(String(r.userAnswer))}</td><td>${escapeHtml(String(r.correctAnswer))}</td><td>${statusText}</td></tr>`;
+    });
+    html += `</tbody></table>`;
+    modalBody.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function exportCSV(results) {
+    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    results.forEach(r => {
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+    });
+    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "domain5_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+submitBtn.addEventListener('click', () => {
+    const results = getUserAnswers();
+    currentResults = results;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    showModal(results);
+});
+exportBtn.addEventListener('click', () => {
+    if (currentResults && currentResults.length) exportCSV(currentResults);
+    else alert("Please submit your answers first to generate CSV.");
+});
+document.getElementById('modalExportBtn').addEventListener('click', () => {
+    if (currentResults) exportCSV(currentResults);
+});
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
