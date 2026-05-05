@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCQ Platform – Domain 8 (Software Development Security)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+        .btn-export {
+            background: #2b6e4e;
+        }
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 800px;
+        }
+        .mapping-table td, .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .result-table th {
+            background: #eef3f7;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+        @media (max-width: 760px) {
+            .question-card { padding: 1rem; }
+            .options { margin-left: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Domain 8 – Software Development Security</h1>
+    <div class="sub">100 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+
+    <div class="toolbar">
+        <div>
+            <button id="submitBtn">✅ Submit & Score</button>
+            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        </div>
+        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+    </div>
+
+    <div id="questionsContainer" class="questions-grid"></div>
+    <footer>MCQ Platform — Domain 8. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+</div>
+
+<div id="summaryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle">Detailed Report</h3>
+        <div id="modalBody"></div>
+        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    </div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – DOMAIN 8
+// Extracted from provided XML (questions 1 to 100, including mapping Q99, Q100)
+// --------------------------------------------------------------
+const questionsData = [
+    { id: 1, text: "Susan provides a public RESTful API for her organization's data but wants to limit its use to trusted partners. She intends to use API keys. What other recommendation would you give Susan to limit the potential abuse of the service?", options: ["A. Limit request rates.", "B. Force HTTP-only requests.", "C. Avoid tokens due to bandwidth constraints.", "D. Blacklist HTTP methods such as GET, POST, and PUT."] },
+    { id: 2, text: "Darren is conducting a threat-hunting exercise and would like to look for botnet indicators of compromise. Which of the following are common ways that attackers leverage botnets? (Select all that apply.)", options: ["A. Mining cryptocurrency", "B. Conducting brute-force attacks", "C. Scanning for vulnerable systems", "D. Conducting man-in-the-middle attacks"] },
+    { id: 3, text: "Which one of the following statements is not true about code review?", options: ["A. Code review should be a peer-driven process that includes multiple developers.", "B. Code review may be automated.", "C. Code review occurs during the design phase.", "D. Code reviewers may expect to review several hundred lines of code per hour."] },
+    { id: 4, text: "Kathleen is reviewing the Ruby code shown here. What security technique is this code using? (Image: Ruby code with DB.prepare)", options: ["A. Parameterization", "B. Typecasting", "C. Gem cutting", "D. Stored procedures"] },
+    { id: 5, text: "Jessica is reviewing her organization's change management process and would like to verify that changes to software include acceptance testing. Which process is responsible for achieving this goal?", options: ["A. Request control", "B. Change control", "C. Release control", "D. Configuration control"] },
+    { id: 6, text: "Ashley is investigating an attack that compromised an account of one of her users. In the attack, the attacker forced the submission of an authenticated request to a third-party site by exploiting trust relationships in the user's browser. What type of attack most likely took place?", options: ["A. XSS", "B. CSRF", "C. SQL injection", "D. Session hijacking"] },
+    { id: 7, text: "Arnold is creating a new software package and is making use of the OpenSSL library. What term best describes the library he is using?", options: ["A. Open source", "B. COTS", "C. Third-party", "D. Managed"] },
+    { id: 8, text: "Jaime is a technical support analyst and is asked to visit a user whose computer is displaying the error message shown here. What state has this computer entered? (Image: BSOD error)", options: ["A. Fail open", "B. Irrecoverable error", "C. Memory exhaustion", "D. Fail secure"] },
+    { id: 9, text: "Joshua is developing a software threat modeling program for his organization. Which of the following are appropriate goals for the program? (Select all that apply.)", options: ["A. To reduce the number of security-related design flaws", "B. To reduce the number of security-related coding flaws", "C. To reduce the severity of non-security-related flaws", "D. To reduce the number of threat vectors"] },
+    { id: 10, text: "In the diagram shown here, which is an example of a method? (Image: class diagram with Account, owner, addFunds, balance)", options: ["A. Account", "B. Owner", "C. AddFunds", "D. Balance"] },
+    { id: 11, text: "Wanda is reviewing the application development documentation used by her organization and finds the life-cycle illustration shown here. What application development method is her organization using? (Image: RAD lifecycle)", options: ["A. Waterfall", "B. Spiral", "C. Agile", "D. RAD"] },
+    { id: 12, text: "Which one of the following testing methodologies typically works without access to source code?", options: ["A. Dynamic testing", "B. Static testing", "C. White-box testing", "D. Code review"] },
+    { id: 13, text: "Lucca is analyzing a web application that his organization acquired from a third-party vendor. Lucca determined that the application contains a flaw that causes users who are logged in to be able to take actions they should not be able to in their role. What type of security vulnerability should this be classified as?", options: ["A. Data validation", "B. Session management", "C. Authorization", "D. Error handling"] },
+    { id: 14, text: "Bobby is investigating how an authorized database user is gaining access to information outside his normal clearance level. Bobby believes that the user is making use of a type of function that summarizes data. What term describes this type of function?", options: ["A. Inference", "B. Polymorphic", "C. Aggregate", "D. Modular"] },
+    { id: 15, text: "Taylor would like to better protect the applications developed by her organization against buffer overflow attacks. Which of the following controls would best provide this protection?", options: ["A. Encryption", "B. Input validation", "C. Firewall", "D. Intrusion prevention system"] },
+    { id: 16, text: "Kayla recently completed a thorough risk analysis and mitigation review of the software developed by her team and identified three persistent issues: Cross-site scripting, SQL injection, Buffer overflows. What is the most significant deficiency in her team's work identified by these issues?", options: ["A. Lack of API security", "B. Improper error handling", "C. Improper or missing input validation", "D. Source code design issues"] },
+    { id: 17, text: "What phase of the SW-CMM should Robert report as the current status of Acme Widgets? (Scenario: Acme Widgets – no formal processes)", options: ["A. Defined", "B. Repeatable", "C. Initial", "D. Managed"] },
+    { id: 18, text: "Robert is working with Acme Widgets on a strategy to advance their software development practices. What SW-CMM stage should be their next target milestone?", options: ["A. Defined", "B. Repeatable", "C. Initial", "D. Managed"] },
+    { id: 19, text: "What phase of the SW-CMM should Robert report as the current status of Beta Particles? (Scenario: Beta Particles – formal documented processes but no quantitative management)", options: ["A. Defined", "B. Repeatable", "C. Optimizing", "D. Managed"] },
+    { id: 20, text: "Robert is also working with Beta Particles on a strategy to advance their software development practices. What SW-CMM stage should be their next target milestone?", options: ["A. Defined", "B. Repeatable", "C. Optimizing", "D. Managed"] },
+    { id: 21, text: "Which one of the following database keys is used to enforce referential integrity relationships between tables?", options: ["A. Primary key", "B. Candidate key", "C. Foreign key", "D. Master key"] },
+    { id: 22, text: "Brynn believes that a system in her organization may have been compromised by a macro virus. Which one of the following files is most likely to be the culprit?", options: ["A. projections.doc", "B. command.com", "C. command.exe", "D. loopmaster.exe"] },
+    { id: 23, text: "Victor created a database table that contains information on his organization's employees. The table contains the employee's user ID, three different telephone number fields (home, work, and mobile), the employee's office location, and the employee's job title. There are 16 records in the table. What is the degree of this table?", options: ["A. 3", "B. 4", "C. 6", "D. 16"] },
+    { id: 24, text: "Carrie is analyzing the application logs for her web-based application and comes across the following string: ../../../../../../../../../etc/passwd. What type of attack was likely attempted against Carrie's application?", options: ["A. Command injection", "B. Session hijacking", "C. Directory traversal", "D. Brute-force"] },
+    { id: 25, text: "When should a design review take place when following an SDLC approach to software development?", options: ["A. After the code review", "B. After user acceptance testing", "C. After the development of functional requirements", "D. After the completion of unit testing"] },
+    { id: 26, text: "Tracy is preparing to apply a patch to her organization's enterprise resource planning system. She is concerned that the patch may introduce flaws that did not exist in prior versions, so she plans to conduct a test that will compare previous responses to input with those produced by the newly patched application. What type of testing is Tracy planning?", options: ["A. Unit testing", "B. Acceptance testing", "C. Regression testing", "D. Vulnerability testing"] },
+    { id: 27, text: "What term is used to describe the level of confidence that software is free from vulnerabilities, either intentionally designed into the software or accidentally inserted at any time during its life cycle, and that the software functions in the intended manner?", options: ["A. Validation", "B. Accreditation", "C. Confidence interval", "D. Assurance"] },
+    { id: 28, text: "Victor recently took a new position at an online dating website and is responsible for leading a team of developers. He realized quickly that the developers are having issues with production code because they are working on different projects that result in conflicting modifications to the production code. What process should Victor invest in improving?", options: ["A. Request control", "B. Release control", "C. Change control", "D. Configuration control"] },
+    { id: 29, text: "Tom is assessing security risks related to a database he manages. Examining user access controls, he determines that users have access to individual records in a table that match their clearances, but if they pull multiple records, that collection of facts has a higher classification than the classification of any of those facts standing alone and exceeds the permitted access. What type of issue has Tom identified?", options: ["A. Inference", "B. SQL injection", "C. Multilevel security", "D. Aggregation"] },
+    { id: 30, text: "Ron leads a team of software developers who find themselves often re-creating code that performs common functions. What software development tool could he use to best address this situation?", options: ["A. Code repositories", "B. Code libraries", "C. IDEs", "D. DAST"] },
+    { id: 31, text: "Vivian would like to hire a software tester to come in and evaluate a new web application from a user's perspective. Which of the following tests best simulates that perspective?", options: ["A. Black box", "B. Gray box", "C. Blue box", "D. White box"] },
+    { id: 32, text: "Referring to the database transaction shown here, what would happen if no account exists in the Accounts table with account number 1001? (Transaction: update balance +250 where account_number=1001; then -250 where account_number=2002)", options: ["A. The database would create a new account with this account number and give it a $250 balance.", "B. The database would ignore that command and still reduce the balance of the second account by $250.", "C. The database would roll back the transaction, ignoring the results of both commands.", "D. The database would generate an error message."] },
+    { id: 33, text: "Brandon is a software developer seeking to integrate his software with a popular social media site. The site provides him with software libraries that he can use to better integrate his code as well as other tools that make his work easier. What term best describes the service he is using?", options: ["A. SDK", "B. DLP", "C. IDE", "D. API"] },
+    { id: 34, text: "Kim is troubleshooting an application firewall that serves as a supplement to the organization's network and host firewalls and intrusion prevention system, providing added protection against web-based attacks. The issue the organization is experiencing is that the firewall technology suffers somewhat frequent restarts that render it unavailable for 10 minutes at a time. What configuration might Kim consider to maintain availability during that period at the lowest cost to the company?", options: ["A. High availability cluster", "B. Failover device", "C. Fail open", "D. Redundant disks"] },
+    { id: 35, text: "What type of security issue arises when an attacker can deduce a more sensitive piece of information by analyzing several pieces of information classified at a lower level?", options: ["A. SQL injection", "B. Multilevel security", "C. Parameterization", "D. Inference"] },
+    { id: 36, text: "Greg is battling a malware outbreak in his organization. He used specialized malware analysis tools to capture samples of the malware from three different systems and noticed that the code is changing slightly from infection to infection. Greg believes that this is the reason that antivirus software is having a tough time defeating the outbreak. What type of malware should Greg suspect is responsible for this security incident?", options: ["A. Stealth virus", "B. Polymorphic virus", "C. Multipartite virus", "D. Encrypted virus"] },
+    { id: 37, text: "What vulnerability definitely exists on Linda's message board? (Scenario: &lt;script&gt;alert('Alert');&lt;/script&gt; in a forum post)", options: ["A. Cross-site scripting", "B. Cross-site request forgery", "C. SQL injection", "D. Improper authentication"] },
+    { id: 38, text: "What was the likely motivation of the user who posted the message on the forum containing this code?", options: ["A. Reconnaissance", "B. Theft of sensitive information", "C. Credential stealing", "D. Social engineering"] },
+    { id: 39, text: "Linda communicates with the vendor and determines that no patch is available to correct this vulnerability. Which one of the following devices would best help her defend the application against further attack?", options: ["A. VPN", "B. WAF", "C. DLP", "D. IDS"] },
+    { id: 40, text: "In further discussions with the vendor, Linda finds that they are willing to correct the issue but do not know how to update their software. What technique would be most effective in mitigating the vulnerability of the application to this type of attack?", options: ["A. Bounds checking", "B. Peer review", "C. Input validation", "D. OS patching"] },
+    { id: 41, text: "Hannah is a software developer working on creating statistical software using the R programming language. She uses the RStudio tool, shown here, to assist her in writing this code. What term best describes this tool? (Image: RStudio IDE)", options: ["A. SDK", "B. IDE", "C. API", "D. DLP"] },
+    { id: 42, text: "Which of the following configurations within the Scaled Agile Framework (SAFe) is specifically designed to support enterprises in building and maintaining large integrated solutions with the collaboration of hundreds of practitioners?", options: ["A. Large Solution SAFe", "B. Portfolio SAFe", "C. Essential SAFe", "D. Full SAFe"] },
+    { id: 43, text: "Alan is deploying Java code to a variety of machines in his environment and must install the JVM on those machines first. What term best describes the JVM in this case?", options: ["A. Repository", "B. Change manager", "C. Runtime", "D. Sandbox"] },
+    { id: 44, text: "Christine is nearing the final stages of testing a new software package. Which one of the following types of software testing usually occurs last and is executed against test scenarios?", options: ["A. Unit testing", "B. Integration testing", "C. User acceptance testing", "D. System testing"] },
+    { id: 45, text: "Alexis' organization recently moved to a CI/CD approach for software development where they intend to speed up the deployment of code supporting their website. What is the most reasonable frequency that they can expect to achieve using this type of approach?", options: ["A. Monthly deployments", "B. Weekly deployments", "C. Daily deployments", "D. Hundreds of daily deployments"] },
+    { id: 46, text: "Amber is conducting a threat intelligence project and would like to find a source of information on threats to her organization's web applications. Which of the following organizations is widely considered as the definitive source for information on web-based attack vectors?", options: ["A. ISC2", "B. ISACA", "C. OWASP", "D. Mozilla Foundation"] },
+    { id: 47, text: "Chris is a software developer, and he is actively writing code for an application. What phase of the Agile process is he in?", options: ["A. Planning", "B. Sprints", "C. Deployment", "D. Testing"] },
+    { id: 48, text: "Alyssa's team recently implemented a new system that gathers information from a variety of different log sources, analyzes that information, and then triggers automated playbooks in response to security events. What term best describes this technology?", options: ["A. SIEM", "B. Log repositories", "C. IPS", "D. SOAR"] },
+    { id: 49, text: "Chris is reviewing the code of an open-source application that he is planning to use in his organization. He finds the code excerpt shown here: int myarray[10]; myarray[10] = 8; What type of attack is taking place?", options: ["A. Mismatched data types", "B. Overflow", "C. SQL injection", "D. Covert channel"] },
+    { id: 50, text: "Which one of the following database issues occurs when one transaction writes a value to the database that overwrites a value that was needed by transactions with earlier precedence?", options: ["A. Dirty read", "B. Incorrect summary", "C. Lost update", "D. SQL injection"] },
+    { id: 51, text: "Belinda would like to better protect users of her organization's web application from cookie-stealing attacks. Which one of the following is the most effective control against this type of session hijacking attack?", options: ["A. TLS", "B. Complex session cookies", "C. SSL", "D. Expiring cookies frequently"] },
+    { id: 52, text: "In a software configuration management program, what is the primary role of the CAB?", options: ["A. Approve the credentials of developers.", "B. Facilitate lessons learned sessions.", "C. Review and approve/reject code changes.", "D. Prioritize software development efforts."] },
+    { id: 53, text: "Which one of the following tools is commonly used by software developers to interact with and manage code that is stored in code repositories?", options: ["A. grep", "B. git", "C. lsof", "D. gcc"] },
+    { id: 54, text: "While evaluating a potential security incident, Harry comes across a log entry from a web server request showing that a user entered the following input into a form field: CARROT'&amp;1=1;--. What type of attack was attempted?", options: ["A. Buffer overflow", "B. Cross-site scripting", "C. SQL injection", "D. Cross-site request forgery"] },
+    { id: 55, text: "Which one of the following is not an effective control against SQL injection attacks?", options: ["A. Escaping", "B. Client-side input validation", "C. Parameterization", "D. Limiting database permissions"] },
+    { id: 56, text: "Jason is reviewing the documentation for a software development project and comes across the diagram shown here. What type of diagram is he examining? (Image: PERT chart)", options: ["A. WBS chart", "B. PERT chart", "C. Gantt chart", "D. Wireframe diagram"] },
+    { id: 57, text: "In what software testing technique does the evaluator retest a large number of scenarios each time that the software changes to verify that the results are consistent with a standard baseline?", options: ["A. Orthogonal array testing", "B. Pattern testing", "C. Matrix testing", "D. Regression testing"] },
+    { id: 58, text: "Haley is reviewing code created by her organization for its possible exposure to web application vulnerabilities. Which one of the following conditions may make an application most vulnerable to a cross-site scripting (XSS) attack?", options: ["A. Input validation", "B. Reflected input", "C. Unpatched server", "D. Promiscuous firewall rules"] },
+    { id: 59, text: "Roger is conducting a software test for a tax preparation application developed by his company. End users will access the application over the web, but Roger is conducting his test on the back end, evaluating the source code on the web server. What type of test is Roger conducting?", options: ["A. White box", "B. Gray box", "C. Blue box", "D. Black box"] },
+    { id: 60, text: "Which of the following statements is true about heuristic-based antimalware software?", options: ["A. It has a lower false positive rate than signature detection.", "B. It requires frequent definition updates to detect new malware.", "C. It has a higher likelihood of detecting zero-day exploits than signature detection.", "D. It monitors systems for files with content known to be viruses."] },
+    { id: 61, text: "Martin is inspecting a system where the user reported unusual activity, including disk activity when the system is idle and abnormal CPU and network usage. He suspects that the machine is infected by a virus, but scans come up clean. What malware technique might be in use here that would explain the clean scan results?", options: ["A. File infector virus", "B. MBR virus", "C. Service injection virus", "D. Stealth virus"] },
+    { id: 62, text: "Tomas discovers a line in his application log that appears to correspond with an attempt to conduct a directory traversal attack. He believes the attack was conducted using URL encoding. The line reads as follows: %252E%252E%252F%252E%252E%252Fetc/passwd. What character is represented by the %252E value?", options: ["A. .", "B. ,", "C. ;", "D. /"] },
+    { id: 63, text: "An attacker posted a message to a public discussion forum that contains an embedded malicious script that is not displayed to the user but executes on the user's system when read. What type of attack is this?", options: ["A. Persistent XSRF", "B. Nonpersistent XSRF", "C. Persistent XSS", "D. Nonpersistent XSS"] },
+    { id: 64, text: "Which one of the following is not a principle of the Agile software development process?", options: ["A. Welcome changing requirements, even late in the development process.", "B. Maximizing the amount of work not done is essential.", "C. Clear documentation is the primary measure of progress.", "D. Build projects around motivated individuals."] },
+    { id: 65, text: "Gavin is an internal auditor tasked with examining the change management practices of his organization. He would like to review a series of changes made to a software package to determine whether they were properly documented. Where should he turn for a description of each proposed change?", options: ["A. CAB", "B. RFC", "C. SOAR", "D. SIEM"] },
+    { id: 66, text: "Neal is working with a DynamoDB database. The database is not structured like a relational database but allows Neal to store data using a key-value store. What type of database is DynamoDB?", options: ["A. Relational database", "B. Graph database", "C. Hierarchical database", "D. NoSQL database"] },
+    { id: 67, text: "In the transaction shown here, what would happen if the database failed in between the first and second update statements? (Transaction with BEGIN, UPDATE account1, UPDATE account2, COMMIT)", options: ["A. The database would credit the first account with $250 in funds but then not reduce the balance of the second account.", "B. The database would ignore the first command and only reduce the balance of the second account by $250.", "C. The database would roll back the transaction, ignoring the results of both commands.", "D. The database would successfully execute both commands."] },
+    { id: 68, text: "Tareck's organization makes use of a significant amount of COTS software. He recently discovered a significant buffer overflow vulnerability in the code of a COTS software package that is crucial to his business. What is the most likely way that Tareck can get this corrected?", options: ["A. Work with his software development team to modify the code.", "B. Notify the vendor and request a patch.", "C. Deploy an intrusion prevention system.", "D. Update firewall rules."] },
+    { id: 69, text: "Which one of the following statements is true about software testing?", options: ["A. Static testing works on runtime environments.", "B. Static testing performs code analysis.", "C. Dynamic testing uses automated tools, but static testing does not.", "D. Static testing is a more important testing technique than dynamic testing."] },
+    { id: 70, text: "David is working on developing a project schedule for a software development effort, and he comes across the chart shown here. What type of chart is this? (Image: Gantt chart)", options: ["A. Work breakdown structure", "B. Functional requirements", "C. PERT chart", "D. Gantt chart"] },
+    { id: 71, text: "Barry is a software tester who is working with a new gaming application developed by his company. He is playing the game on a smartphone to conduct his testing in an environment that best simulates a normal end user, but he is referencing the source code as he conducts his test. What type of test is Barry conducting?", options: ["A. White box", "B. Black box", "C. Blue box", "D. Gray box"] },
+    { id: 72, text: "Miguel recently completed a penetration test of the applications that his organization uses to handle sensitive information. During his testing, he discovered a condition where an attacker can exploit a timing condition to manipulate software into allowing him to perform an unauthorized action. Which one of the following attack types fits this scenario?", options: ["A. SQL injection", "B. Cross-site scripting", "C. Pass the hash", "D. TOC/TOU"] },
+    { id: 73, text: "What part of the security review process are the input parameters shown in the diagram used for? (Image: input parameters for attack surface identification)", options: ["A. SQL injection review", "B. Sprint review", "C. Fagan inspection", "D. Attack surface identification"] },
+    { id: 74, text: "What application security process can be described in these three major steps? 1. Decomposing the application, 2. Determining and ranking threats, 3. Determining countermeasures and mitigation.", options: ["A. Fagan inspection", "B. Threat modeling", "C. Penetration testing", "D. Code review"] },
+    { id: 75, text: "Which one of the following approaches to failure management is the most conservative from a security perspective?", options: ["A. Fail open", "B. Fail mitigation", "C. Fail clear", "D. Fail closed"] },
+    { id: 76, text: "What software development model is shown here? (Image: Spiral model diagram)", options: ["A. Waterfall", "B. Agile", "C. Lean", "D. Spiral"] },
+    { id: 77, text: "Mark is considering replacing his organization's customer relationship management (CRM) solution with a new product that is available in the cloud. This new solution is completely managed by the vendor, and Mark's company will not have to write any code or manage any physical resources. What type of cloud solution is Mark considering?", options: ["A. IaaS", "B. CaaS", "C. PaaS", "D. SaaS"] },
+    { id: 78, text: "Which one of the following change management processes is initiated by users rather than developers?", options: ["A. Change request", "B. Change control", "C. Release control", "D. Design review"] },
+    { id: 79, text: "Teagan would like to better protect his organization against database inference attacks. Which one of the following techniques is an effective countermeasure against these attacks?", options: ["A. Input validation", "B. Parameterization", "C. Polyinstantiation", "D. Server-side validation"] },
+    { id: 80, text: "Ursula is a government web developer who recently created a public application that offers property records. She would like to make it available for other developers to integrate into their applications. What can Ursula create to make it easiest for developers to call her code directly and integrate the output into their applications?", options: ["A. Object model", "B. Data dictionary", "C. API", "D. Primary key"] },
+    { id: 81, text: "Nathan recently completed a software development project where he integrated the organization's network operations stack with their development processes. As a result, developers can modify firewall rules from their code on an as-needed basis. What term best describes this ability?", options: ["A. Agile", "B. IaC", "C. SDS", "D. DevOps"] },
+    { id: 82, text: "TJ is inspecting a system where the user reported a strange error message and the inability to access files. He sees the window shown here. What type of malware should TJ suspect? (Image: CryptoLocker ransomware)", options: ["A. Service injection", "B. Encrypted virus", "C. SQL injection", "D. Ransomware"] },
+    { id: 83, text: "Charles is developing a mission-critical application that has a direct impact on human safety. Time and cost are less important than correctly functioning software. Which of the following software development methodologies should he choose given these requirements?", options: ["A. Agile", "B. DevOps", "C. Spiral", "D. Waterfall"] },
+    { id: 84, text: "Which one of the following types of artificial intelligence attempts to use complex computations to replicate the partial function of the human mind?", options: ["A. Decision support systems", "B. Expert systems", "C. Knowledge bank", "D. Neural networks"] },
+    { id: 85, text: "At which level of the Software Capability Maturity Model (SW-CMM) does an organization introduce basic life-cycle management processes?", options: ["A. Initial", "B. Repeatable", "C. Defined", "D. Managed"] },
+    { id: 86, text: "Lucas runs the accounting systems for his company. The morning after an essential employee was fired, systems began mysteriously losing information. Lucas suspects that the fired employee tampered with the systems prior to his departure. What type of attack should Lucas suspect?", options: ["A. Privilege escalation", "B. SQL injection", "C. Logic bomb", "D. Remote code execution"] },
+    { id: 87, text: "Which one of the following principles would not be favored in an Agile approach to software development?", options: ["A. Processes and tools over individuals and interactions", "B. Working software over comprehensive documentation", "C. Customer collaboration over contract negotiations", "D. Responding to change over following a plan"] },
+    { id: 88, text: "What technique do API developers most commonly use to limit access to an API to authorized individuals and applications?", options: ["A. Encryption", "B. Input validation", "C. API keys", "D. IP filters"] },
+    { id: 89, text: "Reggie recently received a letter from his company's internal auditors scheduling the kickoff meeting for an assessment of his group. Which of the following should Reggie not expect to learn during that meeting?", options: ["A. Scope of the audit", "B. Purpose of the audit", "C. Expected timeframe", "D. Expected findings"] },
+    { id: 90, text: "Which one of the following is the proper order of steps in the waterfall model of software development?", options: ["A. Requirements, Design, Testing, Coding, Maintenance", "B. Requirements, Design, Coding, Testing, Maintenance", "C. Design, Requirements, Coding, Testing, Maintenance", "D. Design, Requirements, Testing, Coding, Maintenance"] },
+    { id: 91, text: "Renee is a software developer who writes code in Node.js for her organization. The company is considering moving from a self-hosted Node.js environment to one where Renee will run her code on application servers managed by a cloud vendor. What type of cloud solution is Renee's company considering?", options: ["A. IaaS", "B. CaaS", "C. PaaS", "D. SaaS"] },
+    { id: 92, text: "Tom is writing a software program that calculates the sales tax for online orders placed from various jurisdictions. The application includes a user-defined field that allows the entry of the total sale amount. Tom would like to ensure that the data entered in this field is a properly formatted dollar amount. What technique should he use?", options: ["A. Limit check", "B. Fail open", "C. Fail secure", "D. Input validation"] },
+    { id: 93, text: "Brian is helping implement a new software testing methodology for his organization and would like to review the completeness of his toolkit. Which of the following would be considered dynamic application security testing (DAST) tools? (Select all that apply.)", options: ["A. Code review", "B. Fuzzing", "C. Static analysis", "D. Web application vulnerability scanning"] },
+    { id: 94, text: "What approach to technology management integrates the three components of technology management shown in this illustration? (Image: DevOps diagram – Software Development, Operations, Quality Assurance)", options: ["A. Agile", "B. Lean", "C. DevOps", "D. ITIL"] },
+    { id: 95, text: "Olivia is conducting a risk analysis of a web application that her organization obtained from a third party and is concerned that it might contain vulnerabilities. Which one of the following activities might she take to best mitigate the risk?", options: ["A. Deploy a WAF.", "B. Implement strong encryption.", "C. Purchase an insurance policy.", "D. Discontinue use of the software."] },
+    { id: 96, text: "Which one of the following database concurrency issues occurs when one transaction reads information that was written to a database by a second transaction that never committed?", options: ["A. Lost update", "B. SQL injection", "C. Incorrect summary", "D. Dirty read"] },
+    { id: 97, text: "What software development concept was pioneered by the Defense Department in the 1990s as an effort to bring together diverse product development teams?", options: ["A. Integrated product team", "B. Agile methodology", "C. Scrum approach", "D. User stories"] },
+    { id: 98, text: "Frank is working to select a new cloud service that will provide block storage for a server being built by his team. What category of cloud service is Frank planning to use?", options: ["A. SaaS", "B. IaaS", "C. FaaS", "D. PaaS"] },
+    { id: 99, text: "Match the numbered code testing methods to their lettered definition: 1. Regression testing, 2. Integration testing, 3. Unit testing, 4. System testing. Definitions: A. Testing on a complete integrated product, B. A testing method that focuses on modules or smaller sections of code for testing, C. A testing method that is used to verify that previously tested software performs the same way after changes are made, D. A testing method used to validate how software modules work together.", options: [] },
+    { id: 100, text: "Match the following numbered terms to their lettered definitions: 1. Session hijacking, 2. Cross-site scripting, 3. Cross-site request forgery, 4. SQL injection. Definitions: A. An attack that injects a malicious script into otherwise trusted websites, B. An attack that is designed to execute commands against a database via an insecure web application, C. An exploitation method that often involves cookies or keys to gain unauthorized access to a computer or service, D. An attack that forces a user to execute unwanted actions in a website or application they are currently logged into.", options: [] }
+];
+
+// ANSWERS (single/multi-choice and mapping)
+const answersMap = {
+    1: "A", 2: "A, B, C", 3: "C", 4: "A", 5: "C", 6: "B", 7: "C", 8: "B", 9: "A, B, D", 10: "C",
+    11: "D", 12: "A", 13: "C", 14: "C", 15: "B", 16: "C", 17: "C", 18: "B", 19: "A", 20: "D",
+    21: "C", 22: "A", 23: "C", 24: "C", 25: "C", 26: "C", 27: "D", 28: "C", 29: "D", 30: "B",
+    31: "A", 32: "C", 33: "A", 34: "C", 35: "D", 36: "B", 37: "A", 38: "A", 39: "B", 40: "C",
+    41: "B", 42: "A", 43: "C", 44: "C", 45: "D", 46: "C", 47: "B", 48: "D", 49: "B", 50: "C",
+    51: "A", 52: "C", 53: "B", 54: "C", 55: "B", 56: "B", 57: "D", 58: "B", 59: "A", 60: "C",
+    61: "D", 62: "A", 63: "C", 64: "C", 65: "B", 66: "D", 67: "C", 68: "B", 69: "B", 70: "D",
+    71: "D", 72: "D", 73: "D", 74: "B", 75: "D", 76: "D", 77: "D", 78: "A", 79: "C", 80: "C",
+    81: "B", 82: "D", 83: "D", 84: "D", 85: "B", 86: "C", 87: "A", 88: "C", 89: "D", 90: "B",
+    91: "C", 92: "D", 93: "B, D", 94: "C", 95: "A", 96: "D", 97: "A", 98: "B",
+    // Mapping Q99: 1->C, 2->D, 3->B, 4->A
+    // Mapping Q100: 1->C, 2->A, 3->D, 4->B
+};
+
+const mappingQ99 = [
+    { item: "Regression testing", correct: "C" },
+    { item: "Integration testing", correct: "D" },
+    { item: "Unit testing", correct: "B" },
+    { item: "System testing", correct: "A" }
+];
+const mappingQ100 = [
+    { item: "Session hijacking", correct: "C" },
+    { item: "Cross-site scripting", correct: "A" },
+    { item: "Cross-site request forgery", correct: "D" },
+    { item: "SQL injection", correct: "B" }
+];
+
+// Render all questions
+const container = document.getElementById('questionsContainer');
+questionsData.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.id}`;
+    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 2 || q.id === 9 || q.id === 93);
+    const isMapping = (q.id === 99 || q.id === 100);
+    let optionsHtml = '';
+    if (isMapping && q.id === 99) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Code Testing Method</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
+        mappingQ99.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-99" data-index="${idx}"><option value="">-- select --</option><option value="A">A. Testing on a complete integrated product</option><option value="B">B. A testing method that focuses on modules or smaller sections of code for testing</option><option value="C">C. A testing method that is used to verify that previously tested software performs the same way after changes are made</option><option value="D">D. A testing method used to validate how software modules work together</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else if (isMapping && q.id === 100) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Attack Type</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
+        mappingQ100.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-100" data-index="${idx}"><option value="">-- select --</option><option value="A">A. An attack that injects a malicious script into otherwise trusted websites</option><option value="B">B. An attack that is designed to execute commands against a database via an insecure web application</option><option value="C">C. An exploitation method that often involves cookies or keys to gain unauthorized access to a computer or service</option><option value="D">D. An attack that forces a user to execute unwanted actions in a website or application they are currently logged into</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else {
+        optionsHtml = `<div class="options">`;
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+        });
+        optionsHtml += `</div>`;
+    }
+    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+    container.appendChild(card);
+});
+
+const submitBtn = document.getElementById('submitBtn');
+const exportBtn = document.getElementById('exportBtn');
+const modal = document.getElementById('summaryModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close-modal');
+let currentResults = [];
+
+function getUserAnswers() {
+    let results = [];
+    for (let i = 1; i <= 100; i++) {
+        const qid = i;
+        let userAnswer = "";
+        let isCorrect = false;
+        let correctAnswerStr = "";
+        if (qid === 99) {
+            const selects = document.querySelectorAll('.map-select-99');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ99.map(m => m.correct);
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Regression testing→C, Integration testing→D, Unit testing→B, System testing→A";
+        } else if (qid === 100) {
+            const selects = document.querySelectorAll('.map-select-100');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ100.map(m => m.correct);
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Session hijacking→C, Cross-site scripting→A, Cross-site request forgery→D, SQL injection→B";
+        } else {
+            const qData = questionsData.find(q => q.id === qid);
+            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 2 || qid === 9 || qid === 93);
+            if (isMulti) {
+                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                userAnswer = selected.join(', ') || "(none)";
+                const correctRaw = answersMap[qid];
+                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                correctAnswerStr = correctRaw;
+            } else {
+                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                userAnswer = radio ? radio.value : "(skipped)";
+                const correctLetter = answersMap[qid];
+                isCorrect = (radio && radio.value === correctLetter);
+                correctAnswerStr = correctLetter;
+            }
+        }
+        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr || answersMap[qid] || "Mapping", isCorrect, status });
+        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+        if (hashtagSpan) {
+            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+            else hashtagSpan.innerHTML = " #️⃣ skipped";
+            hashtagSpan.className = `hashtag ${status}`;
+        }
+    }
+    return results;
+}
+
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+function showModal(results) {
+    const total = results.length;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
+    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    results.forEach(r => {
+        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+        html += `<tr>
+            <td>${r.qid}</td>
+            <td>${escapeHtml(String(r.userAnswer))}</td>
+            <td>${escapeHtml(String(r.correctAnswer))}</td>
+            <td>${statusText}</td>
+        </tr>`;
+    });
+    html += `</tbody></table>`;
+    modalBody.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function exportCSV(results) {
+    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    results.forEach(r => {
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+    });
+    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "domain8_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+submitBtn.addEventListener('click', () => {
+    const results = getUserAnswers();
+    currentResults = results;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    showModal(results);
+});
+exportBtn.addEventListener('click', () => {
+    if (currentResults && currentResults.length) exportCSV(currentResults);
+    else alert("Please submit your answers first to generate CSV.");
+});
+document.getElementById('modalExportBtn').addEventListener('click', () => {
+    if (currentResults) exportCSV(currentResults);
+});
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
