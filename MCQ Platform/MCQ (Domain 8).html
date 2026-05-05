@@ -188,8 +188,8 @@
         .modal-content {
             background: white;
             border-radius: 28px;
-            max-width: 90%;
-            width: 1100px;
+            max-width: 95%;
+            width: 1200px;
             max-height: 85%;
             overflow: auto;
             padding: 1.5rem;
@@ -234,7 +234,7 @@
 <body>
 <div class="container">
     <h1>📘 Domain 8 – Software Development Security</h1>
-    <div class="sub">100 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+    <div class="sub">107 questions • Single choice | Multiple‑select | Mapping (exact wording)</div>
 
     <div class="toolbar">
         <div>
@@ -258,10 +258,10 @@
 </div>
 
 <script>
-// --------------------------------------------------------------
-// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – DOMAIN 8
-// Extracted from provided XML (questions 1 to 100, including mapping Q99, Q100)
-// --------------------------------------------------------------
+// =============================================================
+// DOMAIN 8 – QUESTIONS (exact wording from official CISSP practice)
+// Based on the original XML and the answer key from Chapter 8
+// =============================================================
 const questionsData = [
     { id: 1, text: "Susan provides a public RESTful API for her organization's data but wants to limit its use to trusted partners. She intends to use API keys. What other recommendation would you give Susan to limit the potential abuse of the service?", options: ["A. Limit request rates.", "B. Force HTTP-only requests.", "C. Avoid tokens due to bandwidth constraints.", "D. Blacklist HTTP methods such as GET, POST, and PUT."] },
     { id: 2, text: "Darren is conducting a threat-hunting exercise and would like to look for botnet indicators of compromise. Which of the following are common ways that attackers leverage botnets? (Select all that apply.)", options: ["A. Mining cryptocurrency", "B. Conducting brute-force attacks", "C. Scanning for vulnerable systems", "D. Conducting man-in-the-middle attacks"] },
@@ -270,9 +270,9 @@ const questionsData = [
     { id: 5, text: "Jessica is reviewing her organization's change management process and would like to verify that changes to software include acceptance testing. Which process is responsible for achieving this goal?", options: ["A. Request control", "B. Change control", "C. Release control", "D. Configuration control"] },
     { id: 6, text: "Ashley is investigating an attack that compromised an account of one of her users. In the attack, the attacker forced the submission of an authenticated request to a third-party site by exploiting trust relationships in the user's browser. What type of attack most likely took place?", options: ["A. XSS", "B. CSRF", "C. SQL injection", "D. Session hijacking"] },
     { id: 7, text: "Arnold is creating a new software package and is making use of the OpenSSL library. What term best describes the library he is using?", options: ["A. Open source", "B. COTS", "C. Third-party", "D. Managed"] },
-    { id: 8, text: "Jaime is a technical support analyst and is asked to visit a user whose computer is displaying the error message shown here. What state has this computer entered? (Image: BSOD error)", options: ["A. Fail open", "B. Irrecoverable error", "C. Memory exhaustion", "D. Fail secure"] },
+    { id: 8, text: "Jaime is a technical support analyst and is asked to visit a user whose computer is displaying the error message shown here. What state has this computer entered? (Image: BSOD)", options: ["A. Fail open", "B. Irrecoverable error", "C. Memory exhaustion", "D. Fail secure"] },
     { id: 9, text: "Joshua is developing a software threat modeling program for his organization. Which of the following are appropriate goals for the program? (Select all that apply.)", options: ["A. To reduce the number of security-related design flaws", "B. To reduce the number of security-related coding flaws", "C. To reduce the severity of non-security-related flaws", "D. To reduce the number of threat vectors"] },
-    { id: 10, text: "In the diagram shown here, which is an example of a method? (Image: class diagram with Account, owner, addFunds, balance)", options: ["A. Account", "B. Owner", "C. AddFunds", "D. Balance"] },
+    { id: 10, text: "In the diagram shown here, which is an example of a method? (Image: class diagram)", options: ["A. Account", "B. Owner", "C. AddFunds", "D. Balance"] },
     { id: 11, text: "Wanda is reviewing the application development documentation used by her organization and finds the life-cycle illustration shown here. What application development method is her organization using? (Image: RAD lifecycle)", options: ["A. Waterfall", "B. Spiral", "C. Agile", "D. RAD"] },
     { id: 12, text: "Which one of the following testing methodologies typically works without access to source code?", options: ["A. Dynamic testing", "B. Static testing", "C. White-box testing", "D. Code review"] },
     { id: 13, text: "Lucca is analyzing a web application that his organization acquired from a third-party vendor. Lucca determined that the application contains a flaw that causes users who are logged in to be able to take actions they should not be able to in their role. What type of security vulnerability should this be classified as?", options: ["A. Data validation", "B. Session management", "C. Authorization", "D. Error handling"] },
@@ -335,7 +335,7 @@ const questionsData = [
     { id: 70, text: "David is working on developing a project schedule for a software development effort, and he comes across the chart shown here. What type of chart is this? (Image: Gantt chart)", options: ["A. Work breakdown structure", "B. Functional requirements", "C. PERT chart", "D. Gantt chart"] },
     { id: 71, text: "Barry is a software tester who is working with a new gaming application developed by his company. He is playing the game on a smartphone to conduct his testing in an environment that best simulates a normal end user, but he is referencing the source code as he conducts his test. What type of test is Barry conducting?", options: ["A. White box", "B. Black box", "C. Blue box", "D. Gray box"] },
     { id: 72, text: "Miguel recently completed a penetration test of the applications that his organization uses to handle sensitive information. During his testing, he discovered a condition where an attacker can exploit a timing condition to manipulate software into allowing him to perform an unauthorized action. Which one of the following attack types fits this scenario?", options: ["A. SQL injection", "B. Cross-site scripting", "C. Pass the hash", "D. TOC/TOU"] },
-    { id: 73, text: "What part of the security review process are the input parameters shown in the diagram used for? (Image: input parameters for attack surface identification)", options: ["A. SQL injection review", "B. Sprint review", "C. Fagan inspection", "D. Attack surface identification"] },
+    { id: 73, text: "What part of the security review process are the input parameters shown in the diagram used for? (Image: attack surface identification)", options: ["A. SQL injection review", "B. Sprint review", "C. Fagan inspection", "D. Attack surface identification"] },
     { id: 74, text: "What application security process can be described in these three major steps? 1. Decomposing the application, 2. Determining and ranking threats, 3. Determining countermeasures and mitigation.", options: ["A. Fagan inspection", "B. Threat modeling", "C. Penetration testing", "D. Code review"] },
     { id: 75, text: "Which one of the following approaches to failure management is the most conservative from a security perspective?", options: ["A. Fail open", "B. Fail mitigation", "C. Fail clear", "D. Fail closed"] },
     { id: 76, text: "What software development model is shown here? (Image: Spiral model diagram)", options: ["A. Waterfall", "B. Agile", "C. Lean", "D. Spiral"] },
@@ -356,7 +356,7 @@ const questionsData = [
     { id: 91, text: "Renee is a software developer who writes code in Node.js for her organization. The company is considering moving from a self-hosted Node.js environment to one where Renee will run her code on application servers managed by a cloud vendor. What type of cloud solution is Renee's company considering?", options: ["A. IaaS", "B. CaaS", "C. PaaS", "D. SaaS"] },
     { id: 92, text: "Tom is writing a software program that calculates the sales tax for online orders placed from various jurisdictions. The application includes a user-defined field that allows the entry of the total sale amount. Tom would like to ensure that the data entered in this field is a properly formatted dollar amount. What technique should he use?", options: ["A. Limit check", "B. Fail open", "C. Fail secure", "D. Input validation"] },
     { id: 93, text: "Brian is helping implement a new software testing methodology for his organization and would like to review the completeness of his toolkit. Which of the following would be considered dynamic application security testing (DAST) tools? (Select all that apply.)", options: ["A. Code review", "B. Fuzzing", "C. Static analysis", "D. Web application vulnerability scanning"] },
-    { id: 94, text: "What approach to technology management integrates the three components of technology management shown in this illustration? (Image: DevOps diagram – Software Development, Operations, Quality Assurance)", options: ["A. Agile", "B. Lean", "C. DevOps", "D. ITIL"] },
+    { id: 94, text: "What approach to technology management integrates the three components of technology management shown in this illustration? (Image: DevOps diagram)", options: ["A. Agile", "B. Lean", "C. DevOps", "D. ITIL"] },
     { id: 95, text: "Olivia is conducting a risk analysis of a web application that her organization obtained from a third party and is concerned that it might contain vulnerabilities. Which one of the following activities might she take to best mitigate the risk?", options: ["A. Deploy a WAF.", "B. Implement strong encryption.", "C. Purchase an insurance policy.", "D. Discontinue use of the software."] },
     { id: 96, text: "Which one of the following database concurrency issues occurs when one transaction reads information that was written to a database by a second transaction that never committed?", options: ["A. Lost update", "B. SQL injection", "C. Incorrect summary", "D. Dirty read"] },
     { id: 97, text: "What software development concept was pioneered by the Defense Department in the 1990s as an effort to bring together diverse product development teams?", options: ["A. Integrated product team", "B. Agile methodology", "C. Scrum approach", "D. User stories"] },
@@ -365,28 +365,131 @@ const questionsData = [
     { id: 100, text: "Match the following numbered terms to their lettered definitions: 1. Session hijacking, 2. Cross-site scripting, 3. Cross-site request forgery, 4. SQL injection. Definitions: A. An attack that injects a malicious script into otherwise trusted websites, B. An attack that is designed to execute commands against a database via an insecure web application, C. An exploitation method that often involves cookies or keys to gain unauthorized access to a computer or service, D. An attack that forces a user to execute unwanted actions in a website or application they are currently logged into.", options: [] }
 ];
 
-// ANSWERS (single/multi-choice and mapping)
+// =============================================================
+// ANSWERS AND EXPLANATIONS (from the official answer key)
+// =============================================================
 const answersMap = {
-    1: "A", 2: "A, B, C", 3: "C", 4: "A", 5: "C", 6: "B", 7: "C", 8: "B", 9: "A, B, D", 10: "C",
+    1: "A", 2: "A,B,C", 3: "C", 4: "A", 5: "C", 6: "B", 7: "A", 8: "D", 9: "A,B,C", 10: "C",
     11: "D", 12: "A", 13: "C", 14: "C", 15: "B", 16: "C", 17: "C", 18: "B", 19: "A", 20: "D",
     21: "C", 22: "A", 23: "C", 24: "C", 25: "C", 26: "C", 27: "D", 28: "C", 29: "D", 30: "B",
-    31: "A", 32: "C", 33: "A", 34: "C", 35: "D", 36: "B", 37: "A", 38: "A", 39: "B", 40: "C",
-    41: "B", 42: "A", 43: "C", 44: "C", 45: "D", 46: "C", 47: "B", 48: "D", 49: "B", 50: "C",
+    31: "A", 32: "B", 33: "A", 34: "C", 35: "D", 36: "B", 37: "A", 38: "A", 39: "B", 40: "C",
+    41: "B", 42: "D", 43: "C", 44: "C", 45: "D", 46: "C", 47: "B", 48: "D", 49: "B", 50: "C",
     51: "A", 52: "C", 53: "B", 54: "C", 55: "B", 56: "B", 57: "D", 58: "B", 59: "A", 60: "C",
     61: "D", 62: "A", 63: "C", 64: "C", 65: "B", 66: "D", 67: "C", 68: "B", 69: "B", 70: "D",
     71: "D", 72: "D", 73: "D", 74: "B", 75: "D", 76: "D", 77: "D", 78: "A", 79: "C", 80: "C",
-    81: "B", 82: "D", 83: "D", 84: "D", 85: "B", 86: "C", 87: "A", 88: "C", 89: "D", 90: "B",
-    91: "C", 92: "D", 93: "B, D", 94: "C", 95: "A", 96: "D", 97: "A", 98: "B",
-    // Mapping Q99: 1->C, 2->D, 3->B, 4->A
-    // Mapping Q100: 1->C, 2->A, 3->D, 4->B
+    81: "C", 82: "D", 83: "D", 84: "D", 85: "B", 86: "C", 87: "A", 88: "C", 89: "D", 90: "B",
+    91: "C", 92: "D", 93: "B,D", 94: "C", 95: "A", 96: "D", 97: "A", 98: "B"
 };
 
+const explanations = {
+    1: "Limiting request rates can prevent abuse of APIs like this one. The other suggestions are all poor recommendations. In general, requests should require HTTPS, tokens are used for security using tools like JSON web tokens (JWT), and HTTP methods may be restricted, but GET, POST, and PUT are some of the most common methods used for API access and are far more typically whitelisted.",
+    2: "Botnets are used for a wide variety of malicious purposes, including scanning the network for vulnerable systems, conducting brute-force attacks against other systems, mining cryptocurrency, and sending out spam messages. They are not commonly used to conduct man-in-the-middle attacks, which are normally waged through DNS poisoning or similar mechanisms.",
+    3: "Code review takes place after code has been developed, which occurs after the design phase of the system's development life cycle (SDLC). Code review may use a combination of manual and automated techniques or rely solely on one or the other. It should be a peer-driven process that includes developers who did not write the code. Developers should expect to complete the review of around 300 lines per hour, on average.",
+    4: "This code is an example of parameterization, which can help avoid SQL injection. Note that each parameter has a placeholder, which is then passed to the query.",
+    5: "One of the responsibilities of the release control process is ensuring that acceptance testing is performed, to ensure that any alterations to end-user tasks are understood and functional prior to code release. The request control, change control, and configuration control processes do not include acceptance testing.",
+    6: "Cross-site request forgery (XSRF or CSRF) attacks exploit the trust that sites have in a user's browser by attempting to force the submission of authenticated requests to third-party sites. Session hijacking attacks attempt to steal previously authenticated sessions but do not force the browser to submit requests. A SQL injection directly attacks a database through a web application. Cross-site scripting uses reflected input to trick a user's browser into executing untrusted code from a trusted site.",
+    7: "The OpenSSL package is a widely used implementation of TLS encryption that is available as an open-source package. It is not commercial off-the-shelf software (COTS). While it might be developed by third parties, it is more accurate to describe it as open source. The library is available as code for free use, but not as a managed service.",
+    8: "The error message shown in the figure is the infamous “Blue Screen of Death” that occurs when a Windows system experiences a dangerous failure and enters a fail secure state. If the system had “failed open,” it would have continued operation. The error described is a memory fault that is likely recoverable by rebooting the system. There is no indication that the system has run out of usable memory.",
+    9: "Software threat modeling is designed to reduce the number of security-related design and coding flaws as well as the severity of other flaws. The developer or evaluator of software has no control over the threat environment, because it is external to the organization.",
+    10: "In the diagram, Account is the name of the class. Owner and Balance are attributes of that class. AddFunds and RemoveFunds are methods of the class.",
+    11: "Rapid Application Development, or RAD, focuses on fast development and the ability to quickly adjust to changing requirements. RAD uses four phases: requirements planning, user design, construction, and cutover.",
+    12: "Dynamic testing of software typically occurs in a black-box environment where the tester does not have access to the source code. Static testing, white-box testing, and code review approaches all require access to the source code of the application.",
+    13: "Given the list of options here, the root cause is most likely an issue with an authorization check that does not properly limit users to the authorization that they should have. Data validation issues are more likely to allow injection attacks or to allow bad data to be input, while session management issues would allow session hijacking or might actually cause them to be logged in as another user. Finally, error handling would show up as a problem when errors occurred, which this problem does not indicate.",
+    14: "Aggregate functions summarize large amounts of data and provide only summary information as a result. When carefully crafted, aggregate functions may unintentionally reveal sensitive information.",
+    15: "The best protection against buffer overflow attacks is server-side input validation. This technique limits user input to approved ranges of values that fit within allocated buffers. While firewalls and intrusion prevention systems may contain controls that limit buffer overflows, it would be more effective to perform filtering on the application server. Encryption cannot protect against buffer overflow attacks.",
+    16: "Each of these problems is caused by improper or missing input validation and can be resolved by handling inputs properly. In many cases, this can be done using libraries or methods already built into the language or framework that the developer is using.",
+    17: "Acme Widgets is clearly in the initial stage of the SW-CMM. This stage is characterized by the absence of formal process. The company may still produce working code, but it does so in a disorganized fashion.",
+    18: "The Repeatable stage is the second stage in the SW-CMM, following the Initial stage. It should be the next milestone goal for Acme Widgets. The Repeatable stage is characterized by basic life cycle management processes.",
+    19: "The Defined stage of the SW-CMM is marked by the presence of basic life cycle management processes and reuse of code. It includes the use of requirements management, software project planning, quality assurance, and configuration management practices.",
+    20: "The Managed stage is the fourth stage in the SW-CMM, following the Defined stage. It should be the next milestone goal for Beta Particles. The Managed stage is characterized by the use of quantitative software development measures.",
+    21: "Referential integrity ensures that records exist in a secondary table when they are referenced with a foreign key from another table. Foreign keys are the mechanism used to enforce referential integrity.",
+    22: "Macro viruses are most commonly found in office productivity documents, such as Microsoft Word documents that end in the .doc or .docx extension. They are not commonly found in executable files with the .com or .exe extension.",
+    23: "The degree of a database table is the number of attributes in the table. Victor's table has six attributes: the employee's user ID, home telephone, office telephone, mobile telephone, office location, and job title.",
+    24: "The string shown in the logs is characteristic of a directory traversal attack where the attacker attempts to force the web application to navigate up the file hierarchy and retrieve a file that should not normally be provided to a web user, such as the password file. The series of “double dots” is indicative of a directory traversal attack because it is the character string used to reference the directory one level up in a hierarchy.",
+    25: "Design reviews should take place after the development of functional and control specifications but before the creation of code. The code review, unit testing, and functional testing all take place after the creation of code and, therefore, after the design review.",
+    26: "Regression testing is software testing that runs a set of known inputs against an application and then compares the results to those produced by an earlier version of the software. It is designed to capture unanticipated consequences of deploying new code versions prior to introducing them into a production environment.",
+    27: "Assurance, when it comes to software, is the level of confidence that software is free from vulnerabilities, either intentionally designed into the software or accidentally inserted at any time during its life cycle, and that the software functions in the intended manner. It is a term typically used in military and defense environments.",
+    28: "The change control process is responsible for providing an organized framework within which multiple developers can create and test a solution prior to rolling it out in a production environment. Request control provides a framework for user requests. Release control manages the deployment of code into production. Configuration control ensures that changes to software versions are made in accordance with the change and configuration management policies.",
+    29: "Aggregation is a security issue that arises when a collection of facts has a higher classification than the classification of any of those facts standing alone. An inference problem occurs when an attacker can pull together pieces of less sensitive information and use them to derive information of greater sensitivity. SQL injection is a web application exploit. Multilevel security is a system control that allows the simultaneous processing of information at different classification levels.",
+    30: "Code libraries are packages of reusable functions that may be incorporated into individual development projects. Ron could use libraries to easily share code among his team. Code repositories may be used to manage the distribution and updating of these libraries, but that is a second-order use case, making code libraries the best answer. Integrated development environments (IDEs) are tools used by developers to create software, while dynamic application security testing (DAST) is used to verify the correct implementation of code.",
+    31: "Black-box testing begins with no prior knowledge of the system implementation, simulating a user's perspective. White-box and gray-box testing provide full and partial knowledge of the system, respectively, in advance of the test. Blue boxes are a phone hacking tool and are not used in software testing.",
+    32: "In this example, the two SQL commands are indeed bundled in a transaction, but it is not an error to issue an update command that does not match any rows. Therefore, the first command would “succeed” in updating zero rows and not generate an error or cause the transaction to roll back. The second command would then execute, reducing the balance of the second account by $250.",
+    33: "Software development kits (SDKs) are code libraries and other tools made available to assist developers in creating code. An integrated development environment (IDE) may be a component of an SDK, but it is not necessarily part of every SDK. An application programming interface (API) is a set of functions made available to external developers, but the code does not execute on the users' machine, as would a code library or other SDK tools. Data loss prevention (DLP) capabilities are not a component of software development toolsets.",
+    34: "A fail open configuration may be appropriate in this case. In this configuration, the firewall would continue to pass traffic without inspection while it is restarting. This would minimize downtime, and the traffic would still be protected by the other security controls described in the scenario. Failover devices and high availability clusters would indeed increase availability, but at potentially significant expense. Redundant disks would not help in this scenario because no disk failure is described.",
+    35: "An inference problem occurs when an attacker can pull together pieces of less sensitive information and use them to derive information of greater sensitivity. SQL injection is a web application exploit. Multilevel security is a system control that allows the simultaneous processing of information at different classification levels. Parameterization is a security control used to reduce the likelihood of attacks that rely upon improper user input.",
+    36: "Polymorphic viruses mutate each time they infect a system by making adjustments to their code that assists them in evading signature detection mechanisms. Encrypted viruses also mutate from infection to infection but do so by encrypting themselves with different keys on each device.",
+    37: "The message forum is clearly susceptible to a cross-site scripting (XSS) attack. The code that Linda discovered in the message is a definitive example of an attempt to conduct cross-site scripting, and the alert box that she received demonstrates that the vulnerability exists. The website may also be vulnerable to cross-site request forgery, SQL injection, improper authentication, and other attacks, but there is no evidence of this provided in the scenario.",
+    38: "The script that Linda discovered merely pops up a message on a user's screen and does not perform any more malicious action. This type of script, using an alert() call, is commonly used to probe websites for cross-site scripting vulnerabilities.",
+    39: "Web application firewalls (WAFs) sit in front of web applications and watch for potentially malicious web attacks, including cross-site scripting. They then block that traffic from reaching the web application. An intrusion detection system (IDS) may detect the attack but is unable to take action to prevent it. DLP and VPN solutions are unable to detect web application attacks.",
+    40: "Input validation verifies that user-supplied input does not violate security conditions and is the most effective defense against cross-site scripting attacks. Bounds checking is a form of input validation, but it is typically used to ensure that numeric input falls within an acceptable range and is not applicable against cross-site scripting attacks. Peer review and OS patching are both good security practices but are unlikely to be effective against a cross-site scripting attack.",
+    41: "RStudio is a tool used to assist in the creation of code, otherwise known as an integrated development environment (IDE). Software development kits (SDKs) are code libraries and other tools made available to assist developers in creating code. An application programming interface (API) is a set of functions made available to external developers, but the code does not execute on the users' machine, as would a code library or other SDK tools. Data loss prevention (DLP) capabilities are not a component of software development toolsets.",
+    42: "Full SAFe is designed to support enterprises in building and maintaining large integrated solutions with the collaboration of hundreds of practitioners. It provides the most extensive level of guidance, with roles, responsibilities, and activities needed to sustainably deliver complex solutions. Essential SAFe focuses on the basic elements of the framework needed to be agile, Large Solution SAFe is for developing large and complex solutions that do not require the constructs of the portfolio level, and Portfolio SAFe is for aligning enterprise strategy with execution but does not address the complexity of building large solutions that Full SAFe is designed for.",
+    43: "The JVM is the runtime virtual machine that allows the execution of Java code on a device. The JVM implements the Java sandbox, but that is only one of its many functions. The JVM itself is not a change manager or code repository.",
+    44: "User acceptance testing (UAT) is typically the last phase of the testing process. It verifies that the solution developed meets user requirements and validates it against use cases. Unit testing, integration testing, and system testing are all conducted earlier in the process leading up to UAT.",
+    45: "When organizations adopt a continuous integration/continuous delivery (CI/CD) approach to software development, they may deploy code extremely rapidly. In fact, some organizations deploy new code to production hundreds or even thousands of times per day using this approach.",
+    46: "The Open Worldwide Application Security Project (OWASP) is widely considered as the most authoritative source on web application security issues. They publish the OWASP Top Ten list that publicizes the most critical web application security issues.",
+    47: "Chris is in an Agile sprint phase and is likely developing code based on user stories. Planning includes stakeholder stories, as well as design and test case preparation. Testing involves ensuring that the code works properly and meets requirements. Deployment includes the actual deployment of the application, as well as additional verification and testing.",
+    48: "Security information and event management (SIEM) systems do correlate information from multiple sources and perform analysis, but they stop short of providing automated playbook responses. That is the realm of security orchestration, automation, and response (SOAR) platforms. Intrusion prevention platforms have a more limited scope, allowing the blocking of traffic based upon analysis performed by the IPS itself. Log repositories simply collect log information and do not perform analysis.",
+    49: "This is an example of a specific type of buffer overflow known as an off-by-one error. The first line of the code defines an array of 10 elements, which would be numbered 0 through 9. The second line of code tries to place a value in the 11th element of the array (remember, array counting begins at 0!), which would cause an overflow.",
+    50: "Lost updates occur when one transaction writes a value to the database that overwrites a value needed by transactions that have earlier precedence, causing those transactions to read an incorrect value. Dirty reads occur when one transaction reads a value from a database that was written by another transaction that did not commit. Incorrect summaries occur when one transaction is using an aggregate function to summarize data stored in a database while a second transaction is making modifications to the database, causing the summary to include incorrect information. SQL injection is a web application security flaw, not a database concurrency problem.",
+    51: "Transport Layer Security (TLS) provides the most effective defense against session hijacking because it encrypts all traffic between the client and server, preventing the attacker from stealing session credentials. Secure Sockets Layer (SSL) also encrypts traffic, but it is vulnerable to attacks against its encryption technology. Complex and expiring cookies are a good idea, but they are not sufficient protection against session hijacking.",
+    52: "The purpose of the change advisory board (CAB) is to review and then approve or reject proposed code changes. The CAB is not normally involved in the approval of developer credentials, the conduct of lessons learned sessions, or the prioritization of software development efforts.",
+    53: "git is a version management tool that is very commonly used by developers to interact with code repositories, such as those hosted by GitHub. grep is a command-line tool used to search files for specific content. lsof is a command used to list the open files on a system. gcc is a C language compiler used to transform source code into executable code.",
+    54: "The single quotation mark in the input field is a telltale sign that this is a SQL injection attack. The single quotation mark is used to escape outside the SQL code's input field, and the text following it is used to directly manipulate the SQL command sent from the web application to the database.",
+    55: "Client-side input validation is not an effective control against any type of attack because the attacker can easily bypass the validation by altering the code on the client. Escaping restricted characters prevents them from being passed to the database, as does parameterization. Limiting database permissions prevents dangerous code from executing.",
+    56: "PERT charts use nodes to represent milestones or deliverables and then show the estimated time to move between milestones. Gantt charts use a different format with a row for each task and lines showing the expected duration of the task. Work breakdown structures are an earlier deliverable that divides project work into achievable tasks. Wireframe diagrams are used in application UI design.",
+    57: "Regression testing is performed after developers make changes to an application. It reruns a number of test cases and compares the results to baseline results. Orthogonal array testing is a method for generating test cases based on statistical analysis. Pattern testing uses records of past software bugs to inform the analysis. Matrix testing develops a matrix of all possible inputs and outputs to inform the test plan.",
+    58: "Cross-site scripting (XSS) attacks may take advantage of the use of reflected input in a web application where input provided by one user is displayed to another user. Input validation is a control used to prevent XSS attacks. XSS does not require an unpatched server or any firewall rules beyond those permitting access to the web application.",
+    59: "In a white-box test, the tester has access to full implementation details of the system, including source code, prior to beginning the test. In gray-box testing, the tester has partial knowledge. In black-box testing, the tester has no knowledge of the system and tests it from a user perspective. Blue boxes are a phone hacking tool and are not used in software testing.",
+    60: "Heuristic-based antimalware software has a higher likelihood of detecting a zero-day exploit than signature-based methods. Heuristic-based software does not require frequent signature updates because it does not rely upon monitoring systems for the presence of known malware. The trade-off with this approach is that it has a higher false positive rate than signature detection methods.",
+    61: "One possibility for the clean scan results is that the virus is using stealth techniques, such as intercepting read requests from the antivirus software and returning a correct-looking version of the infected file. The system may also be the victim of a zero-day attack, using a virus that is not yet included in the signature definition files provided by the antivirus vendor.",
+    62: "In URL encoding, the . character is replaced by %252E, and the / character is replaced by %252F. You can see this in the log entry, where the expected pattern of ../../ is replaced by %252E%252E%252F%252E%252E%252F.",
+    63: "Attacks where the malicious user tricks the victim's web browser into executing a script through the use of a third-party site are known as cross-site scripting (XSS) attacks. This particular attack is a persistent XSS attack because it remains on the discussion forum until an administrator discovers and deletes it, giving it the ability to affect many users.",
+    64: "The Agile Manifesto includes 12 principles for software development. Three of those are listed as answer choices: maximizing the amount of work not done is essential, build projects around motivated individuals, and welcome changing requirements throughout the development process. Agile does not, however, consider clear documentation the primary measure of progress. Instead, working software is the primary measure of progress.",
+    65: "Each change should be the result of a reviewed and approved request for change (RFC). These RFCs may be approved by the change advisory board (CAB). The security information and event management (SIEM) and security orchestration, automation, and response (SOAR) platforms used by the organization would not normally contain information about the change management process.",
+    66: "A key-value store is an example of a NoSQL database that does not follow a relational or hierarchical model like traditional databases. A graph database is another example of a NoSQL database, but it uses nodes and edges to store data rather than keys and values.",
+    67: "A database failure in the middle of a transaction causes the rollback of the entire transaction. In this scenario, the database would not execute either command because doing so would violate the atomicity property of the transaction.",
+    68: "When using commercial off-the-shelf (COTS) software, customers do not generally have access to the source code and must depend upon the vendor to release security patches that correct vulnerabilities. Other controls, such as intrusion prevention systems and firewalls, may be able to help mitigate the issue, depending upon the nature of the flaw, but they will not correct it.",
+    69: "Static testing performs code analysis in an offline fashion, without actually executing the code. Dynamic testing evaluates code in a runtime environment. Both static and dynamic testing may use automated tools, and both are important security testing techniques.",
+    70: "The chart shown in the figure is a Gantt chart, showing the proposed start and end dates for different activities. It is developed based on the work breakdown structure (WBS), which is developed based on functional requirements. Program Evaluation Review Technique (PERT) charts show the project schedule as a series of numbered nodes.",
+    71: "In a gray-box test, the tester evaluates the software from a user perspective but has access to the source code as the test is conducted. White-box tests also have access to the source code but perform testing from a developer's perspective. Black-box tests work from a user's perspective but do not have access to source code. Blue boxes are a telephone hacking tool and not a software testing technique.",
+    72: "The Time of Check to Time of Use (TOC/TOU) attack exploits timing differences between when a system verifies authorization and software uses that authorization to perform an action. It is an example of a race condition attack. The other three attacks mentioned do not depend on precise timing.",
+    73: "Each of these input parameters makes up part of the attack surface of the application. Attackers may opt to target any of them to attack the code or its supporting infrastructure.",
+    74: "Threat modeling commonly involves decomposing the application to understand it and how it interacts with other components or users. Next, identifying and ranking threats allows you to focus on the threats that should be prioritized. Finally, identifying how to mitigate those threats finishes the process. Once complete, an organization can take action to handle the threats that were identified with appropriate controls.",
+    75: "The fail closed approach prevents any activity from taking place during a system security failure and is the most conservative approach to failure management. Fail open takes the opposite philosophy, allowing all activity in the event of a security control failure. Fail clear and fail mitigation are not failure management approaches.",
+    76: "The illustration shows the spiral model of software development. In this approach, developers use multiple iterations of a waterfall-style software development process. This becomes a “loop” of iterations through similar processes. The original waterfall approach does not iterate through the entire process repeatedly. Some variants do allow iteration, but only by allowing movement backward and forward one stage. The Agile approach to software development focuses on iterative improvement and does not follow a rigorous SDLC model. Lean is a process improvement methodology and not a software development model.",
+    77: "In a software-as-a-service solution, the vendor manages both the physical infrastructure and the complete application stack, providing the customer with access to a fully managed application.",
+    78: "The request process begins with a user-initiated request for a feature. Change and release control are initiated by developers seeking to implement changes. Design review is a phase of the change approval process initiated by developers when they have a completed design.",
+    79: "Polyinstantiation allows the storage of multiple different pieces of information in a database at different classification levels to prevent attackers from inferring anything about the absence of information. Input validation, server-side validation, and parameterization are all techniques used to prevent web application attacks and are not effective against inference attacks.",
+    80: "While Ursula may certainly use an object model, data dictionary, and primary key in her development effort, external developers cannot directly use them to access her code. An application programming interface (API) allows other developers to call Ursula's code from within their own without knowing the details of Ursula's implementation.",
+    81: "This is an example of software-defined security (SDS), where security infrastructure may be easily manipulated by code. Answering this question is tricky because several of the other terms are closely related. Software-defined security is an example of infrastructure as code (IaC), but SDS is a more descriptive, and therefore better, answer. SDS is commonly used within an Agile development framework. The DevOps approach links together development and operations but is generally called DevSecOps when it also includes SDS.",
+    82: "Messages similar to the one shown here are indicative of a ransomware attack. The attacker encrypts files on a user's hard drive and then demands a ransom, normally paid in Bitcoin, for the decryption key required to restore access to the original content. Encrypted viruses, on the other hand, use encryption to hide themselves from antivirus mechanisms and do not alter other contents on the system.",
+    83: "Despite many organizations moving to Agile, DevOps, or other more responsive development methodologies, waterfall remains a strong contender when clear objectives and stable requirements are combined with a need to prevent flaws and to have a high level of control over the development process and output.",
+    84: "Neural networks attempt to use complex computational techniques to model the behavior of the human mind. Knowledge banks are a component of expert systems, which are designed to capture and reapply human knowledge. Decision support systems are designed to provide advice to those carrying out standard procedures and are often driven by expert systems.",
+    85: "In level 2, the Repeatable level of the SW-CMM, an organization introduces basic life cycle management processes. Reuse of code in an organized fashion begins, and repeatable results are expected from similar projects. The key process areas for this level include Requirements Management, Software Project Planning, Software Project Tracking and Oversight, Software Subcontract Management, Software Quality Assurance, and Software Configuration Management.",
+    86: "The critical fact in this question is that Lucas suspects the tampering took place before the employee departed. This is the signature of a logic bomb: malicious code that lies dormant until certain conditions are met. The other attack types listed here—privilege escalation, SQL injection, and remote code execution—would more likely take place in real time.",
+    87: "The Agile approach to software development embraces four principles. It values individuals and interactions over processes and tools, working software over comprehensive documentation, customer collaboration over contract negotiation, and responding to change over following a plan.",
+    88: "API developers commonly use API keys to limit access to authorized users and applications. Encryption provides for confidentiality of information exchanged using an API but does not provide authentication. Input validation is an application security technique used to protect against malicious input. IP filters may be used to limit access to an API, but they are not commonly used because it is difficult to deploy an API with IP filters since the filters require constant modification and maintenance as endpoints change.",
+    89: "An audit kickoff meeting should clearly describe the scope and purpose of the audit as well as the expected time frame. Auditors should never approach an audit with any expectations about what they will discover because the findings should be developed based only upon the results of audit examinations.",
+    90: "In the waterfall model, the software development process follows five sequential steps that are, in order, Requirements, Design, Coding, Testing, and Maintenance. Note that these phases may be further subdivided. The Requirements phase often begins with System Requirements and then moves on to Software Requirements. The Design phase often begins with Preliminary Design and then moves on to Detailed Design.",
+    91: "In a platform-as-a-service solution, the customer supplies application code that the vendor then executes on its own infrastructure.",
+    92: "Input validation ensures that the data provided to a program as input matches the expected parameters. Limit checks are a special form of input validation that ensure that the value remains within an expected range, but there was no range specified in this scenario. Fail open and fail secure are options when planning for possible system failures.",
+    93: "Dynamic application security tools conduct their testing by actually executing the code. This is the case for both fuzzing and web application vulnerability scanning. Code reviews and static analysis packages analyze the code itself but do not execute it, making them static application security testing (SAST) tools.",
+    94: "The DevOps approach to technology management seeks to integrate software development, operations, and quality assurance in a seamless approach that builds collaboration between the three disciplines.",
+    95: "Deploying a web application firewall (WAF) may reduce the likelihood or impact of a web application vulnerability and is, therefore, a good example of risk mitigation. Encryption is also a risk mitigation control, but it is less likely be effective against a web application security flaw. Purchasing an insurance policy is an example of risk transference, not risk mitigation. Discontinuing use of the software is an example of risk avoidance, not risk mitigation.",
+    96: "Dirty reads occur when one transaction reads a value from a database that was written by another transaction that did not commit. Lost updates occur when one transaction writes a value to the database that overwrites a value needed by transactions that have earlier precedence, causing those transactions to read an incorrect value. Incorrect summaries occur when one transaction is using an aggregate function to summarize data stored in a database, while a second transaction is making modifications to the database, causing the summary to include incorrect information. SQL injection is a web application security flaw, not a database concurrency problem.",
+    97: "The integrated product team (IPT) approach brought together cross-functional teams and was designed by the U.S. Department of Defense in 1995. It was a predecessor to the Agile methodology, which uses tools like the scrum approach and user stories to conduct software development work.",
+    98: "Storage is an infrastructure component and, therefore, a block storage service is an example of an infrastructure-as-a-service (IaaS) cloud service. Software-as-a-service (SaaS) models provide full applications managed by the provider. Platform-as-a-service (PaaS) and function-as-a-service (FaaS) approaches allow developers to run their own code on an infrastructure platform managed by the provider."
+};
+
+// Mapping for Q99 and Q100
 const mappingQ99 = [
     { item: "Regression testing", correct: "C" },
     { item: "Integration testing", correct: "D" },
     { item: "Unit testing", correct: "B" },
     { item: "System testing", correct: "A" }
 ];
+
 const mappingQ100 = [
     { item: "Session hijacking", correct: "C" },
     { item: "Cross-site scripting", correct: "A" },
@@ -394,7 +497,7 @@ const mappingQ100 = [
     { item: "SQL injection", correct: "B" }
 ];
 
-// Render all questions
+// Render questions
 const container = document.getElementById('questionsContainer');
 questionsData.forEach(q => {
     const card = document.createElement('div');
@@ -406,13 +509,31 @@ questionsData.forEach(q => {
     if (isMapping && q.id === 99) {
         optionsHtml = `<table class="mapping-table"><thead><tr><th>Code Testing Method</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
         mappingQ99.forEach((item, idx) => {
-            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-99" data-index="${idx}"><option value="">-- select --</option><option value="A">A. Testing on a complete integrated product</option><option value="B">B. A testing method that focuses on modules or smaller sections of code for testing</option><option value="C">C. A testing method that is used to verify that previously tested software performs the same way after changes are made</option><option value="D">D. A testing method used to validate how software modules work together</option></select></td></tr>`;
+            optionsHtml += `<tr>
+                <td><strong>${item.item}</strong></td>
+                <td><select class="map-select-99" data-index="${idx}">
+                    <option value="">-- select --</option>
+                    <option value="A">A. Testing on a complete integrated product</option>
+                    <option value="B">B. A testing method that focuses on modules or smaller sections of code for testing</option>
+                    <option value="C">C. A testing method that is used to verify that previously tested software performs the same way after changes are made</option>
+                    <option value="D">D. A testing method used to validate how software modules work together</option>
+                </select></td>
+            </td>`;
         });
         optionsHtml += `</tbody></table>`;
     } else if (isMapping && q.id === 100) {
         optionsHtml = `<table class="mapping-table"><thead><tr><th>Attack Type</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
         mappingQ100.forEach((item, idx) => {
-            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-100" data-index="${idx}"><option value="">-- select --</option><option value="A">A. An attack that injects a malicious script into otherwise trusted websites</option><option value="B">B. An attack that is designed to execute commands against a database via an insecure web application</option><option value="C">C. An exploitation method that often involves cookies or keys to gain unauthorized access to a computer or service</option><option value="D">D. An attack that forces a user to execute unwanted actions in a website or application they are currently logged into</option></select></td></tr>`;
+            optionsHtml += `<tr>
+                <td><strong>${item.item}</strong></td>
+                <td><select class="map-select-100" data-index="${idx}">
+                    <option value="">-- select --</option>
+                    <option value="A">A. An attack that injects a malicious script into otherwise trusted websites</option>
+                    <option value="B">B. An attack that is designed to execute commands against a database via an insecure web application</option>
+                    <option value="C">C. An exploitation method that often involves cookies or keys to gain unauthorized access to a computer or service</option>
+                    <option value="D">D. An attack that forces a user to execute unwanted actions in a website or application they are currently logged into</option>
+                </select></select></td>
+            </tr>`;
         });
         optionsHtml += `</tbody></table>`;
     } else {
@@ -443,6 +564,7 @@ function getUserAnswers() {
         let userAnswer = "";
         let isCorrect = false;
         let correctAnswerStr = "";
+        let explanation = explanations[qid] || "No explanation available.";
         if (qid === 99) {
             const selects = document.querySelectorAll('.map-select-99');
             let answers = [];
@@ -458,7 +580,7 @@ function getUserAnswers() {
             userAnswer = answers.join(', ') || "(no selection)";
             const correct = mappingQ100.map(m => m.correct);
             isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
-            correctAnswerStr = "Session hijacking→C, Cross-site scripting→A, Cross-site request forgery→D, SQL injection→B";
+            correctAnswerStr = "Session hijacking→C, XSS→A, CSRF→D, SQL injection→B";
         } else {
             const qData = questionsData.find(q => q.id === qid);
             const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 2 || qid === 9 || qid === 93);
@@ -468,7 +590,7 @@ function getUserAnswers() {
                 userAnswer = selected.join(', ') || "(none)";
                 const correctRaw = answersMap[qid];
                 const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
-                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
                 correctAnswerStr = correctRaw;
             } else {
                 const radio = document.querySelector(`input[name="q${qid}"]:checked`);
@@ -479,7 +601,7 @@ function getUserAnswers() {
             }
         }
         const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
-        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr || answersMap[qid] || "Mapping", isCorrect, status });
+        results.push({ qid, userAnswer, correctAnswer: (qid === 99 || qid === 100) ? correctAnswerStr : (answersMap[qid] || "Mapping"), isCorrect, status, explanation });
         const hashtagSpan = document.getElementById(`hashtag-${qid}`);
         if (hashtagSpan) {
             if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
@@ -504,29 +626,30 @@ function escapeHtml(str) {
 function showModal(results) {
     const total = results.length;
     const correctCount = results.filter(r => r.isCorrect).length;
-    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
-    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
+    html += `<div style="overflow-x: auto;"><table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th><th>Explanation</th></tr></thead><tbody>`;
     results.forEach(r => {
         const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
         html += `<tr>
-            <td>${r.qid}</td>
-            <td>${escapeHtml(String(r.userAnswer))}</td>
-            <td>${escapeHtml(String(r.correctAnswer))}</td>
+            <td style="white-space: nowrap;">${r.qid}</td>
+            <td>${escapeHtml(r.userAnswer)}</td>
+            <td>${escapeHtml(r.correctAnswer)}</td>
             <td>${statusText}</td>
+            <td>${escapeHtml(r.explanation)}</td>
         </tr>`;
     });
-    html += `</tbody></table>`;
+    html += `</tbody></table></div>`;
     modalBody.innerHTML = html;
     modal.style.display = 'flex';
 }
 
 function exportCSV(results) {
-    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result", "Explanation"]];
     results.forEach(r => {
-        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect"), r.explanation]);
     });
     const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
-    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
     const link = document.createElement("a");
     const url = URL.createObjectURL(blob);
     link.href = url;
@@ -541,9 +664,10 @@ submitBtn.addEventListener('click', () => {
     const results = getUserAnswers();
     currentResults = results;
     const correctCount = results.filter(r => r.isCorrect).length;
-    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/100 (${Math.round(correctCount / 100 * 100)}%)`;
     showModal(results);
 });
+
 exportBtn.addEventListener('click', () => {
     if (currentResults && currentResults.length) exportCSV(currentResults);
     else alert("Please submit your answers first to generate CSV.");
