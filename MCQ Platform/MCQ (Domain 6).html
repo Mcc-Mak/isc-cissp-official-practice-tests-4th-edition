@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>MCQ Platform – Domain 6 (Security Assessment & Testing)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+        .btn-export {
+            background: #2b6e4e;
+        }
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 700px;
+        }
+        .mapping-table td, .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .result-table th {
+            background: #eef3f7;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+        @media (max-width: 760px) {
+            .question-card { padding: 1rem; }
+            .options { margin-left: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Domain 6 – Security Assessment & Testing</h1>
+    <div class="sub">104 questions • Single choice | Multiple‑select | Mapping (exact wording from CISSP)</div>
+
+    <div class="toolbar">
+        <div>
+            <button id="submitBtn">✅ Submit & Score</button>
+            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        </div>
+        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+    </div>
+
+    <div id="questionsContainer" class="questions-grid"></div>
+    <footer>MCQ Platform — Domain 6. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+</div>
+
+<div id="summaryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle">Detailed Report</h3>
+        <div id="modalBody"></div>
+        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    </div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – DOMAIN 6
+// Extracted from provided XML (questions 1 to 104, including mapping Q104)
+// --------------------------------------------------------------
+const questionsData = [
+    { id: 1, text: "During a port scan, Susan discovers a system running services on TCP and UDP 137–139 and TCP 445, as well as TCP 1433. What type of system is she likely to find if she connects to the machine?", options: ["A. A Linux email server", "B. A Windows SQL server", "C. A Linux file server", "D. A Windows workstation"] },
+    { id: 2, text: "Which of the following is a method used to automatically design new software tests and to ensure the quality of tests?", options: ["A. Code auditing", "B. Static code analysis", "C. Regression testing", "D. Mutation testing"] },
+    { id: 3, text: "During a port scan, Naomi found TCP port 443 open on a system. Which tool is best suited to scanning the service that is most likely running on that port?", options: ["A. zzuf", "B. Nikto", "C. Metasploit", "D. Sqlmap"] },
+    { id: 4, text: "What message logging standard is commonly used by network devices, Linux and Unix systems, and many other enterprise devices?", options: ["A. Syslog", "B. Netlog", "C. Eventlog", "D. Remote Log Protocol (RLP)"] },
+    { id: 5, text: "Alex wants to use an automated tool to fill web application forms to test for format string vulnerabilities. What type of tool should he use?", options: ["A. A black box", "B. A brute-force tool", "C. A fuzzer", "D. A static analysis tool"] },
+    { id: 6, text: "Susan needs to scan a system for vulnerabilities, and she wants to use an open-source tool to test the system remotely. Which of the following tools will meet her requirements and allow vulnerability scanning?", options: ["A. Nmap", "B. OpenVAS", "C. MBSA", "D. Nessus"] },
+    { id: 7, text: "Morgan is implementing a vulnerability management system that uses standards-based components to score and evaluate the vulnerabilities it finds. Which of the following is most commonly used to provide a severity score for vulnerabilities?", options: ["A. CCE", "B. CVSS", "C. CPE", "D. OVAL"] },
+    { id: 8, text: "Jim has been contracted to perform a penetration test of a bank's primary branch. To make the test as real as possible, he has not been given any information about the bank other than its name and address. What type of penetration test has Jim agreed to perform?", options: ["A. A crystal-box penetration test", "B. A gray-box penetration test", "C. A black-box penetration test", "D. A white-box penetration test"] },
+    { id: 9, text: "In a response to a request for proposal, Susan receives an SSAE 18 SOC report. If she wants a report that includes details on operating effectiveness, what should Susan ask for as follow-up, and why?", options: ["A. A SOC 2 Type II report, because Type I does not cover operating effectiveness", "B. A SOC 1 Type I report, because SOC 2 does not cover operating effectiveness", "C. A SOC 2 Type I report, because SOC 2 Type II does not cover operating effectiveness", "D. A SOC 3 report, because SOC 1 and SOC 2 reports are outdated"] },
+    { id: 10, text: "During a wireless network penetration test, Susan runs aircrack-ng against the network intending to capture a password as part of the four-way handshake and then crack the password offline. What might cause her to fail in her password-cracking efforts if the target is using WPA3 in Personal network mode?", options: ["A. WPA3 uses complex passwords.", "B. WPA3 uses SAE and does not transfer the password over the air.", "C. WPA3 requires multifactor, making a password alone insufficient.", "D. The password crack will work due to flaws in WPA3."] },
+    { id: 11, text: "A zero-day vulnerability is announced for the popular Apache web server in the middle of a workday. In Jacob's role as an information security analyst, he needs to quickly scan his network to determine what servers are vulnerable to the issue. What is Jacob's best route to quickly identify vulnerable systems?", options: ["A. Immediately run Nessus against all of the servers to identify which systems are vulnerable.", "B. Review the CVE database to find the vulnerability information and patch information.", "C. Create a custom IDS or IPS signature.", "D. Identify affected versions and check systems for that version number using an automated scanner."] },
+    { id: 12, text: "What type of testing is used to ensure that separately developed software modules properly exchange data?", options: ["A. Fuzzing", "B. Dynamic testing", "C. Interface testing", "D. API checksums"] },
+    { id: 13, text: "Selah wants to provide security assessment information to customers who want to use her organization's cloud services. Which of the following options should she select to ensure that the greatest number of customers are satisfied with the assessment information?", options: ["A. Use an internal audit team to self-assess against internal metrics.", "B. Use a third-party auditor.", "C. Use internal technical staff who know the systems.", "D. Use an internal audit team to self-assess against a common standard like COBIT."] },
+    { id: 14, text: "Yasmine has been asked to consider a breach and attack simulation system. What type of system should she look for?", options: ["A. A ticket and change management system designed to help manage incidents", "B. A system that runs incident response simulations for blue teams to test their skills", "C. A system that combines red and blue team techniques with automation", "D. A security operations and response (SOAR) system"] },
+    { id: 15, text: "Monica wants to gather information about security awareness in her organization. What technique is most frequently used to assess the broad range elements that make up security awareness?", options: ["A. Phishing simulations", "B. Gamified applications", "C. Assessment tests", "D. Surveys"] },
+    { id: 16, text: "Jim has been contracted to conduct a gray-box penetration test, and his clients have provided him with the following information about their networks so that he can scan them: Data center: 10.10.10.0/24, Sales: 10.10.11.0/24, Billing: 10.10.12.0/24, Wireless: 192.168.0.0/16. What problem will Jim encounter if he is contracted to conduct a scan from off-site?", options: ["A. The IP ranges are too large to scan efficiently.", "B. The IP addresses provided cannot be scanned.", "C. The IP ranges overlap and will cause scanning issues.", "D. The IP addresses provided are RFC 1918 addresses."] },
+    { id: 17, text: "Mark's company has been notified of a flaw in their web application. The anonymous individual has notified them that they have two weeks to fix it before the details of the flaw are published along with example exploit code. What industry norm is the individual who contacted Mark's company violating?", options: ["A. Zero-day reporting", "B. Ethical disclosure", "C. Ethical hacking", "D. The ISC2 vulnerability disclosure ethics statement"] },
+    { id: 18, text: "Jennifer needs to ensure that all Windows systems provide identical logging information to the SIEM. How can she best ensure that all Windows desktops have the same log settings?", options: ["A. Perform periodic configuration audits.", "B. Use Group Policy.", "C. Use Local Policy.", "D. Deploy a Windows syslog client."] },
+    { id: 19, text: "During normal operations, Jennifer's team uses the SIEM appliance to monitor for exceptions received via syslog. What system shown does not natively have support for syslog events?", options: ["A. Enterprise wireless access points", "B. Windows desktop systems", "C. Linux web servers", "D. Enterprise firewall devices"] },
+    { id: 20, text: "What technology should an organization use for each of the devices shown in the diagram to ensure that logs can be time sequenced across the entire infrastructure?", options: ["A. Syslog", "B. NTP", "C. Logsync", "D. SNAP"] },
+    { id: 21, text: "During a penetration test, Michelle needs to identify systems, but she hasn't gained sufficient access on the system she is using to generate raw packets. What type of scan should she run to verify the most open services?", options: ["A. A TCP connect scan", "B. A TCP SYN scan", "C. A UDP scan", "D. An ICMP scan"] },
+    { id: 22, text: "During a port scan using nmap, Joseph discovers that a system shows two ports open that cause him immediate worry: 21/open and 23/open. What services are likely running on those ports?", options: ["A. SSH and FTP", "B. FTP and Telnet", "C. SMTP and Telnet", "D. POP3 and SMTP"] },
+    { id: 23, text: "Aaron wants to validate his compliance with PCI-DSS. His company is a large commercial organization with millions of dollars in transactions a year. What is the most common method of conducting this type of testing for large organizations?", options: ["A. Self-assessment", "B. To conduct a thirty-party assessment using COBIT", "C. To partner with another company and trade assessments between the organizations", "D. To conduct a third-party assessment using a qualified security assessor"] },
+    { id: 24, text: "What method is commonly used to assess how well software testing covered the potential uses of an application?", options: ["A. A test coverage analysis", "B. A source code review", "C. A fuzz analysis", "D. A code review report"] },
+    { id: 25, text: "Testing that is focused on functions that a system should not allow is an example of what type of testing?", options: ["A. Use case testing", "B. Manual testing", "C. Misuse case testing", "D. Dynamic testing"] },
+    { id: 26, text: "What type of monitoring uses simulated traffic to a website to monitor performance?", options: ["A. Log analysis", "B. Synthetic transaction monitoring", "C. Passive monitoring", "D. Simulated transaction analysis"] },
+    { id: 27, text: "Derek wants to ensure that his organization tracks all changes to accounts through their life cycle. What type of tool should he invest in for his organization?", options: ["A. A directory service like LDAP", "B. An IAM system", "C. A SIEM", "D. An EDR system"] },
+    { id: 28, text: "Jim uses a tool that scans a system for available services and then connects to them to collect banner information to determine what version of the service is running. It then provides a report detailing what it gathers, basing results on service fingerprinting, banner information, and similar details it gathers combined with CVE information. What type of tool is Jim using?", options: ["A. A port scanner", "B. A service validator", "C. A vulnerability scanner", "D. A patch management tool"] },
+    { id: 29, text: "Emily builds a script that sends data to a web application that she is testing. Each time the script runs, it sends a series of transactions with data that fits the expected requirements of the web application to verify that it responds to typical customer behavior. What type of transactions is she using, and what type of test is this?", options: ["A. Synthetic, passive monitoring", "B. Synthetic, use case testing", "C. Actual, dynamic monitoring", "D. Actual, fuzzing"] },
+    { id: 30, text: "What passive monitoring technique records all user interaction with an application or website to ensure quality and performance?", options: ["A. Client-server testing", "B. Real user monitoring", "C. Synthetic user monitoring", "D. Passive user recording"] },
+    { id: 31, text: "Earlier this year, the information security team at Jim's employer identified a vulnerability in the web server that Jim is responsible for maintaining. He immediately applied the patch and is sure that it installed properly, but the vulnerability scanner has continued to incorrectly flag the system as vulnerable. To prevent the issue from being flagged incorrectly in the future, what is the next step?", options: ["A. Uninstall and reinstall the patch.", "B. Ask the information security team to flag the system as patched and not vulnerable to that particular flaw.", "C. Update the version information in the web server's configuration.", "D. Review the vulnerability report and use alternate remediation options."] },
+    { id: 32, text: "Angela wants to test a web browser's handling of unexpected data using an automated tool. What tool should she choose?", options: ["A. Nmap", "B. zzuf", "C. Nessus", "D. Nikto"] },
+    { id: 33, text: "Kara wants to conduct a security audit of her cloud IaaS vendor's systems, infrastructure, and practices. What type of audit is she most likely to be able to conduct?", options: ["A. A third-party audit.", "B. She cannot conduct an audit.", "C. An internal audit.", "D. She may request the vendor's third-party audit results."] },
+    { id: 34, text: "Why should passive scanning be conducted in addition to implementing wireless security technologies like wireless intrusion detection systems?", options: ["A. It can help identify rogue devices.", "B. It can test the security of the wireless network via scripted attacks.", "C. Their short dwell time on each wireless channel can allow them to capture more packets.", "D. They can help test wireless IDS or IPS systems."] },
+    { id: 35, text: "Paul is reviewing the approval process for a penetration test and wants to ensure that it has appropriate management review. Who should he ensure has approved the request for a penetration test for a business system?", options: ["A. The change advisory board", "B. Senior management", "C. The systems administrator for the system", "D. The service owner"] },
+    { id: 36, text: "What term describes software testing that is intended to uncover new bugs introduced by patches or configuration changes?", options: ["A. Nonregression testing", "B. Evolution testing", "C. Smoke testing", "D. Regression testing"] },
+    { id: 37, text: "Which of the following tools cannot identify a target's operating system for a penetration tester?", options: ["A. Nmap", "B. Nessus", "C. Nikto", "D. Sqlmap"] },
+    { id: 38, text: "Susan needs to predict high-risk areas for her organization and wants to use metrics to assess risk trends as they occur. What should she do to handle this?", options: ["A. Perform yearly risk assessments.", "B. Hire a penetration testing company to regularly test organizational security.", "C. Identify and track key risk indicators.", "D. Monitor logs and events using a SIEM device."] },
+    { id: 39, text: "What major difference separates synthetic and passive monitoring?", options: ["A. Synthetic monitoring works only after problems have occurred.", "B. Passive monitoring cannot detect functionality issues.", "C. Passive monitoring works only after problems have occurred.", "D. Synthetic monitoring cannot detect functionality issues."] },
+    { id: 40, text: "What task is the most important during Phase 1, planning?", options: ["A. Building a test lab", "B. Getting authorization", "C. Gathering appropriate tools", "D. Determining if the test is white, black, or gray box"] },
+    { id: 41, text: "Which of the following tools is most likely to be used during discovery?", options: ["A. Nessus", "B. John", "C. Nmap", "D. Nikto"] },
+    { id: 42, text: "Which of these concerns is the most important to address during planning to ensure that the reporting phase does not cause problems?", options: ["A. Which CVE format to use", "B. How the vulnerability data will be stored and sent", "C. Which targets are off-limits", "D. How long the report should be"] },
+    { id: 43, text: "What four types of coverage criteria are commonly used when validating the work of a code testing suite?", options: ["A. Input, statement, branch, and condition coverage", "B. Function, statement, branch, and condition coverage", "C. API, branch, bounds, and condition coverage", "D. Bounds, branch, loop, and condition coverage"] },
+    { id: 44, text: "As part of his role as a security manager, Jacob provides the following chart to his organization's management team. What type of measurement is he providing for them? (Image: time to remediate graph)", options: ["A. A coverage rate measure", "B. A key performance indicator", "C. A time to live metric", "D. A business criticality indicator"] },
+    { id: 45, text: "What does using unique user IDs for all users provide when reviewing logs?", options: ["A. Confidentiality", "B. Integrity", "C. Availability", "D. Accountability"] },
+    { id: 46, text: "Which of the following is not an interface that is typically tested during the software testing process?", options: ["A. APIs", "B. Network interfaces", "C. UIs", "D. Physical interfaces"] },
+    { id: 47, text: "Alan's organization uses the Security Content Automation Protocol (SCAP) to standardize its vulnerability management program. Which component of SCAP can Alan use to reconcile the identity of vulnerabilities generated by different security assessment tools?", options: ["A. OVAL", "B. XCCDF", "C. CVE", "D. SCE"] },
+    { id: 48, text: "Susan is reviewing software testing coverage data and sees the information shown here. What can she determine about this testing process? (Select all answers that apply.) (Image: bar graph)", options: ["A. The testing does not have full coverage.", "B. Test 4 completed with no failures.", "C. Test 2 failed to run successfully.", "D. The testing needs to be run a fifth time."] },
+    { id: 49, text: "Which of the following strategies is not a reasonable approach for remediating a vulnerability identified by a vulnerability scanner?", options: ["A. Install a patch.", "B. Use a workaround fix.", "C. Update the banner or version number.", "D. Use an application layer firewall or IPS to prevent attacks against the identified vulnerability."] },
+    { id: 50, text: "During a penetration test, Selah calls her target's help desk claiming to be the senior assistant to an officer of the company. She requests that the help desk reset the officer's password because of an issue with his laptop while traveling and persuades them to do so. What type of attack has she successfully completed?", options: ["A. Zero knowledge", "B. Help-desk spoofing", "C. Social engineering", "D. Black box"] },
+    { id: 51, text: "In this image, what issue may occur due to the log handling settings? (Image: log properties dialog)", options: ["A. Log data may be lost when the log is archived.", "B. Log data may be overwritten.", "C. Log data may not include needed information.", "D. Log data may fill the system disk."] },
+    { id: 52, text: "Which of the following is not a hazard associated with penetration testing?", options: ["A. Application crashes", "B. Denial of service", "C. Blackouts", "D. Data corruption"] },
+    { id: 53, text: "Which NIST special publication covers the assessment of security and privacy controls?", options: ["A. 800-12", "B. 800-53A", "C. 800-34", "D. 800-86"] },
+    { id: 54, text: "Michelle wants to assess her organization's disaster recovery readiness. What type of test could she run to most effectively assess readiness without the potential for disruption?", options: ["A. Conduct a tabletop exercise.", "B. Conduct a failover test.", "C. Conduct a simulation.", "D. Conduct a plan review."] },
+    { id: 55, text: "Lucca wants to conduct an audit of a hybrid cloud environment. What potential challenge should he identify for his management team?", options: ["A. On-premises audits are difficult to complete.", "B. Hybrid audits cannot be conducted by third parties.", "C. Underlying cloud infrastructure may not be auditable.", "D. There are no differences between hybrid and cloud audits."] },
+    { id: 56, text: "If Kara's primary concern is preventing administrative connections to the server, which port should she block?", options: ["A. 22", "B. 80", "C. 443", "D. 1433"] },
+    { id: 57, text: "During a third-party audit, Jim's company receives a finding that states, “The administrator should review backup success and failure logs on a daily basis and take action in a timely manner to resolve reported exceptions.” What potential problem does this finding indicate?", options: ["A. Administrators will not know if the backups succeeded or failed.", "B. The backups may not be properly logged.", "C. The backups may not be usable.", "D. The backup logs may not be properly reviewed."] },
+    { id: 58, text: "Jim is helping his organization decide on audit standards for use throughout their international organization. Which of the following is not an IT standard that Jim's organization is likely to use as part of its audits?", options: ["A. COBIT", "B. SSAE-18", "C. ITIL", "D. ISO 27001"] },
+    { id: 59, text: "Nicole wants to conduct a standards-based audit of her organization. Which of the following is commonly used to describe common requirements for information systems?", options: ["A. IEC", "B. COBIT", "C. FISA", "D. DMCA"] },
+    { id: 60, text: "Kelly's team conducts regression testing on each patch they release. What key performance measure should they maintain to measure the effectiveness of their testing?", options: ["A. Time to remediate vulnerabilities", "B. A measure of the rate of defect recurrence", "C. A weighted risk trend", "D. A measure of the specific coverage of their testing"] },
+    { id: 61, text: "Which of the following types of code review is not typically performed by a human?", options: ["A. Software inspections", "B. Pair programming", "C. Static program analysis", "D. Software walk-throughs"] },
+    { id: 62, text: "Susan's team of software testers are required to test every code path, including those that will be used only when an error condition occurs. What type of testing environment does her team need to ensure complete code coverage?", options: ["A. White box", "B. Gray box", "C. Black box", "D. Dynamic"] },
+    { id: 63, text: "As part of the continued testing of their new application, Susan's quality assurance team has designed a set of test cases for a series of black-box tests. These functional tests are then run, and a report is prepared explaining what has occurred. What type of report is typically generated during this testing to indicate test metrics?", options: ["A. A test coverage report", "B. A penetration test report", "C. A code coverage report", "D. A line coverage report"] },
+    { id: 64, text: "As part of their code coverage testing, Susan's team runs the analysis in a nonproduction environment using logging and tracing tools. Which of the following type of code issues is most likely to be missed during testing due to this change in the operating environment?", options: ["A. Improper bounds checking", "B. Input validation", "C. A race condition", "D. Pointer manipulation"] },
+    { id: 65, text: "Robin recently conducted a vulnerability scan and found a critical vulnerability on a server that handles sensitive information. What should Robin do next?", options: ["A. Patching", "B. Reporting", "C. Remediation", "D. Validation"] },
+    { id: 66, text: "The automated code testing and integration that Andrea ran as part of her organization's CI/CD pipeline errored out. What should Andrea do with the code if the company needs the code to go live immediately?", options: ["A. Manually bypass the test.", "B. Review error logs to identify the problem.", "C. Rerun the test to see if it works.", "D. Send the code back to the developer for a fix."] },
+    { id: 67, text: "Michelle wants to compare vulnerabilities she has discovered in her data center based on how exploitable they are, if exploit code exists, and how hard they are to remediate. What scoring system should she use to compare vulnerability metrics like these?", options: ["A. CSV", "B. NVD", "C. VSS", "D. CVSS"] },
+    { id: 68, text: "During a port scan of his network, Alex finds that a number of hosts respond on TCP ports 80, 443, 515, and 9100 in offices throughout his organization. What type of devices is Alex likely discovering?", options: ["A. Web servers", "B. File servers", "C. Wireless access points", "D. Printers"] },
+    { id: 69, text: "Nikto, Burp Suite, and Wapiti are all examples of what type of tool?", options: ["A. Web application vulnerability scanners", "B. Code review tools", "C. Vulnerability scanners", "D. Port scanners"] },
+    { id: 70, text: "Frank's team is testing a new API that his company's developers have built for their application infrastructure. Which of the following is not a common API issue that you would expect Frank's team to find?", options: ["A. Improper encryption", "B. Object-level authorization issues", "C. User authentication issues", "D. Lack of rate limiting"] },
+    { id: 71, text: "Jim is working with a penetration testing contractor who proposes using Metasploit as part of her penetration testing effort. What should Jim expect to occur when Metasploit is used?", options: ["A. Systems will be scanned for vulnerabilities.", "B. Systems will have known vulnerabilities exploited.", "C. Services will be probed for buffer overflow and other unknown flaws.", "D. Systems will be tested for zero-day exploits."] },
+    { id: 72, text: "Susan needs to ensure that the interactions between the components of her e-commerce application are all handled properly. She intends to verify communications, error handling, and session management capabilities throughout her infrastructure. What type of testing is she planning to conduct?", options: ["A. Misuse case testing", "B. Fuzzing", "C. Regression testing", "D. Interface testing"] },
+    { id: 73, text: "Jim is designing his organization's log management systems and knows that he needs to carefully plan to handle the organization's log data. Which of the following is not a factor that Jim should be concerned with?", options: ["A. The volume of log data", "B. A lack of sufficient log sources", "C. Data storage security requirements", "D. Network bandwidth"] },
+    { id: 74, text: "Ryan's organization wants to ensure that proper account management is occurring but does not have a central identity and access management tool in place. Ryan has a limited amount of time to do his verification process. What is his best option to test the account management process as part of an internal audit?", options: ["A. Validate all accounts changed in the past 90 days.", "B. Select high-value administrative accounts for validation.", "C. Validate all account changes in the past 180 days.", "D. Validate a random sample of accounts."] },
+    { id: 75, text: "When a Windows system is rebooted, what type of log is generated?", options: ["A. Error", "B. Warning", "C. Information", "D. Failure audit"] },
+    { id: 76, text: "During a review of access logs, Alex notices that Michelle logged into her workstation in New York at 8 a.m. daily, but then she was recorded as logging into her department's main web application shortly after 3 a.m. daily. What common logging issue has Alex likely encountered?", options: ["A. Inconsistent log formatting", "B. Modified logs", "C. Inconsistent timestamps", "D. Multiple log sources"] },
+    { id: 77, text: "What type of vulnerability scan accesses configuration information from the systems it is run against as well as information that can be accessed via services available via the network?", options: ["A. Authenticated scans", "B. Web application scans", "C. Unauthenticated scans", "D. Port scans"] },
+    { id: 78, text: "Brian has discovered a vulnerability in a website and has notified the company that owns the website about the issue. What has he done?", options: ["A. A penetration test", "B. Ethical disclosure", "C. A web application test", "D. OSINT"] },
+    { id: 79, text: "Ben's team is attempting to categorize a transaction identification issue that is caused by using a symmetric key shared by multiple servers. What STRIDE category should this fall into?", options: ["A. Information disclosure", "B. Denial of service", "C. Tampering", "D. Repudiation"] },
+    { id: 80, text: "Ben wants to use a third-party service to help assess denial-of-service attack vulnerabilities due to the amount of traffic during denial-of-service attacks. What type of engagement should he suggest to his organization?", options: ["A. A social engineering engagement", "B. A penetration test", "C. Load or stress testing", "D. Testing using a fuzzer"] },
+    { id: 81, text: "Chris is troubleshooting an issue with his organization's SIEM reporting. After analyzing the issue, he believes that the timestamps on log entries from different systems are inconsistent. What protocol can he use to resolve this issue?", options: ["A. SSH", "B. FTP", "C. TLS", "D. NTP"] },
+    { id: 82, text: "Ryan is considering the use of fuzz testing in his web application testing program. Which one of the following statements about fuzz testing should Ryan consider when making his decision?", options: ["A. Fuzzers only find complex faults.", "B. Testers must manually generate input.", "C. Fuzzers may not fully cover the code.", "D. Fuzzers can't reproduce errors."] },
+    { id: 83, text: "Ken is designing a testing process for software developed by his team. He is designing a test that verifies that every line of code was executed during the test. What type of analysis is Ken performing?", options: ["A. Branch coverage", "B. Condition coverage", "C. Function coverage", "D. Statement coverage"] },
+    { id: 84, text: "If Ben is conducting a penetration test, what should his next step be after receiving these results? (Image: nmap scan results)", options: ["A. Connect to the web server using a web browser.", "B. Connect via Telnet to test for vulnerable accounts.", "C. Identify interesting ports for further scanning.", "D. Use sqlmap against the open databases."] },
+    { id: 85, text: "Based on the scan results, what operating system (OS) was the system that was scanned most likely running?", options: ["A. Windows Desktop", "B. Linux", "C. Network device", "D. Windows Server"] },
+    { id: 86, text: "Ben's manager expresses concern about the coverage of his scan. Why might his manager have this concern?", options: ["A. Ben did not test UDP services.", "B. Ben did not discover ports outside the “well-known ports.”", "C. Ben did not perform OS fingerprinting.", "D. Ben tested only a limited number of ports."] },
+    { id: 87, text: "Lucca is reviewing his organization's disaster recovery process data and notes that the MTD for the business's main website is two hours. What does he know about the RTO for the site when he does testing and validation?", options: ["A. It needs to be less than two hours.", "B. It needs to be at least two hours.", "C. The MTD is too short and needs to be longer.", "D. The RTO is too short and needs to be longer."] },
+    { id: 88, text: "Diana has engaged third-party auditors and wants to release an audit attestation to third parties without including details of the audit. What type of SSAE 18 SOC report should she request?", options: ["A. SOC 1", "B. SOC 2", "C. SOC 3", "D. SOC 4"] },
+    { id: 89, text: "While reviewing the software testing output for her organization's new application, Madhuri notices that the application has produced errors that included directory and file information shown to the web application tester. What issue should she include in her report about the application?", options: ["A. It does not perform proper exception handling.", "B. The software does not handle misuse case testing properly.", "C. Debugging statements need to be removed.", "D. The code was not fully tested due to errors."] },
+    { id: 90, text: "What action might a pen tester perform to identify potential exploitable services to gain an initial foothold in a network?", options: ["A. Data gathering", "B. Port scanning", "C. Getting permission", "D. Planning"] },
+    { id: 91, text: "The president of Josh's company is concerned about a significant increase in cryptographic malware that is impacting other companies in their industry. She has asked John to ensure that the company's data will be recoverable if malware strikes and encrypts their production systems. What process does Josh need to undertake to be able to tell her that the company is covered?", options: ["A. Encrypt all sensitive data.", "B. Hash all of the organization's data to detect cryptographic malware.", "C. Perform backup verification.", "D. Use anti-encryption technology to prevent the malware from encrypting drives."] },
+    { id: 92, text: "Joanna is her organization's CISO, and in her security operations oversight role she wants to ensure that management oversight is happening for security-related changes. What system should she focus on to track this type of data in most organizations?", options: ["A. The SIEM system", "B. The IPS system", "C. The CMS tool", "D. The ITSM tool"] },
+    { id: 93, text: "Henry wants to validate that his backups are working. Which of the following options is the best way for him to ensure that the backups will be useful in a true disaster recovery scenario?", options: ["A. Periodically restore a random file to ensure that the backups are working.", "B. Review configurations and settings on a regular schedule to validate backup settings.", "C. Review the backup logs to ensure no errors are occurring.", "D. Regularly perform full restores from backups to validate their success."] },
+    { id: 94, text: "What type of vulnerabilities will not be found by a vulnerability scanner?", options: ["A. Local vulnerabilities", "B. Service vulnerabilities", "C. Zero-day vulnerabilities", "D. Vulnerabilities that require authentication"] },
+    { id: 95, text: "Jacinda wants to measure the effectiveness of her security training as one of her security metrics. Which of the following measures are the most useful for assessing the effectiveness of security awareness training? (Select all that apply.)", options: ["A. How many people took the training", "B. The level of security awareness before and after the training", "C. The length of the training in hours", "D. The number of training events each individual attended this year"] },
+    { id: 96, text: "Elaine has discovered a previously unknown critical vulnerability in a product that her organization uses. Her organization has a strong commitment to ethical disclosure, and Elaine wants to follow common ethical disclosure practices. What should she do first?", options: ["A. Build an in-house remediation or control and then publicly disclose the vulnerability to prompt the vendor to patch it quickly.", "B. Build an in-house remediation or control and then notify the vendor of the issue.", "C. Notify the vendor and give them a reasonable amount of time to fix the issue.", "D. Publicly disclose the vulnerability so that the vendor will patch it in an appropriate amount of time."] },
+    { id: 97, text: "Which of the following is not a part of the discovery phase?", options: ["A. Hostname and IP address information gathering", "B. Service information capture", "C. Dumpster diving", "D. Privilege escalation"] },
+    { id: 98, text: "NIST specifies four attack phase steps: gaining access, escalating privileges, system browsing, and installing additional tools. Once attackers install additional tools, what phase will a penetration tester typically return to?", options: ["A. Discovery", "B. Gaining access", "C. Escalating privileges", "D. System browsing"] },
+    { id: 99, text: "Which of the following is not a typical part of a penetration test report?", options: ["A. A list of identified vulnerabilities", "B. All sensitive data that was gathered during the test", "C. Risk ratings for each issue discovered", "D. Mitigation guidance for issues identified"] },
+    { id: 100, text: "Match each of the following numbered status messages with the appropriate lettered description. Status messages: 1. Open, 2. Closed, 3. Filtered. Descriptions: A. The port is accessible on the remote system, but no application is accepting connections on that port. B. The port is not accessible on the remote system. C. The port is accessible on the remote system, and an application is accepting connections on that port.", options: [] }
+];
+
+// Answers for single/multi-choice (1-99) and mapping for Q100
+const answersMap = {
+    1: "B", 2: "D", 3: "B", 4: "A", 5: "C", 6: "B", 7: "B", 8: "C", 9: "A", 10: "B",
+    11: "D", 12: "C", 13: "B", 14: "C", 15: "D", 16: "D", 17: "B", 18: "B", 19: "B", 20: "B",
+    21: "A", 22: "B", 23: "D", 24: "A", 25: "C", 26: "B", 27: "B", 28: "C", 29: "B", 30: "B",
+    31: "C", 32: "B", 33: "D", 34: "A", 35: "B", 36: "D", 37: "D", 38: "C", 39: "B", 40: "B",
+    41: "C", 42: "B", 43: "B", 44: "B", 45: "D", 46: "D", 47: "C", 48: "A, B, C", 49: "C", 50: "C",
+    51: "B", 52: "C", 53: "B", 54: "A", 55: "C", 56: "A", 57: "D", 58: "C", 59: "B", 60: "B",
+    61: "C", 62: "A", 63: "A", 64: "C", 65: "C", 66: "B", 67: "D", 68: "D", 69: "A", 70: "A",
+    71: "B", 72: "D", 73: "B", 74: "B", 75: "C", 76: "C", 77: "A", 78: "B", 79: "D", 80: "C",
+    81: "D", 82: "C", 83: "D", 84: "C", 85: "B", 86: "A", 87: "A", 88: "C", 89: "A", 90: "B",
+    91: "C", 92: "D", 93: "D", 94: "C", 95: "A, B", 96: "C", 97: "D", 98: "A", 99: "B"
+};
+
+// Mapping for Q100
+const mappingQ100 = [
+    { item: "Open", correct: "C" },
+    { item: "Closed", correct: "A" },
+    { item: "Filtered", correct: "B" }
+];
+
+// Render all questions
+const container = document.getElementById('questionsContainer');
+questionsData.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.id}`;
+    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 48 || q.id === 95);
+    const isMapping = (q.id === 100);
+    let optionsHtml = '';
+    if (isMapping) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Status Message</th><th>Match to description (A, B, or C)</th></tr></thead><tbody>`;
+        mappingQ100.forEach((item, idx) => {
+            optionsHtml += `<tr><td><strong>${item.item}</strong></td><td><select class="map-select-100" data-index="${idx}"><option value="">-- select --</option><option value="A">A. The port is accessible on the remote system, but no application is accepting connections on that port.</option><option value="B">B. The port is not accessible on the remote system.</option><option value="C">C. The port is accessible on the remote system, and an application is accepting connections on that port.</option></select></td></tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else {
+        optionsHtml = `<div class="options">`;
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+        });
+        optionsHtml += `</div>`;
+    }
+    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+    container.appendChild(card);
+});
+
+const submitBtn = document.getElementById('submitBtn');
+const exportBtn = document.getElementById('exportBtn');
+const modal = document.getElementById('summaryModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close-modal');
+let currentResults = [];
+
+function getUserAnswers() {
+    let results = [];
+    for (let i = 1; i <= 100; i++) {
+        const qid = i;
+        let userAnswer = "";
+        let isCorrect = false;
+        let correctAnswerStr = "";
+        if (qid === 100) {
+            const selects = document.querySelectorAll('.map-select-100');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ100.map(m => m.correct);
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "Open→C, Closed→A, Filtered→B";
+        } else {
+            const qData = questionsData.find(q => q.id === qid);
+            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 48 || qid === 95);
+            if (isMulti) {
+                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                userAnswer = selected.join(', ') || "(none)";
+                const correctRaw = answersMap[qid];
+                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                correctAnswerStr = correctRaw;
+            } else {
+                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                userAnswer = radio ? radio.value : "(skipped)";
+                const correctLetter = answersMap[qid];
+                isCorrect = (radio && radio.value === correctLetter);
+                correctAnswerStr = correctLetter;
+            }
+        }
+        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr || answersMap[qid] || "Mapping", isCorrect, status });
+        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+        if (hashtagSpan) {
+            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+            else hashtagSpan.innerHTML = " #️⃣ skipped";
+            hashtagSpan.className = `hashtag ${status}`;
+        }
+    }
+    return results;
+}
+
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+function showModal(results) {
+    const total = results.length;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
+    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    results.forEach(r => {
+        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+        html += `<tr><td>${r.qid}</td><td>${escapeHtml(String(r.userAnswer))}</td><td>${escapeHtml(String(r.correctAnswer))}</td><td>${statusText}</td></tr>`;
+    });
+    html += `</tbody></table>`;
+    modalBody.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function exportCSV(results) {
+    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    results.forEach(r => {
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+    });
+    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "domain6_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+submitBtn.addEventListener('click', () => {
+    const results = getUserAnswers();
+    currentResults = results;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    showModal(results);
+});
+exportBtn.addEventListener('click', () => {
+    if (currentResults && currentResults.length) exportCSV(currentResults);
+    else alert("Please submit your answers first to generate CSV.");
+});
+document.getElementById('modalExportBtn').addEventListener('click', () => {
+    if (currentResults) exportCSV(currentResults);
+});
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
