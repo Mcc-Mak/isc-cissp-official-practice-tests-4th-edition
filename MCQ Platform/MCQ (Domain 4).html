@@ -1,35 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>MCQ Platform – Domain 4 (Communication & Network Security)</title>
+    <title>MCQ Platform – Domain 4 (Communication and Network Security)</title>
     <style>
         * {
             box-sizing: border-box;
             font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
         }
+
         body {
             background: #f0f2f5;
             margin: 0;
             padding: 20px;
             color: #1e293b;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
+
         h1 {
             font-size: 1.8rem;
             margin-bottom: 0.25rem;
             color: #0f3b5c;
         }
+
         .sub {
             color: #2c5a7a;
             margin-bottom: 2rem;
             border-left: 4px solid #2c7da0;
             padding-left: 1rem;
         }
+
         .toolbar {
             background: white;
             border-radius: 20px;
@@ -44,9 +50,10 @@
             top: 10px;
             z-index: 10;
             backdrop-filter: blur(8px);
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             border: 1px solid #e2e8f0;
         }
+
         button {
             background: #1e6f5c;
             color: white;
@@ -58,13 +65,16 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         button:hover {
             background: #0f5a49;
             transform: translateY(-1px);
         }
+
         .btn-export {
             background: #2b6e4e;
         }
+
         .score-area {
             font-size: 1.2rem;
             font-weight: 700;
@@ -73,18 +83,21 @@
             border-radius: 40px;
             color: #0e5e4a;
         }
+
         .questions-grid {
             display: flex;
             flex-direction: column;
             gap: 1.75rem;
         }
+
         .question-card {
             background: white;
             border-radius: 24px;
             padding: 1.3rem 1.8rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
             border: 1px solid #e2edf2;
         }
+
         .question-header {
             display: flex;
             gap: 12px;
@@ -94,6 +107,7 @@
             border-bottom: 2px solid #eef2f8;
             padding-bottom: 0.5rem;
         }
+
         .q-num {
             background: #d4e6f1;
             padding: 4px 12px;
@@ -102,12 +116,14 @@
             font-size: 0.8rem;
             color: #1a4d6b;
         }
+
         .q-text {
             font-weight: 600;
             font-size: 1rem;
             line-height: 1.4;
             color: #0f2f3f;
         }
+
         .hashtag {
             font-size: 0.8rem;
             margin-left: auto;
@@ -116,40 +132,48 @@
             border-radius: 40px;
             font-weight: 500;
         }
+
         .hashtag.correct {
             background: #c8e6df;
             color: #0b5345;
         }
+
         .hashtag.incorrect {
             background: #f8dddd;
             color: #9b2c2c;
         }
+
         .hashtag.skipped {
             background: #fff3bf;
             color: #856404;
         }
+
         .options {
             margin: 1rem 0 0.5rem 1.2rem;
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
         }
+
         .option {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
+
         .option input {
             margin: 0;
             width: 18px;
             height: 18px;
             accent-color: #2c7da0;
         }
+
         .option label {
             font-size: 0.95rem;
             color: #1e3b4a;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -157,22 +181,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background: white;
             border-radius: 28px;
-            max-width: 90%;
-            width: 1100px;
+            max-width: 95%;
+            width: 1200px;
             max-height: 85%;
             overflow: auto;
             padding: 1.5rem;
             position: relative;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
         }
+
         .close-modal {
             position: absolute;
             top: 12px;
@@ -181,304 +207,416 @@
             cursor: pointer;
             color: #777;
         }
+
         .result-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
             background: white;
         }
-        .result-table th, .result-table td {
+
+        .result-table th,
+        .result-table td {
             border: 1px solid #d4dee5;
             padding: 10px 8px;
             text-align: left;
             vertical-align: top;
         }
+
         .result-table th {
             background: #eef3f7;
         }
+
         footer {
             margin-top: 2rem;
             text-align: center;
             font-size: 0.75rem;
             color: #5b7c93;
         }
-        @media (max-width: 760px) {
-            .question-card { padding: 1rem; }
-            .options { margin-left: 0.2rem; }
-        }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>📘 Domain 4 – Communication & Network Security</h1>
-    <div class="sub">104 questions • Single choice | Multiple‑select (exact wording from CISSP)</div>
+    <div class="container">
+        <h1>📘 Domain 4 – Communication and Network Security</h1>
+        <div class="sub">101 questions • Single choice | Multiple‑select (exact wording from CISSP)</div>
 
-    <div class="toolbar">
-        <div>
-            <button id="submitBtn">✅ Submit & Score</button>
-            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        <div class="toolbar">
+            <div>
+                <button id="submitBtn">✅ Submit & Score</button>
+                <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+            </div>
+            <div class="score-area" id="scoreDisplay">Not yet scored</div>
         </div>
-        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+
+        <div id="questionsContainer" class="questions-grid"></div>
+        <footer>MCQ Platform — Domain 4. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
     </div>
 
-    <div id="questionsContainer" class="questions-grid"></div>
-    <footer>MCQ Platform — Domain 4. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
-</div>
-
-<div id="summaryModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h3 id="modalTitle">Detailed Report</h3>
-        <div id="modalBody"></div>
-        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">Detailed Report</h3>
+            <div id="modalBody"></div>
+            <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+        </div>
     </div>
-</div>
 
-<script>
-// --------------------------------------------------------------
-// EXACT QUESTIONS AND OPTIONS (NO REPHRASING)
-// Extracted from provided section (questions 1 to 104)
-// --------------------------------------------------------------
-const questionsData = [
-    { id: 1, text: "Gary wants to distribute a large file and prefers a peer-to-peer content delivery network (CDN). Which of the following is the most common example of this type of technology?", options: ["A. CloudFlare", "B. BitTorrent", "C. Amazon CloudFront", "D. Akamai Edge"] },
-    { id: 2, text: "What is the purpose of a virtual domain (VDOM)?", options: ["A. They combine multiple virtual instances into a single domain.", "B. They divide a firewall device or appliance into two or more virtual firewalls.", "C. They create a virtual domain controller.", "D. They allow the hosting of multiple domain names for a single host."] },
-    { id: 3, text: "Ben has connected his laptop to his tablet PC using an 802.11ac connection. What wireless network mode has he used to connect these devices?", options: ["A. Infrastructure mode", "B. Wired extension mode", "C. Ad hoc mode", "D. Stand-alone mode"] },
-    { id: 4, text: "Selah's and Nick's PCs simultaneously send traffic by transmitting at the same time. What network term describes the range of systems on a network that could be affected by this same issue?", options: ["A. The subnet", "B. The supernet", "C. A collision domain", "D. A broadcast domain"] },
-    { id: 5, text: "Sarah is manually reviewing a packet capture of TCP traffic and finds that a system is setting the RST flag in the TCP packets it sends repeatedly during a short period of time. What does this flag mean in the TCP packet header?", options: ["A. RST flags mean “Rest.” The server needs traffic to briefly pause.", "B. RST flags mean “Relay-set.” The packets will be forwarded to the address set in the packet.", "C. RST flags mean “Resume Standard.” Communications will resume in their normal format.", "D. RST means “Reset.” The TCP session will be disconnected."] },
-    { id: 6, text: "Gary is deploying a wireless network and wants to deploy the fastest possible wireless technology. Which one of the following wireless networking standards should he use?", options: ["A. 802.11ac", "B. 802.11g", "C. 802.11n", "D. 802.11ax"] },
-    { id: 7, text: "Michele wants to replace FTP traffic with a secure replacement. What secure protocol should she select instead?", options: ["A. TFTP", "B. HFTPS", "C. SecFTP", "D. SFTP"] },
-    { id: 8, text: "Jake has been told that there is a layer 3 problem with his network. Which of the following is associated with layer 3 in the OSI model?", options: ["A. IP addresses", "B. TCP and UDP protocols", "C. MAC addresses", "D. Sending and receiving bits via hardware"] },
-    { id: 9, text: "Frank is responsible for ensuring that his organization has reliable, supported network hardware. Which of the following is not a common concern for network administrators as they work to ensure their network continues to be operational?", options: ["A. If the devices have vendor support", "B. If the devices are under warranty", "C. If major devices support redundant power supplies", "D. If all devices support redundant power supplies"] },
-    { id: 10, text: "Brian is analyzing his network traffic and is focused on the variance of the delay between packets of data that are sent between two of his sites. What is he analyzing?", options: ["A. Latency", "B. Jitter", "C. Throughput", "D. Signal-to-noise ratio"] },
-    { id: 11, text: "Which one of the following protocols is commonly used to provide back-end authentication services for a VPN?", options: ["A. HTTPS", "B. RADIUS", "C. ESP", "D. AH"] },
-    { id: 12, text: "Isaac wants to ensure that his VoIP session initialization is secure. What protocol should he ensure is enabled and required?", options: ["A. SVOIP", "B. PBSX", "C. SIPS", "D. SRTP"] },
-    { id: 13, text: "What type of firewall design is shown in the diagram? (Diagram: layered firewall)", options: ["A. A single-tier firewall", "B. A two-tier firewall", "C. A three-tier firewall", "D. A four-tier firewall"] },
-    { id: 14, text: "If the VPN grants remote users the same access to network and system resources as local workstations have, what security issue should Chris raise?", options: ["A. VPN users will not be able to access the web server.", "B. There is no additional security issue; the VPN concentrator's logical network location matches the logical network location of the workstations.", "C. Web server traffic is not subjected to stateful inspection.", "D. VPN users should only connect from managed PCs."] },
-    { id: 15, text: "Chris wants to implement security controls in his data center at the level of individual services and workloads. He plans to use firewall rules and other controls as well as on-demand access to services as part of his security design. What design concept is he implementing?", options: ["A. Converged protocols", "B. Physical segmentation", "C. Edge network-based design", "D. Micro-segmentation"] },
-    { id: 16, text: "As part of his segmentation approach, Chris also wants to segment network routes. What type of solution should he select?", options: ["A. VPCs", "B. VRF", "C. VLANs", "D. A CDN"] },
-    { id: 17, text: "Ben has configured his network to not broadcast an SSID. Why might Ben disable SSID broadcast, and how could his SSID be discovered?", options: ["A. Disabling SSID broadcast prevents attackers from discovering the encryption key. The SSID can be recovered from decrypted packets.", "B. Disabling SSID broadcast hides networks from unauthorized personnel. The SSID can be discovered using a wireless sniffer.", "C. Disabling SSID broadcast prevents issues with beacon frames. The SSID can be recovered by reconstructing the BSSID.", "D. Disabling SSID broadcast helps avoid SSID conflicts. The SSID can be discovered by attempting to connect to the network."] },
-    { id: 18, text: "Chuck is in charge of a commercial data center that handles many customers who host their servers there. He wants to be able to configure his data center network to adjust to traffic pattern changes and to manage bandwidth and other options. What technology should he implement to allow central, programmatic control of his network?", options: ["A. SDN", "B. SD-WAN", "C. Proxy routing", "D. Agile networking"] },
-    { id: 19, text: "Susan wants to access her company's SAN via Ethernet and knows that she can access it as a block-level storage device. What converged protocol is she most likely to use?", options: ["A. CXL", "B. SDWAN", "C. iSCSI", "D. Zigbee"] },
-    { id: 20, text: "Melissa wants to leverage a cloud service provider's edge services. What will peering allow her to do in this scenario?", options: ["A. Ensure that a copy of any data stored in the cloud is also replicated in her local data center.", "B. Provide a direct path from her on-premises network to the cloud provider's services.", "C. Control traffic flows via software-defined routes.", "D. Host copies of her sites at multiple locations hosted by her cloud computing service provider."] },
-    { id: 21, text: "Jake wants to describe traffic sent between servers in his data center. What common terminology should he use to describe this?", options: ["A. North/South", "B. Privilege/Unprivileged", "C. East/West", "D. Store/Forward"] },
-    { id: 22, text: "During a security assessment, Jim discovers that the organization he is working with uses a multilayer protocol to handle SCADA systems and recently connected the SCADA network to the rest of the organization's production network. What concern should he raise about serial data transfers carried via TCP/IP?", options: ["A. SCADA devices that are now connected to the network can be attacked over the network.", "B. Serial data over TCP/IP cannot be encrypted.", "C. Serial data cannot be carried in TCP packets.", "D. TCP/IP's throughput can allow for easy denial-of-service attacks against serial devices."] },
-    { id: 23, text: "Ben provides networking and security services for a small chain of coffee shops. The coffee shop chain wants to provide secure, free wireless for customers. Which of the following is the best option available to Ben to allow customers to connect securely to his wireless network without needing a user account if Ben does not need to worry about protocol support issues?", options: ["A. Use WPA2 in PSK mode.", "B. Use WPA3 in SAE mode.", "C. Use WPA2 in Enterprise mode.", "D. Use a captive portal."] },
-    { id: 24, text: "Alicia's company has implemented multifactor authentication using SMS messages to provide a numeric code. What is the primary security concern that Alicia may want to express about this design?", options: ["A. SMS messages are not encrypted.", "B. SMS messages can be spoofed by senders.", "C. SMS messages may be received by more than one phone.", "D. SMS messages may be stored on the receiving phone."] },
-    { id: 25, text: "What speed and frequency range are used by 802.11ac?", options: ["A. 5 GHz only", "B. 900 MHz and 2.4 GHz", "C. 2.4 GHz and 5 GHz", "D. 2.4 GHz only"] },
-    { id: 26, text: "The Address Resolution Protocol (ARP) and the Reverse Address Resolution Protocol (RARP) operate at what layer of the OSI model?", options: ["A. Layer 1", "B. Layer 2", "C. Layer 3", "D. Layer 4"] },
-    { id: 27, text: "Which of the following is a converged protocol that allows storage mounts over TCP, and which is frequently used as a lower-cost alternative to Fibre Channel?", options: ["A. MPLS", "B. SDN", "C. VoIP", "D. iSCSI"] },
-    { id: 28, text: "Chris is building an Ethernet network and knows that he needs to span a distance of more than 150 meters with his 1000BaseT network. What network technology should he use to help with this?", options: ["A. Install a repeater, a switch, or a concentrator before 100 meters.", "B. Use Category 7 cable, which has better shielding for higher speeds.", "C. Install a gateway to handle the distance.", "D. Use STP cable to handle the longer distance at high speeds."] },
-    { id: 29, text: "What protocol is the messaging traffic most likely to use based on the diagram? (Diagram: messaging traffic via TCP 80)", options: ["A. SLACK", "B. HTTP", "C. SMTP", "D. HTTPS"] },
-    { id: 30, text: "What security concern does sending internal communications from A to B raise?", options: ["A. The firewall does not protect system B.", "B. System C can see the broadcast traffic from system A to B.", "C. It is traveling via an unencrypted protocol.", "D. Messaging does not provide nonrepudation."] },
-    { id: 31, text: "How could Selah's company best address a desire for secure messaging for users of internal systems A and C?", options: ["A. Use a third-party messaging service.", "B. Implement and use a locally hosted service.", "C. Use HTTPS.", "D. Discontinue use of messaging and instead use email, which is more secure."] },
-    { id: 32, text: "Which of the following drawbacks is a concern when multilayer protocols are allowed?", options: ["A. A range of protocols may be used at higher layers.", "B. Covert channels are allowed.", "C. Filters cannot be bypassed.", "D. Encryption can't be incorporated at multiple layers."] },
-    { id: 33, text: "Which of the following is not an example of a converged protocol?", options: ["A. MIME", "B. FCoE", "C. iSCSI", "D. VoIP"] },
-    { id: 34, text: "Chris uses a cellular hot spot to provide Internet access when he is traveling. If he leaves the hot spot connected to his PC while his PC is on his organization's corporate network, what security issue might he cause?", options: ["A. Traffic may not be routed properly, exposing sensitive data.", "B. His system may act as a bridge from the Internet to the local network.", "C. His system may be a portal for a reflected DDoS attack.", "D. Security administrators may not be able to determine his IP address if a security issue occurs."] },
-    { id: 35, text: "Sarah has been asked to improve the observability of her network. Which of the following is not a common step to improve observability?", options: ["A. Aggregate and centralize data.", "B. Enable alerts for critical errors.", "C. Implement logging using a standardized format.", "D. Avoid feedback loops."] },
-    { id: 36, text: "What features can IPsec provide for secure communication?", options: ["A. Encryption, access control, nonrepudiation, and message authentication", "B. Protocol convergence, content distribution, micro-segmentation, and network virtualization", "C. Encryption, authorization, nonrepudiation, and message integrity checking", "D. Micro-segmentation, network virtualization, encryption, and message authentication"] },
-    { id: 37, text: "Casey has been asked to determine if Zigbee network traffic can be secured in transit. What security mechanism does Zigbee use to protect data traffic?", options: ["A. 3DES encryption", "B. AES encryption", "C. ROT13 encryption", "D. Blowfish encryption"] },
-    { id: 38, text: "Sue modifies her MAC address to one that is allowed on a network that uses MAC filtering to provide security. What is the technique Sue used, and what nonsecurity issue could her actions cause?", options: ["A. Broadcast domain exploit, address conflict", "B. Spoofing, token loss", "C. Spoofing, address conflict", "D. Sham EUI creation, token loss"] },
-    { id: 39, text: "Joanna wants to deploy 4G LTE as an out-of-band management solution for devices at remote sites. Which of the following security capabilities is not commonly available from 4G service providers?", options: ["A. Encryption capabilities", "B. Device-based authentication", "C. Dedicated towers and antennas for secure service subscribers", "D. SIM-based authentication"] },
-    { id: 40, text: "SMTP, HTTP, and SNMP all occur at what layer of the OSI model?", options: ["A. Layer 4", "B. Layer 5", "C. Layer 6", "D. Layer 7"] },
-    { id: 41, text: "Mark's organization hosts their infrastructure in a cloud IaaS environment. They operate in a private, isolated, and secure cloud that they configure. What term best describes this?", options: ["A. VLAN", "B. VPC", "C. SDN", "D. CXL"] },
-    { id: 42, text: "Selah wants to provide port-based authentication on her network to ensure that clients must authenticate before using the network. What technology is an appropriate solution for this requirement?", options: ["A. 802.11a", "B. 802.3", "C. 802.15.1", "D. 802.1x"] },
-    { id: 43, text: "Ben has deployed a 1000BaseT gigabit network and needs to run a cable across a large building. If Ben is running his link directly from a switch to another switch in that building, what is the maximum distance Ben can cover according to the 1000BaseT specification?", options: ["A. 2 kilometers", "B. 500 meters", "C. 185 meters", "D. 100 meters"] },
-    { id: 44, text: "What security control does MAC cloning attempt to bypass for wired networks?", options: ["A. Port security", "B. VLAN hopping", "C. 802.1q trunking", "D. Etherkiller prevention"] },
-    { id: 45, text: "The company that Kathleen works for has moved to remote work for most employees and wants to ensure that the multimedia collaboration platform that they use for voice, video, and text-based collaboration is secure. Which of the following security options will provide the best user experience while providing appropriate security for communications?", options: ["A. Require software-based VPN to the corporate network for all use of the collaboration platform.", "B. Require the use of SIPS and SRTP for all communications.", "C. Use TLS for all traffic for the collaboration platform.", "D. Deploy secure VPN endpoints to each remote location and use a point-to-point VPN for communications."] },
-    { id: 46, text: "Chris wants to use a low-power, personal area network (PAN) wireless protocol for a device he is designing. Which of the following wireless protocols is best suited to creating small, low-power devices that can connect to each other at relatively short distances across buildings or rooms?", options: ["A. Wi-Fi", "B. Zigbee", "C. NFC", "D. Infrared"] },
-    { id: 47, text: "Olga wants to provide out-of-band management for her SCADA devices, which are deployed across her organization's large physical infrastructure in multiple distinct production facilities. Which of the following is an appropriate solution to meet her needs?", options: ["A. Administrative access via a web client installed on each system that requires Windows-based domain authentication", "B. Administrative access via nonstandard ports using a secure protocol like SSH", "C. Administrative access via a second, physically separate Ethernet network with access controlled via VPN and multifactor authentication", "D. Administrative access via physical access to the devices when needed"] },
-    { id: 48, text: "Cameron is worried about distributed denial-of-service attacks against his company's primary web application. Which of the following options will provide the most resilience against large-scale DDoS attacks?", options: ["A. A CDN", "B. Increasing the number of servers in the web application server cluster", "C. Contract for DDoS mitigation services via the company's ISP", "D. Increasing the amount of bandwidth available from one or more ISPs"] },
-    { id: 49, text: "There are four common VPN protocols. Which group listed contains all of the common VPN protocols?", options: ["A. PPTP, LTP, L2TP, IPsec", "B. PPP, L2TP, IPsec, VNC", "C. PPTP, L2F, L2TP, IPsec", "D. PPTP, L2TP, IPsec, SPAP"] },
-    { id: 50, text: "Wayne wants to deploy a secure voice communication network. Which of the following techniques should he consider? (Select all that apply.)", options: ["A. Use a dedicated VLAN for VoIP phones and devices.", "B. Require the use of SIPS and SRTP.", "C. Require the use of VPN for all remote VoIP devices.", "D. Implement a VoIP IPS."] },
-    { id: 51, text: "Which OSI layer includes electrical specifications, protocols, and interface standards?", options: ["A. The Transport layer", "B. The Device layer", "C. The Physical layer", "D. The Data Link layer"] },
-    { id: 52, text: "Ben is designing a Wi-Fi network and has been asked to choose the most secure option for the network. Which wireless security standard should he choose?", options: ["A. WPA2", "B. WPA", "C. WEP", "D. WPA3"] },
-    { id: 53, text: "What mode of switching is best suited to low-latency, high-throughput data transfer?", options: ["A. Store-and-forward switching", "B. Blind switching", "C. Forward switching", "D. Cut-through switching"] },
-    { id: 54, text: "Segmentation, sequencing, and error checking all occur at what layer of the OSI model that is associated with SSL, TLS, and UDP?", options: ["A. The Transport layer", "B. The Network layer", "C. The Session layer", "D. The Presentation layer"] },
-    { id: 55, text: "The Windows ipconfig command displays the following information: BC-5F-F4-7B-4B-7D. What term describes this, and what information can usually be gathered from it?", options: ["A. The IP address, the network location of the system", "B. The MAC address, the network interface card's manufacturer", "C. The MAC address, the media type in use", "D. The IPv6 client ID, the network interface card's manufacturer"] },
-    { id: 56, text: "Chris wants to ensure that traffic sent via his backhaul networks provided by third-party telecom providers is secure. Which of the following options is best suited to ensuring that all traffic sent through the connection is secure?", options: ["A. Use TLS for all web services.", "B. Use an on-demand, client-based VPN.", "C. Use a point-to-point VPN.", "D. Tunnel traffic via SSH."] },
-    { id: 57, text: "Ben is reviewing network traffic in his datacenter, and sees traffic that is sent from a SQL server to a web server in the same VLAN. How should he describe this traffic?", options: ["A. North/South", "B. East/West", "C. Input/Output", "D. Sideways"] },
-    { id: 58, text: "What is the default subnet mask for a Class B network?", options: ["A. 255.0.0.0", "B. 255.255.0.0", "C. 255.254.0.0", "D. 255.255.255.0"] },
-    { id: 59, text: "Kim wants to protect her Zoom meetings from Zoom bombing. What security option should she enable?", options: ["A. Require HTTPS connections.", "B. Turn on the waiting room.", "C. Randomize meeting links.", "D. Require a meeting passcode."] },
-    { id: 60, text: "Olivia wants to use a network fault management tool that can provide real-time fault detection. What capabilities are most commonly associated with this type of monitoring?", options: ["A. SNMP and ICMP-based monitoring and diagnostic data retrieval", "B. Netflow and syslog-based monitoring", "C. SNMP and Netflow-based monitoring", "D. ICMP and syslog-based monitoring"] },
-    { id: 61, text: "Selah's organization has deployed VoIP phones on the same switches that the desktop PCs are on. What security issue could this create, and what solution would help?", options: ["A. VLAN hopping; use physically separate switches.", "B. VLAN hopping; use encryption.", "C. Caller ID spoofing; MAC filtering.", "D. Denial-of-service attacks; use a firewall between networks."] },
-    { id: 62, text: "Susan wants to use a set of nonroutable IP addresses for the location's internal network addresses. Using your knowledge of secure network design principles and IP networking, which of the following IP ranges are usable for that purpose? (Select all that apply.)", options: ["A. 172.16.0.0/12", "B. 192.168.0.0/16", "C. 128.192.0.0/24", "D. 10.0.0.0/8"] },
-    { id: 63, text: "Susan knows that she will need to implement a Wi-Fi network for her customers and wants to gather information about the customers, such as their email address, without having to provide them with a wireless network password or key. What type of solution would provide this combination of features?", options: ["A. NAC", "B. A captive portal", "C. Pre-shared keys", "D. WPA3's SAE mode"] },
-    { id: 64, text: "With her wireless network set up, Susan moves on to ensuring that her network will remain operational even if disruptions occur. What is the simplest way she can ensure that her network devices, including her router, access points, and network switches, stay on if a brownout or other temporary power issue occurs?", options: ["A. Purchase and install a generator with an automatic start.", "B. Deploy dual power supplies for all network devices.", "C. Install UPS systems to cover all network devices that must remain online.", "D. Contract with multiple different power companies for redundant power."] },
-    { id: 65, text: "Susan wants to provide 100 gigabit network connections to devices in the facility where the new branch will operate. What connectivity options does she have for structured wiring that can meet those speeds? (Select all that apply.)", options: ["A. Cat5e", "B. Fiber", "C. Cat6", "D. Coaxial cable"] },
-    { id: 66, text: "Data streams occur at what three layers of the OSI model?", options: ["A. Application, Presentation, and Session", "B. Presentation, Session, and Transport", "C. Physical, Data Link, and Network", "D. Data Link, Network, and Transport"] },
-    { id: 67, text: "Lucca wants to protect endpoints that are in production use but that are no longer supported and cannot be patched from network attacks. What should he do to best protect these devices?", options: ["A. Install a firewall on the device.", "B. Disable all services and open ports on the devices.", "C. Place a hardware network security device in front of the devices.", "D. Unplug the devices from the network because they cannot be properly secured."] },
-    { id: 68, text: "Selah's networking team has been asked to identify a technology that will allow them to separate the routing process for the network from the packet switching process while increasing centralization?", options: ["A. A network that follows the 5-4-3 rule", "B. A converged network", "C. A software-defined network", "D. A hypervisor-based network"] },
-    { id: 69, text: "When a TCP packet is sent, what is added as datagrams are sent from the Transport Layer to the Internet Layer and from the Internet Layer to the Data-Link Layer?", options: ["A. Headers are added", "B. Information is added to the main body of the packet data", "C. The data is encrypted with a new secret key", "D. A security envelope that provides perfect forward secrecy"] },
-    { id: 70, text: "During a troubleshooting process, the support technician that Alyssa is talking to states that the problem is a layer 3 problem. Which of the following possible issues is not a layer 3 problem?", options: ["A. A TTL mismatch", "B. An MTU mismatch", "C. An incorrect ACL", "D. A broken network cable"] },
-    { id: 71, text: "During a review of her organization's network, Angela discovered that it was suffering from broadcast storms and that contractors, guests, and organizational administrative staff were on the same network segment. What design change should Angela recommend?", options: ["A. Require encryption for all users.", "B. Install a firewall at the network border.", "C. Enable spanning tree loop detection.", "D. Segment the network based on functional requirements."] },
-    { id: 72, text: "Lisa wants to explain the difference between network throughput and bandwidth to her team. Which of the following best describes the difference between the two terms?", options: ["A. Bandwidth describes the number of parallel data channels available to a network, and throughput describes how many can be used at once.", "B. Bandwidth is the maximum amount of data that can be sent via a channel or connection, and throughput is the actual amount of data that is sent via the channel or connection in a given period of time.", "C. Bandwidth and throughput are the same and can be used interchangeably.", "D. Bandwidth is a measure of the amount of data sent over a given period of time, and throughput is the maximum amount of data that could be sent via the channel."] },
-    { id: 73, text: "Ben wants to ensure that the instance-to-instance (system-to-system) traffic in his cloud-hosted infrastructure-as-a-service environment is secure. What can he do to fully ensure that the virtualized network traffic is not being captured and analyzed?", options: ["A. Prevent the installation of a packet sniffer on all hosts.", "B. Disable promiscuous mode for all virtual network interfaces.", "C. Disallow the use of any virtual taps.", "D. Encrypt all traffic between hosts."] },
-    { id: 74, text: "What issue is most likely to occur due to the subnets configured for the data center and VPC?", options: ["A. IP address conflicts", "B. Routing loops", "C. MAC address conflicts", "D. All of the above"] },
-    { id: 75, text: "Ben wants to use multiple Internet service providers (ISPs) to connect to his cloud VPC to ensure reliable access and bandwidth. What technology can he use to manage and optimize those connections?", options: ["A. FCoE", "B. VXLAN", "C. SD-WAN", "D. LiFi"] },
-    { id: 76, text: "Traffic entering and leaving a network through a WAN link is often described as what sort of traffic?", options: ["A. Foreign/domestic", "B. North/south", "C. East/west", "D. Trusted/untrusted"] },
-    { id: 77, text: "What converged protocol is designed to allow high-speed communication to devices like CPUs, GPUs, and accelerators?", options: ["A. CXL", "B. VoIP", "C. CDN", "D. iSCSI"] },
-    { id: 78, text: "Mark is concerned about the physical security of his network cables. What type of network connection would be the hardest to tap without specialized equipment?", options: ["A. Wi-Fi", "B. Bluetooth", "C. Cat5/Cat6 twisted pair", "D. Fiber optic"] },
-    { id: 79, text: "Rich wants to connect his network to a building a half-mile away from his current location. There are trees and terrain features along the way, but a road passes between the trees to the other location. What type of transmission media is best suited to this type of deployment?", options: ["A. Ethernet cable with repeaters every 200 to 300 yards", "B. A Wi-Fi directional antenna", "C. Fiber-optic cable", "D. A LiFi system"] },
-    { id: 80, text: "What challenge is most common for endpoint security system deployments?", options: ["A. Compromises", "B. The volume of data", "C. Monitoring encrypted traffic on the network", "D. Handling non-TCP protocols"] },
-    { id: 81, text: "What type of address is 127.0.0.1?", options: ["A. A public IP address", "B. An RFC 1918 address", "C. An APIPA address", "D. A loopback address"] },
-    { id: 82, text: "Susan is writing a best practices statement for her organizational users who need to use Bluetooth. She knows that there are many potential security issues with Bluetooth and wants to provide the best advice she can. Which of the following sets of guidance should Susan include?", options: ["A. Use Bluetooth's built-in strong encryption, change the default PIN on your device, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "B. Use Bluetooth only for those activities that are not confidential, change the default PIN on your device, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "C. Use Bluetooth's built-in strong encryption, use extended (eight digits or longer) Bluetooth PINs, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "D. Use Bluetooth only for those activities that are not confidential, use extended (eight digits or longer) Bluetooth PINs, turn off discovery mode, and turn off Bluetooth when it's not in active use."] },
-    { id: 83, text: "What type of networking device is most commonly used to assign endpoint systems to VLANs?", options: ["A. Firewall", "B. Router", "C. Switch", "D. Hub"] },
-    { id: 84, text: "Srini is building a high-performance computing cluster that requires very high bandwidth and very low latency. What converged protocol is he most likely to select for this purpose?", options: ["A. iSCSI", "B. VoIP", "C. Infiniband over Ethernet", "D. CXL"] },
-    { id: 85, text: "Michelle is told that the organization that she is joining uses an SD-WAN controller architecture to manage their WAN connections. What can she assume about how the network is managed and controlled? (Select all that apply.)", options: ["A. The network uses predefined rules to optimize performance.", "B. The network conducts continuous monitoring to support better performance.", "C. The network uses self-learning techniques to respond to changes in the network.", "D. All connections are managed by the organization's primary Internet service provider."] },
-    { id: 86, text: "Which of the following shows the layers of the OSI model in correct order, from layer 1 to layer 7? Place the layers of the OSI model shown here in the appropriate order, from layer 1 to layer 7.", options: ["A. Layer 1 = Data Link; Layer 2 = Physical; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Presentation; Layer 7 = Applications", "B. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Presentation; Layer 7 = Applications", "C. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Applications; Layer 7 = Presentation", "D. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Session; Layer 5 = Transport; Layer 6 = Presentation; Layer 7 = Applications"] },
-    { id: 87, text: "Valerie enables port security on the switches on her network. What type of attack is she most likely trying to prevent?", options: ["A. IP spoofing", "B. MAC aggregation", "C. CAM table flooding", "D. VLAN hopping"] },
-    { id: 88, text: "Alaina wants to ensure that systems are compliant with her network security settings before they are allowed on the network and wants to ensure that she can test and validate system settings as soon as possible. What type of NAC system should she deploy?", options: ["A. A pre-admit, clientless NAC system", "B. A postadmission, client-based NAC system", "C. A pre-admit, client-based NAC system", "D. A postadmission, clientless NAC system"] },
-    { id: 89, text: "Derek wants to deploy redundant core routers, as shown in the diagram. What model of high availability clustering will provide him with the greatest throughput?", options: ["A. Active/active", "B. Line interactive", "C. Active/passive", "D. Nearline"] },
-    { id: 90, text: "Angela needs access to manage IoT devices at multiple sites that her organization manages. What solution should she suggest to ensure access and security for the devices?", options: ["A. VPNs to protected VLANs", "B. An IDS located at the network edge protecting a network using only private IP addresses", "C. A DLP system configured to prevent attacks against IoT devices", "D. An iSCSI-based security solution accessed using a VPN and jump boxes"] },
-    { id: 91, text: "What is a frequent concern for systems that require high-performing Internet connectivity when satellite Internet is the only available option?", options: ["A. Security", "B. Compatibility with protocols like LiFi", "C. Compatibility with protocols like Zigbee", "D. Latency"] },
-    { id: 92, text: "What layer of an SDN implementation uses programs to communicate needs for resources via APIs?", options: ["A. The data plane", "B. The control plane", "C. The application plane", "D. The monitoring plane"] },
-    { id: 93, text: "Which of the following is not a drawback of multilayer protocols?", options: ["A. They can allow filters and rules to be bypassed.", "B. They can operate at higher OSI levels.", "C. They can allow covert channels.", "D. They can allow network segment boundaries to be bypassed."] },
-    { id: 94, text: "Place the following layers of the TCP/IP model in order, starting with the Application layer and moving down the stack.<br/>1. Application layer<br/>2. Network Access layer<br/>3. Internet layer<br/>4. Transport layer<br/><br/>(Options given as sequence numbers)", options: ["A. 1, 2, 3, 4", "B. 1, 4, 2, 3", "C. 1, 4, 3, 2", "D. 4, 1, 3, 2"] },
-    { id: 95, text: "Aadita's company wants to ensure that their website is highly available and resistant to potential denial-of-service attacks. What type of solution would be best suited to this if the company operates an e-commerce site that serves multiple countries and regions with a very large number of customers?", options: ["A. A load-balanced web server cluster", "B. A CDN", "C. Micro-segmentation of virtual servers", "D. A VPC"] },
-    { id: 96, text: "What are two primary advantages that 5G networks have over 4G networks? (Select all that apply.)", options: ["A. Anti-jamming features", "B. Enhanced subscriber identity protection", "C. Mutual authentication capabilities", "D. Multifactor authentication"] },
-    { id: 97, text: "What function does VXLAN perform in a data center environment? (Select all that apply.)", options: ["A. It removes limitations due to maximum distance for Ethernet cables.", "B. It allows multiple subnets to exist in the same IP space with hosts using the same IP addresses.", "C. It tunnels layer 2 connections over a layer 3 network, stretching them across the underlying layer 3 network.", "D. All of the above."] },
-    { id: 98, text: "Chris is setting up a hotel network and needs to ensure that systems in each room or suite can connect to each other, but systems in other suites or rooms cannot. At the same time, he needs to ensure that all systems in the hotel can reach the Internet. What solution should he recommend as the most effective business solution?", options: ["A. Per-room VPNs", "B. VLANs", "C. Port security", "D. Firewalls"] },
-    { id: 99, text: "During a forensic investigation, Charles is able to determine the Media Access Control (MAC) address of a system that was connected to a compromised network. Charles knows that MAC addresses are tied back to a manufacturer or vendor and are part of the fingerprint of the system. To which OSI layer does a MAC address belong?", options: ["A. The Application layer", "B. The Session layer", "C. The Physical layer", "D. The Data Link layer"] },
-    { id: 100, text: "Mikayla is reviewing her organization's VoIP environment configuration and finds a diagram that shows the following design. What concern should she express? (Diagram: VoIP phone connected with SIP and SRTP to VoIP-PBX)", options: ["A. The voice connection is unencrypted and could be listened to.", "B. There are no security issues in this diagram.", "C. The session initialization connection is unencrypted and could be viewed.", "D. Both the session initialization and voice data connection are unencrypted and could be captured and analyzed."] },
-    { id: 101, text: "Jake's company keeps their certificate signing server disconnected from the network to prevent it from being compromised by network attacks. What is this type of solution called?", options: ["A. Store-and-forward", "B. Out-of-band", "C. In-band", "D. Air-gapping"] },
-	{ id: 102, text: "During a forensic investigation, Charles is able to determine the Media Access Control (MAC) address of a system that was connected to a compromised network. Charles knows that MAC addresses are tied back to a manufacturer or vendor and are part of the fingerprint of the system. To which OSI layer does a MAC address belong?", options: ["A. The Application layer", "B. The Session layer", "C. The Physical layer", "D. The Data Link layer"] },
-	{ id: 103, text: "Mikayla is reviewing her organization's VoIP environment configuration and finds a diagram that shows the following design. What concern should she express? (Diagram: VoIP phone connected with SIP and SRTP to VoIP-PBX)", options: ["A. The voice connection is unencrypted and could be listened to.", "B. There are no security issues in this diagram.", "C. The session initialization connection is unencrypted and could be viewed.", "D. Both the session initialization and voice data connection are unencrypted and could be captured and analyzed."] },
-	{ id: 104, text: "Jake's company keeps their certificate signing server disconnected from the network to prevent it from being compromised by network attacks. What is this type of solution called?", options: ["A. Store-and-forward", "B. Out-of-band", "C. In-band", "D. Air-gapping"] }
-];
+    <script>
+        // --------------------------------------------------------------
+        // EXACT QUESTIONS (from original XML) – DOMAIN 4
+        // --------------------------------------------------------------
+        const questionsData = [
+            { id: 1, text: "Gary wants to distribute a large file and prefers a peer-to-peer content delivery network (CDN). Which of the following is the most common example of this type of technology?", options: ["A. CloudFlare", "B. BitTorrent", "C. Amazon CloudFront", "D. Akamai Edge"] },
+            { id: 2, text: "What is the purpose of a virtual domain (VDOM)?", options: ["A. They combine multiple virtual instances into a single domain.", "B. They divide a firewall device or appliance into two or more virtual firewalls.", "C. They create a virtual domain controller.", "D. They allow the hosting of multiple domain names for a single host."] },
+            { id: 3, text: "Ben has connected his laptop to his tablet PC using an 802.11ac connection. What wireless network mode has he used to connect these devices?", options: ["A. Infrastructure mode", "B. Wired extension mode", "C. Ad hoc mode", "D. Stand-alone mode"] },
+            { id: 4, text: "Selah's and Nick's PCs simultaneously send traffic by transmitting at the same time. What network term describes the range of systems on a network that could be affected by this same issue?", options: ["A. The subnet", "B. The supernet", "C. A collision domain", "D. A broadcast domain"] },
+            { id: 5, text: "Sarah is manually reviewing a packet capture of TCP traffic and finds that a system is setting the RST flag in the TCP packets it sends repeatedly during a short period of time. What does this flag mean in the TCP packet header?", options: ["A. RST flags mean “Rest.” The server needs traffic to briefly pause.", "B. RST flags mean “Relay-set.” The packets will be forwarded to the address set in the packet.", "C. RST flags mean “Resume Standard.” Communications will resume in their normal format.", "D. RST means “Reset.” The TCP session will be disconnected."] },
+            { id: 6, text: "Gary is deploying a wireless network and wants to deploy the fastest possible wireless technology. Which one of the following wireless networking standards should he use?", options: ["A. 802.11ac", "B. 802.11g", "C. 802.11n", "D. 802.11ax"] },
+            { id: 7, text: "Michele wants to replace FTP traffic with a secure replacement. What secure protocol should she select instead?", options: ["A. TFTP", "B. HFTPS", "C. SecFTP", "D. SFTP"] },
+            { id: 8, text: "Jake has been told that there is a layer 3 problem with his network. Which of the following is associated with layer 3 in the OSI model?", options: ["A. IP addresses", "B. TCP and UDP protocols", "C. MAC addresses", "D. Sending and receiving bits via hardware"] },
+            { id: 9, text: "Frank is responsible for ensuring that his organization has reliable, supported network hardware. Which of the following is not a common concern for network administrators as they work to ensure their network continues to be operational?", options: ["A. If the devices have vendor support", "B. If the devices are under warranty", "C. If major devices support redundant power supplies", "D. If all devices support redundant power supplies"] },
+            { id: 10, text: "Brian is analyzing his network traffic and is focused on the variance of the delay between packets of data that are sent between two of his sites. What is he analyzing?", options: ["A. Latency", "B. Jitter", "C. Throughput", "D. Signal-to-noise ratio"] },
+            { id: 11, text: "Which one of the following protocols is commonly used to provide back-end authentication services for a VPN?", options: ["A. HTTPS", "B. RADIUS", "C. ESP", "D. AH"] },
+            { id: 12, text: "Isaac wants to ensure that his VoIP session initialization is secure. What protocol should he ensure is enabled and required?", options: ["A. SVOIP", "B. PBSX", "C. SIPS", "D. SRTP"] },
+            { id: 13, text: "What type of firewall design is shown in the diagram? (Diagram: layered firewall with two protected zones)", options: ["A. A single-tier firewall", "B. A two-tier firewall", "C. A three-tier firewall", "D. A four-tier firewall"] },
+            { id: 14, text: "If the VPN grants remote users the same access to network and system resources as local workstations have, what security issue should Chris raise?", options: ["A. VPN users will not be able to access the web server.", "B. There is no additional security issue; the VPN concentrator's logical network location matches the logical network location of the workstations.", "C. Web server traffic is not subjected to stateful inspection.", "D. VPN users should only connect from managed PCs."] },
+            { id: 15, text: "Chris wants to implement security controls in his data center at the level of individual services and workloads. He plans to use firewall rules and other controls as well as on-demand access to services as part of his security design. What design concept is he implementing?", options: ["A. Converged protocols", "B. Physical segmentation", "C. Edge network-based design", "D. Micro-segmentation"] },
+            { id: 16, text: "As part of his segmentation approach, Chris also wants to segment network routes. What type of solution should he select?", options: ["A. VPCs", "B. VRF", "C. VLANs", "D. A CDN"] },
+            { id: 17, text: "Ben has configured his network to not broadcast an SSID. Why might Ben disable SSID broadcast, and how could his SSID be discovered?", options: ["A. Disabling SSID broadcast prevents attackers from discovering the encryption key. The SSID can be recovered from decrypted packets.", "B. Disabling SSID broadcast hides networks from unauthorized personnel. The SSID can be discovered using a wireless sniffer.", "C. Disabling SSID broadcast prevents issues with beacon frames. The SSID can be recovered by reconstructing the BSSID.", "D. Disabling SSID broadcast helps avoid SSID conflicts. The SSID can be discovered by attempting to connect to the network."] },
+            { id: 18, text: "Chuck is in charge of a commercial data center that handles many customers who host their servers there. He wants to be able to configure his data center network to adjust to traffic pattern changes and to manage bandwidth and other options. What technology should he implement to allow central, programmatic control of his network?", options: ["A. SDN", "B. SD-WAN", "C. Proxy routing", "D. Agile networking"] },
+            { id: 19, text: "Susan wants to access her company's SAN via Ethernet and knows that she can access it as a block-level storage device. What converged protocol is she most likely to use?", options: ["A. CXL", "B. SDWAN", "C. iSCSI", "D. Zigbee"] },
+            { id: 20, text: "Melissa wants to leverage a cloud service provider's edge services. What will peering allow her to do in this scenario?", options: ["A. Ensure that a copy of any data stored in the cloud is also replicated in her local data center.", "B. Provide a direct path from her on-premises network to the cloud provider's services.", "C. Control traffic flows via software-defined routes.", "D. Host copies of her sites at multiple locations hosted by her cloud computing service provider."] },
+            { id: 21, text: "Jake wants to describe traffic sent between servers in his data center. What common terminology should he use to describe this?", options: ["A. North/South", "B. Privilege/Unprivileged", "C. East/West", "D. Store/Forward"] },
+            { id: 22, text: "During a security assessment, Jim discovers that the organization he is working with uses a multilayer protocol to handle SCADA systems and recently connected the SCADA network to the rest of the organization's production network. What concern should he raise about serial data transfers carried via TCP/IP?", options: ["A. SCADA devices that are now connected to the network can be attacked over the network.", "B. Serial data over TCP/IP cannot be encrypted.", "C. Serial data cannot be carried in TCP packets.", "D. TCP/IP's throughput can allow for easy denial-of-service attacks against serial devices."] },
+            { id: 23, text: "Ben provides networking and security services for a small chain of coffee shops. The coffee shop chain wants to provide secure, free wireless for customers. Which of the following is the best option available to Ben to allow customers to connect securely to his wireless network without needing a user account if Ben does not need to worry about protocol support issues?", options: ["A. Use WPA2 in PSK mode.", "B. Use WPA3 in SAE mode.", "C. Use WPA2 in Enterprise mode.", "D. Use a captive portal."] },
+            { id: 24, text: "Alicia's company has implemented multifactor authentication using SMS messages to provide a numeric code. What is the primary security concern that Alicia may want to express about this design?", options: ["A. SMS messages are not encrypted.", "B. SMS messages can be spoofed by senders.", "C. SMS messages may be received by more than one phone.", "D. SMS messages may be stored on the receiving phone."] },
+            { id: 25, text: "What speed and frequency range are used by 802.11ac?", options: ["A. 5 GHz only", "B. 900 MHz and 2.4 GHz", "C. 2.4 GHz and 5 GHz", "D. 2.4 GHz only"] },
+            { id: 26, text: "The Address Resolution Protocol (ARP) and the Reverse Address Resolution Protocol (RARP) operate at what layer of the OSI model?", options: ["A. Layer 1", "B. Layer 2", "C. Layer 3", "D. Layer 4"] },
+            { id: 27, text: "Which of the following is a converged protocol that allows storage mounts over TCP, and which is frequently used as a lower-cost alternative to Fibre Channel?", options: ["A. MPLS", "B. SDN", "C. VoIP", "D. iSCSI"] },
+            { id: 28, text: "Chris is building an Ethernet network and knows that he needs to span a distance of more than 150 meters with his 1000BaseT network. What network technology should he use to help with this?", options: ["A. Install a repeater, a switch, or a concentrator before 100 meters.", "B. Use Category 7 cable, which has better shielding for higher speeds.", "C. Install a gateway to handle the distance.", "D. Use STP cable to handle the longer distance at high speeds."] },
+            { id: 29, text: "What protocol is the messaging traffic most likely to use based on the diagram? (Diagram: messaging traffic via TCP 80)", options: ["A. SLACK", "B. HTTP", "C. SMTP", "D. HTTPS"] },
+            { id: 30, text: "What security concern does sending internal communications from A to B raise?", options: ["A. The firewall does not protect system B.", "B. System C can see the broadcast traffic from system A to B.", "C. It is traveling via an unencrypted protocol.", "D. Messaging does not provide nonrepudation."] },
+            { id: 31, text: "How could Selah's company best address a desire for secure messaging for users of internal systems A and C?", options: ["A. Use a third-party messaging service.", "B. Implement and use a locally hosted service.", "C. Use HTTPS.", "D. Discontinue use of messaging and instead use email, which is more secure."] },
+            { id: 32, text: "Which of the following drawbacks is a concern when multilayer protocols are allowed?", options: ["A. A range of protocols may be used at higher layers.", "B. Covert channels are allowed.", "C. Filters cannot be bypassed.", "D. Encryption can't be incorporated at multiple layers."] },
+            { id: 33, text: "Which of the following is not an example of a converged protocol?", options: ["A. MIME", "B. FCoE", "C. iSCSI", "D. VoIP"] },
+            { id: 34, text: "Chris uses a cellular hot spot to provide Internet access when he is traveling. If he leaves the hot spot connected to his PC while his PC is on his organization's corporate network, what security issue might he cause?", options: ["A. Traffic may not be routed properly, exposing sensitive data.", "B. His system may act as a bridge from the Internet to the local network.", "C. His system may be a portal for a reflected DDoS attack.", "D. Security administrators may not be able to determine his IP address if a security issue occurs."] },
+            { id: 35, text: "Sarah has been asked to improve the observability of her network. Which of the following is not a common step to improve observability?", options: ["A. Aggregate and centralize data.", "B. Enable alerts for critical errors.", "C. Implement logging using a standardized format.", "D. Avoid feedback loops."] },
+            { id: 36, text: "What features can IPsec provide for secure communication?", options: ["A. Encryption, access control, nonrepudiation, and message authentication", "B. Protocol convergence, content distribution, micro-segmentation, and network virtualization", "C. Encryption, authorization, nonrepudiation, and message integrity checking", "D. Micro-segmentation, network virtualization, encryption, and message authentication"] },
+            { id: 37, text: "Casey has been asked to determine if Zigbee network traffic can be secured in transit. What security mechanism does Zigbee use to protect data traffic?", options: ["A. 3DES encryption", "B. AES encryption", "C. ROT13 encryption", "D. Blowfish encryption"] },
+            { id: 38, text: "Sue modifies her MAC address to one that is allowed on a network that uses MAC filtering to provide security. What is the technique Sue used, and what nonsecurity issue could her actions cause?", options: ["A. Broadcast domain exploit, address conflict", "B. Spoofing, token loss", "C. Spoofing, address conflict", "D. Sham EUI creation, token loss"] },
+            { id: 39, text: "Joanna wants to deploy 4G LTE as an out-of-band management solution for devices at remote sites. Which of the following security capabilities is not commonly available from 4G service providers?", options: ["A. Encryption capabilities", "B. Device-based authentication", "C. Dedicated towers and antennas for secure service subscribers", "D. SIM-based authentication"] },
+            { id: 40, text: "SMTP, HTTP, and SNMP all occur at what layer of the OSI model?", options: ["A. Layer 4", "B. Layer 5", "C. Layer 6", "D. Layer 7"] },
+            { id: 41, text: "Mark's organization hosts their infrastructure in a cloud IaaS environment. They operate in a private, isolated, and secure cloud that they configure. What term best describes this?", options: ["A. VLAN", "B. VPC", "C. SDN", "D. CXL"] },
+            { id: 42, text: "Selah wants to provide port-based authentication on her network to ensure that clients must authenticate before using the network. What technology is an appropriate solution for this requirement?", options: ["A. 802.11a", "B. 802.3", "C. 802.15.1", "D. 802.1x"] },
+            { id: 43, text: "Ben has deployed a 1000BaseT gigabit network and needs to run a cable across a large building. If Ben is running his link directly from a switch to another switch in that building, what is the maximum distance Ben can cover according to the 1000BaseT specification?", options: ["A. 2 kilometers", "B. 500 meters", "C. 185 meters", "D. 100 meters"] },
+            { id: 44, text: "What security control does MAC cloning attempt to bypass for wired networks?", options: ["A. Port security", "B. VLAN hopping", "C. 802.1q trunking", "D. Etherkiller prevention"] },
+            { id: 45, text: "The company that Kathleen works for has moved to remote work for most employees and wants to ensure that the multimedia collaboration platform that they use for voice, video, and text-based collaboration is secure. Which of the following security options will provide the best user experience while providing appropriate security for communications?", options: ["A. Require software-based VPN to the corporate network for all use of the collaboration platform.", "B. Require the use of SIPS and SRTP for all communications.", "C. Use TLS for all traffic for the collaboration platform.", "D. Deploy secure VPN endpoints to each remote location and use a point-to-point VPN for communications."] },
+            { id: 46, text: "Chris wants to use a low-power, personal area network (PAN) wireless protocol for a device he is designing. Which of the following wireless protocols is best suited to creating small, low-power devices that can connect to each other at relatively short distances across buildings or rooms?", options: ["A. Wi-Fi", "B. Zigbee", "C. NFC", "D. Infrared"] },
+            { id: 47, text: "Olga wants to provide out-of-band management for her SCADA devices, which are deployed across her organization's large physical infrastructure in multiple distinct production facilities. Which of the following is an appropriate solution to meet her needs?", options: ["A. Administrative access via a web client installed on each system that requires Windows-based domain authentication", "B. Administrative access via nonstandard ports using a secure protocol like SSH", "C. Administrative access via a second, physically separate Ethernet network with access controlled via VPN and multifactor authentication", "D. Administrative access via physical access to the devices when needed"] },
+            { id: 48, text: "Cameron is worried about distributed denial-of-service attacks against his company's primary web application. Which of the following options will provide the most resilience against large-scale DDoS attacks?", options: ["A. A CDN", "B. Increasing the number of servers in the web application server cluster", "C. Contract for DDoS mitigation services via the company's ISP", "D. Increasing the amount of bandwidth available from one or more ISPs"] },
+            { id: 49, text: "There are four common VPN protocols. Which group listed contains all of the common VPN protocols?", options: ["A. PPTP, LTP, L2TP, IPsec", "B. PPP, L2TP, IPsec, VNC", "C. PPTP, L2F, L2TP, IPsec", "D. PPTP, L2TP, IPsec, SPAP"] },
+            { id: 50, text: "Wayne wants to deploy a secure voice communication network. Which of the following techniques should he consider? (Select all that apply.)", options: ["A. Use a dedicated VLAN for VoIP phones and devices.", "B. Require the use of SIPS and SRTP.", "C. Require the use of VPN for all remote VoIP devices.", "D. Implement a VoIP IPS."] },
+            { id: 51, text: "Which OSI layer includes electrical specifications, protocols, and interface standards?", options: ["A. The Transport layer", "B. The Device layer", "C. The Physical layer", "D. The Data Link layer"] },
+            { id: 52, text: "Ben is designing a Wi-Fi network and has been asked to choose the most secure option for the network. Which wireless security standard should he choose?", options: ["A. WPA2", "B. WPA", "C. WEP", "D. WPA3"] },
+            { id: 53, text: "What mode of switching is best suited to low-latency, high-throughput data transfer?", options: ["A. Store-and-forward switching", "B. Blind switching", "C. Forward switching", "D. Cut-through switching"] },
+            { id: 54, text: "Segmentation, sequencing, and error checking all occur at what layer of the OSI model that is associated with SSL, TLS, and UDP?", options: ["A. The Transport layer", "B. The Network layer", "C. The Session layer", "D. The Presentation layer"] },
+            { id: 55, text: "The Windows ipconfig command displays the following information: BC-5F-F4-7B-4B-7D. What term describes this, and what information can usually be gathered from it?", options: ["A. The IP address, the network location of the system", "B. The MAC address, the network interface card's manufacturer", "C. The MAC address, the media type in use", "D. The IPv6 client ID, the network interface card's manufacturer"] },
+            { id: 56, text: "Chris wants to ensure that traffic sent via his backhaul networks provided by third-party telecom providers is secure. Which of the following options is best suited to ensuring that all traffic sent through the connection is secure?", options: ["A. Use TLS for all web services.", "B. Use an on-demand, client-based VPN.", "C. Use a point-to-point VPN.", "D. Tunnel traffic via SSH."] },
+            { id: 57, text: "Ben is reviewing network traffic in his datacenter, and sees traffic that is sent from a SQL server to a web server in the same VLAN. How should he describe this traffic?", options: ["A. North/South", "B. East/West", "C. Input/Output", "D. Sideways"] },
+            { id: 58, text: "What is the default subnet mask for a Class B network?", options: ["A. 255.0.0.0", "B. 255.255.0.0", "C. 255.254.0.0", "D. 255.255.255.0"] },
+            { id: 59, text: "Kim wants to protect her Zoom meetings from Zoom bombing. What security option should she enable?", options: ["A. Require HTTPS connections.", "B. Turn on the waiting room.", "C. Randomize meeting links.", "D. Require a meeting passcode."] },
+            { id: 60, text: "Olivia wants to use a network fault management tool that can provide real-time fault detection. What capabilities are most commonly associated with this type of monitoring?", options: ["A. SNMP and ICMP-based monitoring and diagnostic data retrieval", "B. Netflow and syslog-based monitoring", "C. SNMP and Netflow-based monitoring", "D. ICMP and syslog-based monitoring"] },
+            { id: 61, text: "Selah's organization has deployed VoIP phones on the same switches that the desktop PCs are on. What security issue could this create, and what solution would help?", options: ["A. VLAN hopping; use physically separate switches.", "B. VLAN hopping; use encryption.", "C. Caller ID spoofing; MAC filtering.", "D. Denial-of-service attacks; use a firewall between networks."] },
+            { id: 62, text: "Susan wants to use a set of nonroutable IP addresses for the location's internal network addresses. Using your knowledge of secure network design principles and IP networking, which of the following IP ranges are usable for that purpose? (Select all that apply.)", options: ["A. 172.16.0.0/12", "B. 192.168.0.0/16", "C. 128.192.0.0/24", "D. 10.0.0.0/8"] },
+            { id: 63, text: "Susan knows that she will need to implement a Wi-Fi network for her customers and wants to gather information about the customers, such as their email address, without having to provide them with a wireless network password or key. What type of solution would provide this combination of features?", options: ["A. NAC", "B. A captive portal", "C. Pre-shared keys", "D. WPA3's SAE mode"] },
+            { id: 64, text: "With her wireless network set up, Susan moves on to ensuring that her network will remain operational even if disruptions occur. What is the simplest way she can ensure that her network devices, including her router, access points, and network switches, stay on if a brownout or other temporary power issue occurs?", options: ["A. Purchase and install a generator with an automatic start.", "B. Deploy dual power supplies for all network devices.", "C. Install UPS systems to cover all network devices that must remain online.", "D. Contract with multiple different power companies for redundant power."] },
+            { id: 65, text: "Susan wants to provide 100 gigabit network connections to devices in the facility where the new branch will operate. What connectivity options does she have for structured wiring that can meet those speeds? (Select all that apply.)", options: ["A. Cat5e", "B. Fiber", "C. Cat6", "D. Coaxial cable"] },
+            { id: 66, text: "Data streams occur at what three layers of the OSI model?", options: ["A. Application, Presentation, and Session", "B. Presentation, Session, and Transport", "C. Physical, Data Link, and Network", "D. Data Link, Network, and Transport"] },
+            { id: 67, text: "Lucca wants to protect endpoints that are in production use but that are no longer supported and cannot be patched from network attacks. What should he do to best protect these devices?", options: ["A. Install a firewall on the device.", "B. Disable all services and open ports on the devices.", "C. Place a hardware network security device in front of the devices.", "D. Unplug the devices from the network because they cannot be properly secured."] },
+            { id: 68, text: "Selah's networking team has been asked to identify a technology that will allow them to separate the routing process for the network from the packet switching process while increasing centralization?", options: ["A. A network that follows the 5-4-3 rule", "B. A converged network", "C. A software-defined network", "D. A hypervisor-based network"] },
+            { id: 69, text: "When a TCP packet is sent, what is added as datagrams are sent from the Transport Layer to the Internet Layer and from the Internet Layer to the Data-Link Layer?", options: ["A. Headers are added", "B. Information is added to the main body of the packet data", "C. The data is encrypted with a new secret key", "D. A security envelope that provides perfect forward secrecy"] },
+            { id: 70, text: "During a troubleshooting process, the support technician that Alyssa is talking to states that the problem is a layer 3 problem. Which of the following possible issues is not a layer 3 problem?", options: ["A. A TTL mismatch", "B. An MTU mismatch", "C. An incorrect ACL", "D. A broken network cable"] },
+            { id: 71, text: "During a review of her organization's network, Angela discovered that it was suffering from broadcast storms and that contractors, guests, and organizational administrative staff were on the same network segment. What design change should Angela recommend?", options: ["A. Require encryption for all users.", "B. Install a firewall at the network border.", "C. Enable spanning tree loop detection.", "D. Segment the network based on functional requirements."] },
+            { id: 72, text: "Lisa wants to explain the difference between network throughput and bandwidth to her team. Which of the following best describes the difference between the two terms?", options: ["A. Bandwidth describes the number of parallel data channels available to a network, and throughput describes how many can be used at once.", "B. Bandwidth is the maximum amount of data that can be sent via a channel or connection, and throughput is the actual amount of data that is sent via the channel or connection in a given period of time.", "C. Bandwidth and throughput are the same and can be used interchangeably.", "D. Bandwidth is a measure of the amount of data sent over a given period of time, and throughput is the maximum amount of data that could be sent via the channel."] },
+            { id: 73, text: "Ben wants to ensure that the instance-to-instance (system-to-system) traffic in his cloud-hosted infrastructure-as-a-service environment is secure. What can he do to fully ensure that the virtualized network traffic is not being captured and analyzed?", options: ["A. Prevent the installation of a packet sniffer on all hosts.", "B. Disable promiscuous mode for all virtual network interfaces.", "C. Disallow the use of any virtual taps.", "D. Encrypt all traffic between hosts."] },
+            { id: 74, text: "What issue is most likely to occur due to the subnets configured for the data center and VPC? (Scenario: overlapping IP ranges)", options: ["A. IP address conflicts", "B. Routing loops", "C. MAC address conflicts", "D. All of the above"] },
+            { id: 75, text: "Ben wants to use multiple Internet service providers (ISPs) to connect to his cloud VPC to ensure reliable access and bandwidth. What technology can he use to manage and optimize those connections?", options: ["A. FCoE", "B. VXLAN", "C. SD-WAN", "D. LiFi"] },
+            { id: 76, text: "Traffic entering and leaving a network through a WAN link is often described as what sort of traffic?", options: ["A. Foreign/domestic", "B. North/south", "C. East/west", "D. Trusted/untrusted"] },
+            { id: 77, text: "What converged protocol is designed to allow high-speed communication to devices like CPUs, GPUs, and accelerators?", options: ["A. CXL", "B. VoIP", "C. CDN", "D. iSCSI"] },
+            { id: 78, text: "Mark is concerned about the physical security of his network cables. What type of network connection would be the hardest to tap without specialized equipment?", options: ["A. Wi-Fi", "B. Bluetooth", "C. Cat5/Cat6 twisted pair", "D. Fiber optic"] },
+            { id: 79, text: "Rich wants to connect his network to a building a half-mile away from his current location. There are trees and terrain features along the way, but a road passes between the trees to the other location. What type of transmission media is best suited to this type of deployment?", options: ["A. Ethernet cable with repeaters every 200 to 300 yards", "B. A Wi-Fi directional antenna", "C. Fiber-optic cable", "D. A LiFi system"] },
+            { id: 80, text: "What challenge is most common for endpoint security system deployments?", options: ["A. Compromises", "B. The volume of data", "C. Monitoring encrypted traffic on the network", "D. Handling non-TCP protocols"] },
+            { id: 81, text: "What type of address is 127.0.0.1?", options: ["A. A public IP address", "B. An RFC 1918 address", "C. An APIPA address", "D. A loopback address"] },
+            { id: 82, text: "Susan is writing a best practices statement for her organizational users who need to use Bluetooth. She knows that there are many potential security issues with Bluetooth and wants to provide the best advice she can. Which of the following sets of guidance should Susan include?", options: ["A. Use Bluetooth's built-in strong encryption, change the default PIN on your device, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "B. Use Bluetooth only for those activities that are not confidential, change the default PIN on your device, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "C. Use Bluetooth's built-in strong encryption, use extended (eight digits or longer) Bluetooth PINs, turn off discovery mode, and turn off Bluetooth when it's not in active use.", "D. Use Bluetooth only for those activities that are not confidential, use extended (eight digits or longer) Bluetooth PINs, turn off discovery mode, and turn off Bluetooth when it's not in active use."] },
+            { id: 83, text: "What type of networking device is most commonly used to assign endpoint systems to VLANs?", options: ["A. Firewall", "B. Router", "C. Switch", "D. Hub"] },
+            { id: 84, text: "Srini is building a high-performance computing cluster that requires very high bandwidth and very low latency. What converged protocol is he most likely to select for this purpose?", options: ["A. iSCSI", "B. VoIP", "C. Infiniband over Ethernet", "D. CXL"] },
+            { id: 85, text: "Michelle is told that the organization that she is joining uses an SD-WAN controller architecture to manage their WAN connections. What can she assume about how the network is managed and controlled? (Select all that apply.)", options: ["A. The network uses predefined rules to optimize performance.", "B. The network conducts continuous monitoring to support better performance.", "C. The network uses self-learning techniques to respond to changes in the network.", "D. All connections are managed by the organization's primary Internet service provider."] },
+            { id: 86, text: "Which of the following shows the layers of the OSI model in correct order, from layer 1 to layer 7? Place the layers of the OSI model shown here in the appropriate order, from layer 1 to layer 7.", options: ["A. Layer 1 = Data Link; Layer 2 = Physical; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Presentation; Layer 7 = Applications", "B. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Presentation; Layer 7 = Applications", "C. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Transport; Layer 5 = Session; Layer 6 = Applications; Layer 7 = Presentation", "D. Layer 1 = Physical; Layer 2 = Data Link; Layer 3 = Network; Layer 4 = Session; Layer 5 = Transport; Layer 6 = Presentation; Layer 7 = Applications"] },
+            { id: 87, text: "Valerie enables port security on the switches on her network. What type of attack is she most likely trying to prevent?", options: ["A. IP spoofing", "B. MAC aggregation", "C. CAM table flooding", "D. VLAN hopping"] },
+            { id: 88, text: "Alaina wants to ensure that systems are compliant with her network security settings before they are allowed on the network and wants to ensure that she can test and validate system settings as soon as possible. What type of NAC system should she deploy?", options: ["A. A pre-admit, clientless NAC system", "B. A postadmission, client-based NAC system", "C. A pre-admit, client-based NAC system", "D. A postadmission, clientless NAC system"] },
+            { id: 89, text: "Derek wants to deploy redundant core routers, as shown in the diagram. What model of high availability clustering will provide him with the greatest throughput?", options: ["A. Active/active", "B. Line interactive", "C. Active/passive", "D. Nearline"] },
+            { id: 90, text: "Angela needs access to manage IoT devices at multiple sites that her organization manages. What solution should she suggest to ensure access and security for the devices?", options: ["A. VPNs to protected VLANs", "B. An IDS located at the network edge protecting a network using only private IP addresses", "C. A DLP system configured to prevent attacks against IoT devices", "D. An iSCSI-based security solution accessed using a VPN and jump boxes"] },
+            { id: 91, text: "What is a frequent concern for systems that require high-performing Internet connectivity when satellite Internet is the only available option?", options: ["A. Security", "B. Compatibility with protocols like LiFi", "C. Compatibility with protocols like Zigbee", "D. Latency"] },
+            { id: 92, text: "What layer of an SDN implementation uses programs to communicate needs for resources via APIs?", options: ["A. The data plane", "B. The control plane", "C. The application plane", "D. The monitoring plane"] },
+            { id: 93, text: "Which of the following is not a drawback of multilayer protocols?", options: ["A. They can allow filters and rules to be bypassed.", "B. They can operate at higher OSI levels.", "C. They can allow covert channels.", "D. They can allow network segment boundaries to be bypassed."] },
+            { id: 94, text: "Place the following layers of the TCP/IP model in order, starting with the Application layer and moving down the stack. (Options given as sequence numbers)", options: ["A. 1, 2, 3, 4", "B. 1, 4, 2, 3", "C. 1, 4, 3, 2", "D. 4, 1, 3, 2"] },
+            { id: 95, text: "Aadita's company wants to ensure that their website is highly available and resistant to potential denial-of-service attacks. What type of solution would be best suited to this if the company operates an e-commerce site that serves multiple countries and regions with a very large number of customers?", options: ["A. A load-balanced web server cluster", "B. A CDN", "C. Micro-segmentation of virtual servers", "D. A VPC"] },
+            { id: 96, text: "What are two primary advantages that 5G networks have over 4G networks? (Select all that apply.)", options: ["A. Anti-jamming features", "B. Enhanced subscriber identity protection", "C. Mutual authentication capabilities", "D. Multifactor authentication"] },
+            { id: 97, text: "What function does VXLAN perform in a data center environment? (Select all that apply.)", options: ["A. It removes limitations due to maximum distance for Ethernet cables.", "B. It allows multiple subnets to exist in the same IP space with hosts using the same IP addresses.", "C. It tunnels layer 2 connections over a layer 3 network, stretching them across the underlying layer 3 network.", "D. All of the above."] },
+            { id: 98, text: "Chris is setting up a hotel network and needs to ensure that systems in each room or suite can connect to each other, but systems in other suites or rooms cannot. At the same time, he needs to ensure that all systems in the hotel can reach the Internet. What solution should he recommend as the most effective business solution?", options: ["A. Per-room VPNs", "B. VLANs", "C. Port security", "D. Firewalls"] },
+            { id: 99, text: "During a forensic investigation, Charles is able to determine the Media Access Control (MAC) address of a system that was connected to a compromised network. Charles knows that MAC addresses are tied back to a manufacturer or vendor and are part of the fingerprint of the system. To which OSI layer does a MAC address belong?", options: ["A. The Application layer", "B. The Session layer", "C. The Physical layer", "D. The Data Link layer"] },
+            { id: 100, text: "Mikayla is reviewing her organization's VoIP environment configuration and finds a diagram that shows the following design. What concern should she express? (Diagram: SIP and SRTP)", options: ["A. The voice connection is unencrypted and could be listened to.", "B. There are no security issues in this diagram.", "C. The session initialization connection is unencrypted and could be viewed.", "D. Both the session initialization and voice data connection are unencrypted and could be captured and analyzed."] },
+            { id: 101, text: "Jake's company keeps their certificate signing server disconnected from the network to prevent it from being compromised by network attacks. What is this type of solution called?", options: ["A. Store-and-forward", "B. Out-of-band", "C. In-band", "D. Air-gapping"] }
+        ];
 
-// Actually from the provided XML, the last question is Q101 (air-gapping). So total 101 questions.
-// I have defined up to 101. Let me verify numbering: 1..101.
-const answersMap = {
-    1: "B", 2: "B", 3: "C", 4: "C", 5: "D", 6: "D", 7: "D", 8: "A", 9: "D", 10: "B",
-    11: "B", 12: "C", 13: "C", 14: "B", 15: "D", 16: "B", 17: "B", 18: "A", 19: "C", 20: "B",
-    21: "C", 22: "A", 23: "D", 24: "A", 25: "A", 26: "B", 27: "D", 28: "A", 29: "B", 30: "C",
-    31: "B", 32: "B", 33: "A", 34: "B", 35: "D", 36: "A", 37: "B", 38: "C", 39: "C", 40: "D",
-    41: "B", 42: "D", 43: "D", 44: "A", 45: "B", 46: "B", 47: "C", 48: "A", 49: "C", 50: "A, B, C",
-    51: "C", 52: "D", 53: "D", 54: "A", 55: "B", 56: "C", 57: "B", 58: "B", 59: "B", 60: "A",
-    61: "A", 62: "A, B, D", 63: "B", 64: "C", 65: "B, C", 66: "A", 67: "C", 68: "C", 69: "A", 70: "D",
-    71: "D", 72: "B", 73: "D", 74: "A", 75: "C", 76: "B", 77: "A", 78: "D", 79: "C", 80: "C",
-    81: "D", 82: "B", 83: "C", 84: "C", 85: "A, B, C", 86: "B", 87: "C", 88: "C", 89: "A", 90: "A",
-    91: "D", 92: "C", 93: "B", 94: "C", 95: "B", 96: "B, C", 97: "B, C", 98: "B", 99: "D", 100: "C",
-    101: "D", 102: "D", 103: "C", 104: "D"
-};
+        // ANSWERS AND EXPLANATIONS from the provided answer key (Domain 4)
+        const answersMap = {
+            1: "B", 2: "B", 3: "C", 4: "C", 5: "D", 6: "D", 7: "D", 8: "A", 9: "D", 10: "B",
+            11: "B", 12: "C", 13: "B", 14: "D", 15: "D", 16: "B", 17: "B", 18: "A", 19: "C", 20: "B",
+            21: "C", 22: "A", 23: "B", 24: "A", 25: "A", 26: "B", 27: "D", 28: "A", 29: "B", 30: "C",
+            31: "B", 32: "B", 33: "A", 34: "B", 35: "D", 36: "A", 37: "B", 38: "C", 39: "C", 40: "D",
+            41: "B", 42: "D", 43: "D", 44: "A", 45: "C", 46: "B", 47: "C", 48: "A", 49: "C", 50: "A,B",
+            51: "C", 52: "D", 53: "D", 54: "A", 55: "B", 56: "C", 57: "B", 58: "B", 59: "B", 60: "A",
+            61: "A", 62: "A,B,D", 63: "B", 64: "C", 65: "B,C", 66: "A", 67: "C", 68: "C", 69: "A", 70: "D",
+            71: "D", 72: "B", 73: "D", 74: "A", 75: "C", 76: "B", 77: "A", 78: "D", 79: "C", 80: "B",
+            81: "D", 82: "B", 83: "C", 84: "C", 85: "A,B,C", 86: "B", 87: "C", 88: "C", 89: "A", 90: "A",
+            91: "D", 92: "C", 93: "B", 94: "C", 95: "B", 96: "B,C", 97: "B,C", 98: "B", 99: "D", 100: "C",
+            101: "D"
+        };
 
-// Render all questions
-const container = document.getElementById('questionsContainer');
-questionsData.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.id = `qcard-${q.id}`;
-    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 50 || q.id === 62 || q.id === 65 || q.id === 85 || q.id === 96 || q.id === 97);
-    let optionsHtml = `<div class="options">`;
-    q.options.forEach(opt => {
-        const letter = opt.charAt(0);
-        const inputType = isMultiple ? 'checkbox' : 'radio';
-        const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
-        optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
-    });
-    optionsHtml += `</div>`;
-    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
-    container.appendChild(card);
-});
+        const explanations = {
+            1: "BitTorrent is an example of a peer-to-peer (P2P) content delivery network. It is commonly used for legitimate purposes to distribute large files like Linux ISOs and other freely distributed software packages and files in addition to its less legitimate uses. CloudFlare, CloudFront, and Akamai's Edge are all hosted CDNs.",
+            2: "VDOMs are instances of firewalls, each with their own interfaces and rulesets allowing granular configurations based on security requirements. VDOMs are commonly used to accommodate different purposes, customers, or other needs where separately managed firewall instances are desirable. They don't combine instances; instead, they create separate instances, they aren't domain controllers, and hosting multiple domain names does not require a VDOM.",
+            3: "Ben is using ad hoc mode, which directly connects two clients. It can be easy to confuse this with stand-alone mode, which connects clients using a wireless access point but not to wired resources like a central network. Infrastructure mode connects endpoints to a central network, not directly to each other. Finally, wired extension mode uses a wireless access point to link wireless clients to a wired network.",
+            4: "A collision domain is the set of systems that could cause a collision if they transmitted at the same time. Systems outside a collision domain cannot cause a collision if they send at the same time. This is important, as the number of systems in a collision domain increases the likelihood of network congestion due to an increase in collisions. A broadcast domain is the set of systems that can receive a broadcast from each other. A subnet is a logical division of a network, while a supernet is made up of two or more networks.",
+            5: "The RST flag is used to reset or disconnect a session. It can be resumed by restarting the connection via a new three-way handshake.",
+            6: "He should choose 802.11ax, which supports theoretical speeds up to 9.6 Gbps. 802.11ac supports up to 5.9 Gbps, 802.11n supports up to 600 Mbps, and 802.11g is only capable up to 54 Mbps.",
+            7: "Both FTP/S and SFTP are commonly used as replacement insecure FTP services. SFTP offers the advantage of using SSH for transfers, making it easy to use existing firewall rules. TFTP is trivial FTP, an insecure quick transfer method often used to transfer files for network devices, among other uses. HFTPS and SecFTP were made up for this question.",
+            8: "The Network layer, or layer 3, uses IP addresses for logical addressing. TCP and UDP protocols are used at the Transport layer, which is layer 4. Hardware addresses are used at layer 2, the Data Link layer, and sending and receiving bits via hardware is done at the Physical layer (layer 1).",
+            9: "Most networks include many edge devices like wireless access points and edge switches. These devices often have a single power supply to balance cost against reliability and will simply be replaced if they fail. More critical devices like routers and core switches are typically equipped with redundant power supplies to ensure that larger segments of the network do not fail if a component fails. Of course, making sure devices are supported so they get updates and that they are under warranty are both common practices for supportable networks.",
+            10: "Brian is analyzing the jitter, which is the variance in delay between packets. This can indicate issues along the path the packets take. Latency is the time it takes a packet to reach its destination, throughput is a measure of the volume of traffic that can be sent, and signal to noise ratios compare the amount of desired information that is received versus the level of background noise or unwanted data.",
+            11: "The Remote Access Dial In User Service (RADIUS) protocol was originally designed to support dial-up modem connections but is still commonly used for VPN-based authentication. HTTPS is not an authentication protocol. ESP and AH are IPsec protocols but do not provide authentication services for other systems.",
+            12: "SIPS, the secure version of the Session Initialization Protocol for VoIP, adds TLS encryption to keep the session initialization process secure. SVOIP and PBSX are not real protocols, but SRTP is the secure version of RTP, the Real time Transport Protocol.",
+            13: "The firewall in the diagram has two protected zones behind it, making it a two-tier firewall design.",
+            14: "Segmentation is a critical concept for network designers. Remote PCs that connect to a protected network need to comply with security settings and standards that match those required for the internal network. The VPN concentrator logically places remote users in the protected zone behind the firewall, but that means user workstations (and users) must be trusted in the same way that local workstations are.",
+            15: "Micro-segmentation is used to logically separate systems and services by defining boundaries between them. This is often part of a zero trust architecture including the use of on-demand access to services. Converged protocols implement other protocols over another protocol like iSCSI or InfiniBand over Ethernet. Physical segmentation uses separate physical devices and infrastructure to provide segmentation. Edge networks place computation and storage closer to the end user.",
+            16: "Virtual routing and forwarding (VRF) is used to allow multiple routing tables to exist in a virtual router, all working simultaneously as defined by network traffic rules. A VPC may include VRF capabilities, but VRF would still be required to complete this requirement. VLANs are used to separate network segments, not to provide routing, and a content distribution network is used to provide high-performance, denial-of-service-resistant content replication and access from a large-scale network of replicas.",
+            17: "Disabling SSID broadcast can help prevent unauthorized personnel from attempting to connect to the network. Since the SSID is still active, it can be discovered by using a wireless sniffer. Encryption keys are not related to SSID broadcast, beacon frames are used to broadcast the SSID, and it is possible to have multiple networks with the same SSID.",
+            18: "Software-defined networking (SDN) uses code to configure and control the network. This allows for agile, programmatic control and configuration as needed from a central control point. SD-WAN provides the same sort of control for wide area network links, which aren't mentioned in this question. Proxy routing occurs when a proxy server routes traffic between clients and other systems, and agile networking is not a commonly used term.",
+            19: "iSCSI is a converged protocol that supports SCSI storage access via Ethernet. CXL is Compute Express Link, often used to interconnect memory, CPUs, and accelerators. SD-WAN is a software-defined wide area network, and Zigbee is a low-power wireless protocol.",
+            20: "Peering allows you to connect directly to a provider's network at a peering location where they provide edge facilities. This can reduce ingress/egress costs as well as provide direct paths to their networks and services. Replication of data is not an artifact of or a result of peering. Controlling traffic flows via software-defined routes is done using SD-WAN, and hosting copies of sites at multiple locations is a typical result of using a CDN.",
+            21: "Traffic sent between systems in the same data center is called east/west traffic since it does not flow across network boundaries. East/west traffic requires additional design work in many organizations if monitoring and other security is desired. Traffic that is external to the data center, either inbound or outbound, is called north/south traffic. Privileged/unprivileged and store/forward are not typically used to describe the traffic flows in the question.",
+            22: "Multilayer protocols like Distributed Network Protocol (DNP3) allow SCADA and other systems to use TCP/IP-based networks to communicate. Many SCADA devices were never designed to be exposed to a network, and adding them to a potentially insecure network can create significant risks. TLS or other encryption can be used on TCP packets, meaning that even serial data can be protected. Serial data can be carried via TCP packets because TCP packets don't care about their content; it is simply another payload. Finally, TCP/IP does not have a specific throughput as designed, so issues with throughput are device-level issues.",
+            23: "WPA3's simultaneous authentication of equals (SAE) mode improves on WPA2's pre-shared key (PSK) mode by allowing for secure authentication between clients and the wireless network without enterprise user accounts. If Ben needed to worry about support for WPA3, which may not be available to all systems that may want to connect, he might have to choose WPA2. A captive portal is often used with open guest networks but requires additional work to maintain, and Enterprise mode requires user accounts.",
+            24: "SMS messages are not encrypted, meaning that they could be sniffed and captured. While using two factors is more secure than a single factor, SMS is one of the less secure ways to implement two-factor authentication because of this. SMS messages can be spoofed, can be received by more than one phone, and are typically stored on the recipient's phone. The primary threat here, however, is the unencrypted message itself.",
+            25: "802.11ac operates in the 5 GHz range. The 900 MHz range has frequently been used for phones and non-Wi-Fi wireless networks as well as other amateur radio uses, and 2.4 GHz is used by 802.11n and other protocols. Knowing that multiple ranges are available and that they may behave differently based on how many access points are in use and whether other devices that may cause interference on that band are in the area can be important for wireless network deployments.",
+            26: "ARP and RARP operate at the Data Link layer, the second layer of the OSI model. Both protocols deal with physical hardware addresses, which are used above the Physical layer (layer 1) and below the Network layer (layer 3), thus falling at the Data Link layer.",
+            27: "Internet Small Computer Systems Interface (iSCSI) is a converged protocol that allows location-independent file services over traditional network technologies. It costs less than traditional Fibre Channel. VoIP is Voice over IP, SDN is software-defined networking, and MPLS is Multiprotocol Label Switching, a technology that uses path labels instead of network addresses.",
+            28: "A repeater, switch, or concentrator will amplify the signal, ensuring that the 100-meter distance limitation of 1000BaseT is not an issue. A gateway would be useful if network protocols were changing, while Cat7 cable is appropriate for a 10 Gbps network at much shorter distances. STP cable is limited to 155 Mbps and 100 meters, which would leave Chris with network problems.",
+            29: "The use of TCP port 80 indicates that the messaging service is using the HTTP protocol. Slack is a messaging service that runs over HTTPS, which uses port 443. SMTP is an email protocol that uses port 25.",
+            30: "HTTP traffic is typically sent via TCP80. Unencrypted HTTP traffic can be easily captured at any point between A and B, meaning that the messaging solution chosen does not provide confidentiality for the organization's corporate communications.",
+            31: "If a business need requires messaging, using a local messaging server is the best option. This prevents traffic from traveling to a third-party server and can offer additional benefits such as logging, archiving, and control of security options like the use of encryption.",
+            32: "Multilayer protocols create three primary concerns for security practitioners: they can conceal covert channels (and thus covert channels are allowed), filters can be bypassed by traffic concealed in layered protocols, and the logical boundaries put in place by network segments can be bypassed under some circumstances. Multilayer protocols allow encryption at various layers and support a range of protocols at higher layers.",
+            33: "Fibre Channel over Ethernet (FCoE), Internet Small Computer Systems Interface (iSCSI), and Voice over Internet Protocol (VoIP) are all examples of converged protocols that combine specialized protocols with standard protocols like TCP/IP. Multipurpose Internet Mail Extensions (MIIME) is not a converged protocol.",
+            34: "When a workstation or other device is connected simultaneously to both a secure network and a nonsecure network like the Internet, it may act as a bridge, bypassing the security protections located at the edge of a corporate network. It is unlikely that traffic will be routed improperly, leading to the exposure of sensitive data, as traffic headed to internal systems and networks is unlikely to be routed to the external network. Reflected DDoS attacks are used to hide identities rather than to connect through to an internal network, and security administrators of managed systems should be able to determine both the local and wireless IP addresses his system uses.",
+            35: "Observability focuses on the ability to see how an entire system, service, or environment is performing and behaving based on its external outputs. That means that telemetry data—information about what components are doing—is critical and will be gathered using logs, metrics, and real-time analysis. This means that centralizing and aggregating data, enabling alerts for critical errors, and implementing logging using standardized formats are all common practices. Feedback loops are also important, allowing administrators and others to take action when problems or issues are detected.",
+            36: "IPsec can provide encryption, access control, nonrepudiation, and message authentication using public key cryptography. It does not provide authorization, protocol convergence, content distribution, or the other items listed.",
+            37: "Zigbee uses AES to protect network traffic, providing integrity and confidentiality controls. It does not use 3DES, and ROT13 is a simple rotational cipher you might find in a cereal box or secret decoder ring.",
+            38: "The process of using a fake Media Access Control (MAC) address is called spoofing, and spoofing a MAC address already in use on the network can lead to an address collision, preventing traffic from reaching one or both systems. Tokens are used in token ring networks, which are outdated, and EUI refers to an Extended Unique Identifier, another term for MAC address, but token loss is still not the issue. Broadcast domains refer to the set of machines a host can send traffic to via a broadcast message.",
+            39: "While security features vary from provider to provider, encryption, device-based authentication (for example, using certificates), and SIM-based authentication are all common options for 4G connectivity solutions. Joanna should work with her provider to determine what capabilities are available and assess whether they meet her needs.",
+            40: "Application-specific protocols are handled at layer 7, the Application layer of the OSI model.",
+            41: "A VPC, or virtual private cloud, is the environment many organizations operate inside of public clouds. They provide on-demand access to configurable, shared resources operated by the cloud provider inside of their isolated boundaries. VLANs are used to logically separate networks; SDN is software-defined networking, which is typically part of how a VPC is implemented; and CXL, or Compute Express Link, is a converged protocol used to connect CPUs, GPUs, accelerators, and other components at high speeds.",
+            42: "802.1x provides port-based authentication and can be used with technologies like the Extensible Authentication Protocol (EAP). 802.11a is a wireless standard, 802.3 is the standard for Ethernet, and 802.15.1 was the original Bluetooth IEEE standard.",
+            43: "1000BaseT is capable of a 100-meter run according to its specifications. For longer distances and exterior runs, a fiber-optic cable is typically used in modern networks.",
+            44: "Port security prevents unrecognized or unpermitted systems from connecting to a network port based on their MAC address. Cloning a permitted or legitimate MAC address attempts to bypass this. VLAN hopping and 802.1q trunking attacks attempt to access other subnets by encapsulating packets so they will be unwrapped and directed to the other subnet. Etherkiller prevention is not a security setting or control.",
+            45: "Most modern applications support TLS throughout their communications allowing clients to securely connect to the service and to encrypt communications. VPN, either in software or hardware form, will be more complex and unwieldy. Software-based VPN would be more flexible, and hardware-based VPN would be more expensive and more complex. SIPS and SRTP are appropriate for a VoIP environment but are not generally a complete solution for a modern multimedia collaboration platform like Microsoft Teams, Zoom, or WebEx.",
+            46: "Zigbee is designed for this type of low-power, Internet of Things network, and would be the best option for Chris. Some versions of Bluetooth are designed to operate in low-power mode as well, but Bluetooth isn't in this list of answers. Wi-Fi requires more power, NFC is very short range and would not work across a building or room, and infrared requires line of sight and is rarely used for that reason.",
+            47: "Separate, physically isolated Ethernet networks that require strong authentication are a commonly used out-of-band (OOB) option. While direct physical access is also an acceptable out-of-band option, it does not work well in a complex, production-oriented environment where devices may not be safe or easy to access. Web clients and nonstandard ports are not out-of-band options as described.",
+            48: "A content delivery network run by a major provider can handle large-scale DDoS attacks more easily than any of the other solutions. Using DDoS mitigation techniques via an ISP is the next most useful capability, followed by both increases in bandwidth and increases in the number of servers in the web application cluster.",
+            49: "PPTP, L2F, L2TP, and IPsec are the most common VPN protocols. TLS is also used for an increasingly large percentage of VPN connections and may appear at some point in the CISSP exam. PPP is a dial-up protocol, LTP is not a protocol, and SPAP is the Shiva Password Authentication Protocol sometimes used with PPTP.",
+            50: "Wayne should consider the use of a dedicated VLAN for VoIP devices to help separate them from other networked devices, and he should also require the use of SIPS and SRTP, both secure protocols that will keep his VoIP traffic encrypted. Requiring the use of VPN for all remote VoIP devices is not necessary if SIPS and SRTP are in use, and a specific IPS for VoIP is not a typical deployment in most organizations.",
+            51: "The Physical layer includes electrical specifications, protocols, and standards that allow control of throughput, handling line noise, and a variety of other electrical interface and signaling requirements. The OSI layer doesn't have a Device layer. The Transport layer connects the Network and Session layers, and the Data Link layer packages packets from the network layer for transmission and receipt by devices operating on the Physical layer.",
+            52: "WPA3, the replacement for WPA2, adds security features including a new mode called simultaneous authentication of equals that replaces the pre-shared key mode from WPA2 with a more secure option. Overall, it provides security improvements but may not be immediately implemented due to time for hardware and software to fully support it. WPA2 has been the most commonly deployed wireless security standard having replaced WPA and WEP.",
+            53: "Cut-through switching forwards packets as soon as the destination address is known without waiting for the rest of the frame to arrive. This means that packets are not checked for integrity before being forwarded, optimizing throughput and reducing latency at the expense of error checking. Store-and-forward waits for the entire frame to allow it to be checked using a cyclic redundancy check (CRC) before forwarding it. Blind and forward switching were made up for this question.",
+            54: "The Transport layer provides logical connections between devices, including end-to-end transport services to ensure that data is delivered. Transport layer protocols include TCP, UDP, SSL, and TLS.",
+            55: "Machine Access Control (MAC) addresses are the hardware address the machine uses for layer 2 communications. The MAC addresses include an organizationally unique identifier (OUI), which identifies the manufacturer. MAC addresses can be changed, so this is not a guarantee of accuracy, but under normal circumstances you can tell what manufacturer made the device by using the MAC address.",
+            56: "For long-term connections like backhaul networks, a point-to-point VPN that is connected at all times is the most common choice to ensure all traffic is secured. TLS and SSH are commonly used to tunnel data but require additional attention to ensure that all traffic is tunneled. On-demand VPNs are more commonly used by users than for a connection like a backhaul network link.",
+            57: "East/west traffic is the term used for communications in the same network segment. North/south traffic is entering or exiting a network segment. Input/output is not a term used in for this. Lateral movement describes attackers moving between systems, but sideways traffic is not a commonly used term.",
+            58: "A Class B network holds 2^16 systems, and its default network mask is 255.255.0.0.",
+            59: "Enabling waiting rooms allows hosts to allow only intended attendees for events and meetings. Unfortunately, passcodes are easily shared, resulting in Zoom bombing despite the security they appear to offer. Meeting links are automatically generated and randomized, preventing brute forcing, and HTTPS is enabled by default for meetings.",
+            60: "Real-time fault monitoring for network devices and connections often relies on SNMP and ICMP-based monitoring capabilities. Netflow and syslog are more commonly used for diagnostic and analysis tasks.",
+            61: "VLAN hopping between the voice and computer VLANs can be accomplished when devices share the same switch infrastructure. Using physically separate switches can prevent this attack. Encryption won't help with VLAN hopping because it relies on header data that the switch needs to read (and this is unencrypted), while Caller ID spoofing is an inherent problem with VoIP systems. A denial of service is always a possibility, but it isn't specifically a VoIP issue, and a firewall may not stop the problem if it's on a port that must be allowed through.",
+            62: "RFC 1918 defines three address ranges as private (nonroutable) IP address ranges: 10.0.0.0/8, 172.16.0.0/12, and 192.168.0.0/16. Any of these would work, but many organizations use the 192.168.0.0/16 range for smaller sites or opt to carve out sections of the 10.0.0.0/8 range for multiple remote sites.",
+            63: "A captive portal is a popular solution that you may be familiar with from hotels and coffee shops. They combine the ability to gather data from customers with an open network, so customer data will not be encrypted. This avoids the need to distribute network passwords but means that customers must ensure their own traffic is encrypted if they are worried about security.",
+            64: "A UPS system, or uninterruptible power supply, is designed to provide backup power during brief power disruptions ranging from power sags and brownouts to temporary power failures. For a longer outage, Susan will still want a generator or even a secondary power feed from another power grid or provider if possible, but for this specific scenario, a UPS will meet her needs. Dual power supplies help when the concern is losing power from one power supply and would be a great idea for her most critical network devices, but it is rare to have dual power supplies for edge devices like access points or edge switches.",
+            65: "Fiber-optic cable is best suited to running 100 gigabit speeds. Cat5e, Cat6, and coaxial cable are not rated to those speeds.",
+            66: "Data streams are associated with the Application, Presentation, and Session layers. Once they reach the Transport layer, they become segments (TCP) or datagrams (UDP). From there, they are converted to packets at the Network layer, frames at the Data Link layer, and bits at the Physical layer.",
+            67: "If the devices still need to be in production but cannot be patched, Lucca's best option is to use a separate security device to protect them. It may be tempting to simply install a firewall on the device or to disable all the services it exposes to the network, but some devices may not have firewall software available, and even if they do, the underlying operating system may have vulnerabilities in its implementation of its network stack or other software that even a firewall could not protect. Unplugging devices that are needed for protection does not resolve the need to keep them online.",
+            68: "Software-defined networking provides a network architecture that can be defined and configured as code or software and separates routing processes from packet switching while centralizing control. The 5-4-3 rule is an old design rule for networks that relied on repeaters or hubs. A converged network carries multiple types of traffic like voice, video, and data. A hypervisor-based network may be software defined, but it could also use traditional network devices running as virtual machines.",
+            69: "As packets are handled at the Transport Layer they receive a header with information like ports, segment order information, and a checksum. At the Internet Layer, an IP header is attached with the IP addresses of the sender and receiver, the datagram sequence order, and the datagram length. At the Data-Link layer another header is added for CRC error checks.",
+            70: "A broken network cable is a layer 1 problem. If you encounter a problem like this and aren't sure, look for the answer that has a different situation or set of assumptions. Here you have three questions that occur at the network (layer 3), all of which have software or protocol implications. A broken network cable is a completely different type of issue and should stand out. Be careful, though! The exam is likely to give you two potentially valid answers to choose from, so work to get rid of the two least likely answers and spend your time on the remaining options.",
+            71: "Network segmentation can reduce issues with performance as well as diminish the chance of broadcast storms by limiting the number of systems in a segment. This decreases broadcast traffic visible to each system and can reduce congestion. Segmentation can also help provide security by separating functional groups that don't need to be able to access each other's systems. Installing a firewall at the border would only help with inbound and outbound traffic, not cross-network traffic. Spanning tree loop prevention helps prevent loops in Ethernet networks (for example, when you plug a switch into a switch via two ports on each), but it won't solve broadcast storms that aren't caused by a loop or security issues. Encryption might help prevent some problems between functional groups, but it won't stop them from scanning other systems, and it definitely won't stop a broadcast storm!",
+            72: "Bandwidth describes the maximum amount of data that can be sent via a connection or network in a given period of time, and throughput describes the actual amount of traffic that is sent via the network or connection in a given period of time. The terms are not interchangeable but are closely related.",
+            73: "In an IaaS environment, the company that provides the cloud environment has final control of all the virtual machines and networks. Thus, to protect data, the best option is to encrypt the data. Unfortunately, Ben cannot fully ensure that traffic in his environment is not being captured and must rely on the cloud hosting provider for that assurance. While preventing the installation of packet sniffers and taps and ensuring that promiscuous mode cannot be enabled are useful habits in an environment that you control, this will not provide the same control in a cloud environment.",
+            74: "Using the same IP range for an on-site and cloud-hosted data center can be helpful when designing a flat network, but addresses must be carefully managed and allocated even in a space as big as the 10.0.0.0/24 range. If addresses are not properly managed, conflicts may arise that could disrupt production services. MAC address conflicts should not arise unless addresses are manually changed or virtual machines are replicated without changing their MAC addresses. There is nothing in the problem to suggest routing issues.",
+            75: "A software-defined wide area network, or SD-WAN, is commonly used to manage multiple ISPs and other connectivity options to ensure speed, reliability, and bandwidth design goals are all met. Ben can use SD-WAN capabilities to accomplish his goals to make his hybrid cloud environment successful. Fibre Channel over Ethernet (FCoE) is a storage protocol; VXLAN is used for extensible virtual LANs, not WANs; and LiFi uses visible and infrared light to transfer data.",
+            76: "Traffic entering and leaving a network is often called north/south traffic. East/west traffic is traffic between systems inside of a network. Foreign/domestic is not a commonly used term, and trusted/untrusted cannot be determined without additional information.",
+            77: "CXL, or Compute Express Link, is a converged protocol that is an open standard for high-speed communications with accelerators, GPUs, CPUs, and similar devices. VoIP is a telephony protocol, CDNs are content distribution networks, and iSCSI is a converged storage protocol.",
+            78: "Fiber-optic cable is the most difficult of the listed types of network to capture data from without specialized equipment. Given access to a fiber-optic cable and specialized equipment to tap it, or with access to the endpoints of a fiber-optic cable and an optical tap, access can still be obtained. In either case, disruption may be observed when the cable is cut, spliced, or disconnected, and many attackers will not have access, skills, or the tools needed to do so. Wi-Fi and Bluetooth traffic can be captured using standard wireless cards and tools, and data carried by twisted-pair Ethernet cables is easily captured using commodity tools.",
+            79: "Buried fiber-optic cable is best suited to long distances, particularly when there are trees or other obstacles blocking line of sight that may interfere with Wi-Fi or LiFi deployments. Ethernet's distance limitations mean that repeaters would need to be powered, and there is no description of other structures or power along the path.",
+            80: "Endpoint security solutions face challenges due to the sheer volume of data that they can create. When each workstation is generating data about events, this can be a massive amount of data. Endpoint security solutions should reduce the number of compromises when properly implemented, and they can also help by monitoring traffic after it is decrypted on the local host. Finally, non-TCP protocols are relatively uncommon on modern networks, making this a relatively rare concern for endpoint security system implementations.",
+            81: "The IP address 127.0.0.1 is a loopback address and will resolve to the local machine. Public addresses are non–RFC 1918, nonreserved addresses. RFC 1918 addresses are reserved and include ranges like 10.x.x.x. An APIPA address is a self-assigned address used when a DHCP server cannot be found.",
+            82: "Since Bluetooth doesn't provide strong encryption, it should only be used for activities that are not confidential. Bluetooth PINs are four-digit codes that often default to 0000. Turning it off and ensuring that your devices are not in discovery mode can help prevent Bluetooth attacks.",
+            83: "The assignment of endpoint systems to VLANs is normally performed by a network switch.",
+            84: "Infiniband over Ethernet is commonly used for purposes like this, allowing direct memory access over Ethernet while providing high bandwidth and low latency. iSCSI is used for storage, VoIP is used for telephony, and Compute Express Link (CXL) is used for CPU to device and CPU to memory connections.",
+            85: "SD-WAN implementations typically perform all of these functions, combining active data collection via monitoring and response via self-learning and machine intelligence techniques and then applying predefined rules to take action to make the network perform as desired. SD-WAN does not imply or require that all connections are managed by the organization's primary Internet service provider. In fact, SD-WANs are often used to handle multiple ISPs to allow for failover and redundancy.",
+            86: "The OSI layers in order from layer 1 to layer 7 are: Physical, Data Link, Network, Transport, Session, Presentation, Application.",
+            87: "Valerie is most likely trying to prevent content addressable memory (CAM) table or MAC address table flooding by preventing large numbers of MAC addresses from being used on a single port. If CAM table flooding is successful, switches will not know where to send traffic and resort to sending all traffic to every port, potentially exposing traffic to attackers. IP spoofing and VLAN hopping are not prevented by port security, which focuses on hardware (MAC) addresses. MAC aggregation was made up for this question.",
+            88: "A pre-admit, client-based NAC system will test systems before they are allowed on the network using a client that can determine more about a system than a clientless model can. Postadmission tests after clients are already on the network and clientless versions are useful when installing clients isn't possible for systems.",
+            89: "An active/active pair can use the full throughput capability of both devices, but normal deployment models will design to the maximum throughput of a single device to avoid disruption in the event that one of the pair fails. Active/passive designs can only handle the throughput of a single device and allow the secondary device to remain ready to operate but not passing traffic until it is needed. Line interactive is a term often used to describe UPS systems that filter power instead of passing it through, and near-line is a term used to describe backups that are not online but can be retrieved relatively quickly.",
+            90: "A VPN that allows access to secured VLANs is the most common security design for this type of infrastructure. This allows secured remote access while protecting IoT devices that are often unable to be properly secured and thus cannot be trusted on a more exposed network. IPS does not provide remote access, and private IP addresses alone do not provide a protected network. DLP is used to prevent data exfiltration and won't stop other attacks or provide remote management access. iSCSI is a storage protocol, not a security solution. A VPN and jump boxes are useful, but the devices would not be provided with additional security by iSCSi.",
+            91: "Most existing satellite internet systems have relatively high latency. Newer low Earth orbit satellites like Starlink appear to provide better latency than higher orbits, but latency and susceptibility to interference from weather are both common concerns for satellite-based systems.",
+            92: "The application plane of a software-defined network (SDN) is where applications run that use application programming interfaces (APIs) to communicate with the SDN about needed resources. The control plane receives instructions and sends them to the network. The last common plane is the data plane, which forwards devices handling data and takes inputs from the control plane. The monitoring plane is not a common layer in an SDN environment.",
+            93: "Common drawbacks of multilayer protocols are that they can bypass filters, allow or create covert channels, and allow network segment boundaries to be bypassed. The ability to operate at higher OSI layer levels is normally considered a benefit.",
+            94: "In order, the layers are Application layer, Transport layer, Internet layer, and Network Access layer.",
+            95: "Content distribution networks are used to both improve performance and reduce the impacts of denial-of-service attacks. Load-balanced server clusters may be part of the underlying design, but a CDN will more completely address Aadita's needs at the scale described. Micro-segmentation is used to isolate systems and services, not to address multiregion content accessibility and denial-of-service issues. A VPC may be part of a solution, but nothing about a VPC makes it a sufficient solution on its own.",
+            96: "5G technology includes both a new mutual authentication capability and additional protections for subscriber identities. It does not have specific anti-jamming security features and does not specifically use multifactor authentication.",
+            97: "Virtual eXtensible LAN (VXLAN) tunnels layer 2 connections over a layer 3 network, in essence extending a LAN over distances or networks that it might not otherwise function over. It does not remove the distance limitations of Ethernet cables, nor does it allow multiple subnets to use the same IP space—that requires NAT or other technologies that remap addresses to avoid conflicts.",
+            98: "VLANs can be used to logically separate groups of network ports while still providing access to an uplink. Per-room VPNs would create significant overhead for support as well as create additional expenses. Port security is used to limit what systems can connect to ports, but it doesn't provide network security between systems. Finally, while firewalls might work, they would add expense and complexity without adding any benefits over a VLAN solution.",
+            99: "MAC addresses and their organizationally unique identifiers are used at the Data Link layer to identify systems on a network. The Application and Session layers don't care about physical addresses, while the Physical layer involves electrical connectivity and handling physical interfaces rather than addressing.",
+            100: "This diagram shows the use of the Session Initialization Protocol (SIP) instead of SIP Secure (SIPS), meaning that SIP is not encrypted. Fortunately, the voice data via the Secure Real-time Transport Protocol (SRTP) is encrypted. Mikayla should look into using SIPS in addition to SRTP.",
+            101: "Air-gaps are physical separations between systems or devices that prevent communications or connections between them. This prevents network-based attacks and limits the ways that attackers could access the devices. Store-and-forward stores communications and send them after checking for errors. In-band administration occurs over existing interfaces or connections; out-of-band administration uses a separate network or management interface."
+        };
 
-const submitBtn = document.getElementById('submitBtn');
-const exportBtn = document.getElementById('exportBtn');
-const modal = document.getElementById('summaryModal');
-const modalBody = document.getElementById('modalBody');
-const closeModal = document.querySelector('.close-modal');
-let currentResults = [];
+        // Render questions
+        const container = document.getElementById('questionsContainer');
+        questionsData.forEach(q => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${q.id}`;
+            const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 50 || q.id === 62 || q.id === 65 || q.id === 85 || q.id === 96 || q.id === 97);
+            let optionsHtml = `<div class="options">`;
+            q.options.forEach(opt => {
+                const letter = opt.charAt(0);
+                const inputType = isMultiple ? 'checkbox' : 'radio';
+                const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+                optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+            });
+            optionsHtml += `</div>`;
+            card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+            container.appendChild(card);
+        });
 
-function getUserAnswers() {
-    let results = [];
-    for (let i = 1; i <= questionsData.length; i++) {
-        const qid = i;
-        const qData = questionsData.find(q => q.id === qid);
-        const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 50 || qid === 62 || qid === 65 || qid === 85 || qid === 96 || qid === 97);
-        let userAnswer = "";
-        let isCorrect = false;
-        if (isMulti) {
-            const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
-            const selected = Array.from(checkboxes).map(cb => cb.value).sort();
-            userAnswer = selected.join(', ') || "(none)";
-            const correctRaw = answersMap[qid];
-            const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
-            isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
-        } else {
-            const radio = document.querySelector(`input[name="q${qid}"]:checked`);
-            userAnswer = radio ? radio.value : "(skipped)";
-            const correctLetter = answersMap[qid];
-            isCorrect = (radio && radio.value === correctLetter);
+        const submitBtn = document.getElementById('submitBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const modal = document.getElementById('summaryModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.querySelector('.close-modal');
+        let currentResults = [];
+
+        function getUserAnswers() {
+            let results = [];
+            for (let i = 1; i <= 101; i++) {
+                const qid = i;
+                const qData = questionsData.find(q => q.id === qid);
+                const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 50 || qid === 62 || qid === 65 || qid === 85 || qid === 96 || qid === 97);
+                let userAnswer = "";
+                let isCorrect = false;
+                let explanation = explanations[qid] || "No explanation available.";
+                if (isMulti) {
+                    const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                    const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                    userAnswer = selected.join(', ') || "(none)";
+                    const correctRaw = answersMap[qid];
+                    const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                    isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
+                } else {
+                    const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                    userAnswer = radio ? radio.value : "(skipped)";
+                    const correctLetter = answersMap[qid];
+                    isCorrect = (radio && radio.value === correctLetter);
+                }
+                const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+                results.push({ qid, userAnswer, correctAnswer: answersMap[qid], isCorrect, status, explanation });
+                const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+                if (hashtagSpan) {
+                    if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+                    else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+                    else hashtagSpan.innerHTML = " #️⃣ skipped";
+                    hashtagSpan.className = `hashtag ${status}`;
+                }
+            }
+            return results;
         }
-        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
-        results.push({ qid, userAnswer, correctAnswer: answersMap[qid], isCorrect, status });
-        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
-        if (hashtagSpan) {
-            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
-            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
-            else hashtagSpan.innerHTML = " #️⃣ skipped";
-            hashtagSpan.className = `hashtag ${status}`;
+
+        function escapeHtml(str) {
+            if (str === undefined || str === null) return '';
+            return str.replace(/[&<>]/g, function(m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
         }
-    }
-    return results;
-}
 
-function showModal(results) {
-    const total = results.length;
-    const correctCount = results.filter(r => r.isCorrect).length;
-    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
-    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
-    results.forEach(r => {
-        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
-        html += `<tr><td>${r.qid}</td><td>${escapeHtml(String(r.userAnswer))}</td><td>${escapeHtml(String(r.correctAnswer))}</td><td>${statusText}</td></tr>`;
-    });
-    html += `</tbody></table>`;
-    modalBody.innerHTML = html;
-    modal.style.display = 'flex';
-}
+        // Actually, the above is incomplete. Let's rewrite correctly.
+        function showModal(results) {
+            const total = results.length;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
+            html += `<div style="overflow-x: auto;"><table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th><th>Explanation</th></tr></thead><tbody>`;
+            results.forEach(r => {
+                const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+                html += `<tr>
+                    <td>${r.qid}</td>
+                    <td>${escapeHtml(r.userAnswer)}</td>
+                    <td>${escapeHtml(r.correctAnswer)}</td>
+                    <td>${statusText}</td>
+                    <td>${escapeHtml(r.explanation)}</td>
+                </tr>`;
+            });
+            html += `</tbody></table></div>`;
+            modalBody.innerHTML = html;
+            console.log(html)
+            modal.style.display = 'flex';
+        }
 
-function escapeHtml(str) {
-    if (str === undefined || str === null) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
-}
+        function exportCSV(results) {
+            let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result", "Explanation"]];
+            results.forEach(r => {
+                csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect"), r.explanation]);
+            });
+            const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute("download", "domain4_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
 
-function exportCSV(results) {
-    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
-    results.forEach(r => {
-        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
-    });
-    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
-    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute("download", "domain4_results.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-}
+        submitBtn.addEventListener('click', () => {
+            const results = getUserAnswers();
+            currentResults = results;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/101 (${Math.round(correctCount / 101 * 100)}%)`;
+            showModal(results);
+        });
 
-submitBtn.addEventListener('click', () => {
-    const results = getUserAnswers();
-    currentResults = results;
-    const correctCount = results.filter(r => r.isCorrect).length;
-    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
-    showModal(results);
-});
-exportBtn.addEventListener('click', () => {
-    if (currentResults && currentResults.length) exportCSV(currentResults);
-    else alert("Please submit your answers first to generate CSV.");
-});
-document.getElementById('modalExportBtn').addEventListener('click', () => {
-    if (currentResults) exportCSV(currentResults);
-});
-closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
-window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-</script>
+        exportBtn.addEventListener('click', () => {
+            if (currentResults && currentResults.length) exportCSV(currentResults);
+            else alert("Please submit your answers first to generate CSV.");
+        });
+        document.getElementById('modalExportBtn').addEventListener('click', () => {
+            if (currentResults) exportCSV(currentResults);
+        });
+        closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    </script>
 </body>
+
 </html>
