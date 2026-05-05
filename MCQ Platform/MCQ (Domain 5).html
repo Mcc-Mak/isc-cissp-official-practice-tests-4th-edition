@@ -520,7 +520,7 @@ function showModal(results) {
     let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
     html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
     results.forEach(r => {
-        const statusText = r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect");
+        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
         html += `<tr><td>${r.qid}</td><td>${escapeHtml(String(r.userAnswer))}</td><td>${escapeHtml(String(r.correctAnswer))}</td><td>${statusText}</td></tr>`;
     });
     html += `</tbody></table>`;
