@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Practice Test 4 – CISSP (All Domains)</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+        }
+        body {
+            background: #f0f2f5;
+            margin: 0;
+            padding: 20px;
+            color: #1e293b;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.25rem;
+            color: #0f3b5c;
+        }
+        .sub {
+            color: #2c5a7a;
+            margin-bottom: 2rem;
+            border-left: 4px solid #2c7da0;
+            padding-left: 1rem;
+        }
+        .toolbar {
+            background: white;
+            border-radius: 20px;
+            padding: 1rem 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            position: sticky;
+            top: 10px;
+            z-index: 10;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.92);
+            border: 1px solid #e2e8f0;
+        }
+        button {
+            background: #1e6f5c;
+            color: white;
+            border: none;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        button:hover {
+            background: #0f5a49;
+            transform: translateY(-1px);
+        }
+        .btn-export {
+            background: #2b6e4e;
+        }
+        .score-area {
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: #e9f5f1;
+            padding: 6px 18px;
+            border-radius: 40px;
+            color: #0e5e4a;
+        }
+        .questions-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.75rem;
+        }
+        .question-card {
+            background: white;
+            border-radius: 24px;
+            padding: 1.3rem 1.8rem;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            border: 1px solid #e2edf2;
+        }
+        .question-header {
+            display: flex;
+            gap: 12px;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #eef2f8;
+            padding-bottom: 0.5rem;
+        }
+        .q-num {
+            background: #d4e6f1;
+            padding: 4px 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #1a4d6b;
+        }
+        .q-text {
+            font-weight: 600;
+            font-size: 1rem;
+            line-height: 1.4;
+            color: #0f2f3f;
+        }
+        .hashtag {
+            font-size: 0.8rem;
+            margin-left: auto;
+            background: #f1f5f9;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-weight: 500;
+        }
+        .hashtag.correct {
+            background: #c8e6df;
+            color: #0b5345;
+        }
+        .hashtag.incorrect {
+            background: #f8dddd;
+            color: #9b2c2c;
+        }
+        .hashtag.skipped {
+            background: #fff3bf;
+            color: #856404;
+        }
+        .options {
+            margin: 1rem 0 0.5rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .option input {
+            margin: 0;
+            width: 18px;
+            height: 18px;
+            accent-color: #2c7da0;
+        }
+        .option label {
+            font-size: 0.95rem;
+            color: #1e3b4a;
+        }
+        .mapping-table {
+            margin: 1rem 0 0.5rem 1rem;
+            border-collapse: collapse;
+            background: #fafdff;
+            width: 100%;
+            max-width: 800px;
+        }
+        .mapping-table td, .mapping-table th {
+            border: 1px solid #cbdde6;
+            padding: 10px 12px;
+            vertical-align: middle;
+        }
+        .mapping-table th {
+            background: #e7f0f5;
+            font-weight: 600;
+        }
+        select {
+            padding: 6px 12px;
+            border-radius: 28px;
+            border: 1px solid #bdd4e2;
+            background: white;
+            font-size: 0.9rem;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: white;
+            border-radius: 28px;
+            max-width: 90%;
+            width: 1100px;
+            max-height: 85%;
+            overflow: auto;
+            padding: 1.5rem;
+            position: relative;
+            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+        }
+        .close-modal {
+            position: absolute;
+            top: 12px;
+            right: 20px;
+            font-size: 28px;
+            cursor: pointer;
+            color: #777;
+        }
+        .result-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+            background: white;
+        }
+        .result-table th, .result-table td {
+            border: 1px solid #d4dee5;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        .result-table th {
+            background: #eef3f7;
+        }
+        footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: #5b7c93;
+        }
+        @media (max-width: 760px) {
+            .question-card { padding: 1rem; }
+            .options { margin-left: 0.2rem; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>📘 Practice Test 4 – CISSP (All Domains)</h1>
+    <div class="sub">127 questions • Single choice | Multiple‑select | Mapping (exact wording)</div>
+
+    <div class="toolbar">
+        <div>
+            <button id="submitBtn">✅ Submit & Score</button>
+            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        </div>
+        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+    </div>
+
+    <div id="questionsContainer" class="questions-grid"></div>
+    <footer>Practice Test — CISSP (All Domains). Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
+</div>
+
+<div id="summaryModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h3 id="modalTitle">Detailed Report</h3>
+        <div id="modalBody"></div>
+        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    </div>
+</div>
+
+<script>
+// --------------------------------------------------------------
+// EXACT QUESTIONS AND OPTIONS (NO REPHRASING) – PRACTICE TEST 4
+// Extracted from provided XML (questions 1 to 127)
+// --------------------------------------------------------------
+const questionsData = [
+    { id: 1, text: "What type of access control is intended to discover unwanted or unauthorized activity by providing information after the event has occurred?", options: ["A. Preventive", "B. Corrective", "C. Detective", "D. Directive"] },
+    { id: 2, text: "Which one of the following presents the most complex decoy environment for an attacker to explore during an intrusion attempt?", options: ["A. Honeypot", "B. Darknet", "C. Honeynet", "D. Pseudo-flaw"] },
+    { id: 3, text: "Ben's company is considering configuring their systems to work at the level shown by point A on the diagram. What level are they setting the sensitivity to? (Image: FAR/FRR graph)", options: ["A. The FRR crossover", "B. The FAR point", "C. The CER", "D. The CFR"] },
+    { id: 4, text: "At point B, what problem is likely to occur?", options: ["A. False acceptance will be very high.", "B. False rejection will be very high.", "C. False rejection will be very low.", "D. False acceptance will be very low."] },
+    { id: 5, text: "What should Ben do if the FAR and FRR shown in this diagram do not provide an acceptable performance level for his organization's needs?", options: ["A. Adjust the sensitivity of the biometric devices.", "B. Assess other biometric systems to compare them.", "C. Move the CER.", "D. Adjust the FRR settings in the software."] },
+    { id: 6, text: "Ed is tasked with protecting information about his organization's customers, including their name, Social Security number, birthdate, and place of birth, as well as a variety of other information. What is this information known as?", options: ["A. PHI", "B. PII", "C. Personal protected data", "D. PID"] },
+    { id: 7, text: "What software development life-cycle model is shown in the following illustration? (Image: waterfall diagram)", options: ["A. Spiral", "B. Agile", "C. Boehm", "D. Waterfall"] },
+    { id: 8, text: "Encapsulation is the core concept that enables what type of protocol?", options: ["A. Bridging", "B. Multilayer", "C. Hashing", "D. Storage"] },
+    { id: 9, text: "Amanda wants to use contacts from the existing Gmail accounts that new users already have for her application. What protocol from the following options is used to provide secure delegated access?", options: ["A. Open ID", "B. Kerberos", "C. OAuth", "D. SAML"] },
+    { id: 10, text: "Which one of the following metrics specifies the amount of time that business continuity planners find acceptable for the restoration of service after a disaster?", options: ["A. MTD", "B. RTO", "C. RPO", "D. MTO"] },
+    { id: 11, text: "Jill is working to procure new network hardware for her organization. She finds a gray market supplier that is importing the hardware from outside the country at a much lower price. What security concern is the most significant for hardware acquired this way?", options: ["A. The security of the hardware and firmware", "B. Availability of support for the hardware and software", "C. Whether the hardware is a legitimate product of the actual vendor", "D. The age of the hardware"] },
+    { id: 12, text: "What process is typically used to ensure data security for workstations that are being removed from service but that will be resold or otherwise reused?", options: ["A. Destruction", "B. Erasing", "C. Sanitization", "D. Clearing"] },
+    { id: 13, text: "Colleen is conducting a software test that is evaluating code for both security flaws and usability issues. She is working with the application from an end-user perspective and referencing the source code as she works her way through the product. What type of testing is Colleen conducting?", options: ["A. White box", "B. Blue box", "C. Gray box", "D. Black box"] },
+    { id: 14, text: "Harold is looking for a software development methodology that will help with a major issue he is seeing in his organization. Currently, developers and operations staff do not work together and are often seen as taking problems and “throwing them over the fence” to the other team. What technology management approach is designed to alleviate this problem?", options: ["A. ITIL", "B. Lean", "C. ITSM", "D. DevOps"] },
+    { id: 15, text: "NIST Special Publication 800-92, the Guide to Computer Security Log Management, describes four types of common challenges to log management: Many log sources, Inconsistent log content, Inconsistent timestamps, Inconsistent log formats. Which of the following solutions is best suited to solving these issues?", options: ["A. Implement SNMP for all logging devices.", "B. Implement a SIEM tool.", "C. Standardize the Windows event log format for all devices and use NTP.", "D. Ensure that logging is enabled on all endpoints using their native logging formats and set their local time correctly."] },
+    { id: 16, text: "Mikayla's organization has been notified about an authentication bypass vulnerability in their product by a security researcher. The researcher has stated that they will share details about the vulnerability in question within the next 90 days if Mikayla's company fails to remediate it. However, they are also willing to collaborate with the company to help them understand the issue and provide them with full details on how to re-create the problem. What process has the researcher followed?", options: ["A. A CVE creation process", "B. A bug bounty", "C. Ethical disclosure", "D. Blackmail"] },
+    { id: 17, text: "Carlos is investigating the compromise of sensitive information in his organization. He believes that attackers managed to retrieve personnel information on all employees from the database and finds the following user-supplied input in a log entry for a web-based personnel management system: Collins'&1=1;––. What type of attack took place, and how could it be prevented?", options: ["A. SQL injection, use of stored procedures", "B. Buffer overflow, automatic buffer expansion", "C. Cross-site scripting, turning on XSS prevention on the web server", "D. Cross-site request forgery, requiring signed requests"] },
+    { id: 18, text: "Which one of the following is a detailed, step-by-step document that describes the exact actions that individuals must complete?", options: ["A. Policy", "B. Standard", "C. Guideline", "D. Procedure"] },
+    { id: 19, text: "For what purpose are the CIS benchmarks frequently used in organizations?", options: ["A. Secure coding standards", "B. Performance testing", "C. Baselining", "D. Monitoring metrics"] },
+    { id: 20, text: "Carlos' team has detected a compromise and initiated the incident response process. What will happen next?", options: ["A. Remediation", "B. Mitigation", "C. Reporting", "D. Lessons learned"] },
+    { id: 21, text: "Carlos is planning a design for a data center that will be constructed within a new four-story corporate headquarters. The building consists of a basement and three above-ground floors. What is the best location for the data center?", options: ["A. Basement", "B. First floor", "C. Second floor", "D. Third floor"] },
+    { id: 22, text: "Chris is an information security professional for a major corporation, and as he is walking into the building, he notices that the door to a secure area has been left ajar. Physical security does not fall under his responsibility, but he takes immediate action by closing the door and informing the physical security team of his action. What principle is Chris demonstrating?", options: ["A. Due care", "B. Crime prevention through environmental design", "C. Separation of duties", "D. Informed consent"] },
+    { id: 23, text: "Which one of the following investigation types always uses the beyond-a-reasonable-doubt standard of proof?", options: ["A. Civil investigation", "B. Criminal investigation", "C. Operational investigation", "D. Regulatory investigation"] },
+    { id: 24, text: "Kristen wants to use multiple processing sites for her data but does not want to pay for a full data center. Which of the following options would you recommend as her best option if she wants to be able to quickly migrate portions of her custom application environment to facilities in multiple countries without having to wait to ship or acquire hardware?", options: ["A. A cloud PaaS vendor", "B. A hosted data center provider", "C. A cloud IaaS vendor", "D. A data center vendor that provides rack, power, and remote hands services"] },
+    { id: 25, text: "What type of alternate processing facility contains the hardware necessary to restore operations but does not have a current copy of data?", options: ["A. Hot site", "B. Warm site", "C. Cold site", "D. Mobile site"] },
+    { id: 26, text: "Which one of the following terms describes a period of momentary high voltage?", options: ["A. Sag", "B. Brownout", "C. Spike", "D. Surge"] },
+    { id: 27, text: "Greg needs to label drives used for his company's medical insurance claims database. What data label from the following list best matches the type of data he is dealing with?", options: ["A. PII", "B. Secret", "C. Business confidential", "D. PHI"] },
+    { id: 28, text: "Marco wants to deploy a network security device that can detect and stop network-based attacks without additional external intervention. What type of device should he employ and in what configuration?", options: ["A. An inline IDS", "B. An IDS connected through a network tap", "C. An inline IPS", "D. An IPS connected through a network tap"] },
+    { id: 29, text: "Selah wants to ensure that vehicles cannot crash through her company's entryway and front lobby while still remaining accessible to pedestrians and wheelchairs or other mobility devices. What physical security control is best suited to this purpose?", options: ["A. Fences", "B. Bollards", "C. Walls", "D. Stairs"] },
+    { id: 30, text: "What backup should Tara apply to the server first? (Scenario: full Sunday, differential Mon-Fri, failure Wednesday 3pm)", options: ["A. Sunday's full backup", "B. Monday's differential backup", "C. Tuesday's differential backup", "D. Wednesday's differential backup"] },
+    { id: 31, text: "How many backups in total must Tara apply to the system to make the data it contains as current as possible?", options: ["A. 1", "B. 2", "C. 3", "D. 4"] },
+    { id: 32, text: "In this backup approach, some data may be irretrievably lost. How long is the time period when any changes made will have been lost?", options: ["A. 3 hours.", "B. 5 hours.", "C. 8 hours.", "D. No data will be lost."] },
+    { id: 33, text: "If Tara followed the same schedule but switched the differential backups to incremental backups, how many backups in total would she need to apply to the system to make the data it contains as current as possible?", options: ["A. 1", "B. 2", "C. 3", "D. 4"] },
+    { id: 34, text: "If Tara made the change from differential to incremental backups and we assume that the same amount of information changes each day, which one of the following files would be the largest?", options: ["A. Monday's incremental backup.", "B. Tuesday's incremental backup.", "C. Wednesday's incremental backup.", "D. All three will be the same size."] },
+    { id: 35, text: "The following figure shows an example of an attack where Mal, the attacker, has redirected traffic from a user's system to their own, allowing them to read TLS encrypted traffic. Which of the following terms best describes this attack? (Image: man-in-the-middle)", options: ["A. A DNS hijacking attack", "B. An ARP spoofing attack", "C. A man-in-the-middle attack", "D. A SQL injection attack"] },
+    { id: 36, text: "Bob has been tasked with writing a policy that describes how long data should be kept and when it should be purged. What concept does this policy deal with?", options: ["A. Data remanence", "B. Record retention", "C. Data redaction", "D. Audit logging"] },
+    { id: 37, text: "Which component of IPsec provides authentication, integrity, and nonrepudiation?", options: ["A. L2TP", "B. Encapsulating Security Payload", "C. Encryption Security Header", "D. Authentication Header"] },
+    { id: 38, text: "Renee is reviewing logs and notices that a system on her network recently received connection attempts on all 65,536 TCP ports from a single system during a short period of time. What type of attack did Renee most likely experience?", options: ["A. Denial of service", "B. Reconnaissance", "C. Malicious insider", "D. Compromise"] },
+    { id: 39, text: "What type of Windows audit record describes events like an OS shutdown or a service being stopped?", options: ["A. An application log", "B. A security log", "C. A system log", "D. A setup log"] },
+    { id: 40, text: "Melissa is in charge of her organization's security compliance efforts and has been told that the organization does not install Windows patches until a month has passed since the patch has been released unless there is a zero-day exploit that is being actively exploited. Why would the company delay patching like this?", options: ["A. To minimize business impact of the installation", "B. To allow any flaws with the patch to be identified", "C. To prevent malware in the patches from being installed before it is identified", "D. To allow the patch to be distributed to all systems"] },
+    { id: 41, text: "What level of RAID is also known as disk striping?", options: ["A. RAID 0", "B. RAID 1", "C. RAID 5", "D. RAID 10"] },
+    { id: 42, text: "Jake is updating his disaster recovery plan and wants to ensure that the third-party data center his organization contracts with can handle the scaling requirements needed in a disaster. What type of agreement should Jake sign with the hosting provider?", options: ["A. A resource capacity agreement", "B. A cold-site agreement", "C. An NDA", "D. A business continuity agreement"] },
+    { id: 43, text: "Diana's organization teaches employees to use a pre-arranged code if they are kidnapped or under threat and contact the organization. What type of solution is this?", options: ["A. A duress code", "B. A panic button", "C. A kidnap code", "D. A threat code"] },
+    { id: 44, text: "Fred's company wants to ensure the integrity of email messages sent via its central email servers. If the confidentiality of the messages is not critical, what solution should Fred suggest?", options: ["A. Digitally sign and encrypt all messages to ensure integrity.", "B. Digitally sign but don't encrypt all messages.", "C. Use TLS to protect messages, ensuring their integrity.", "D. Use a hashing algorithm to provide a hash in each message to prove that it hasn't changed."] },
+    { id: 45, text: "The leadership at Susan's company has asked her to implement an access control system that can support rule declarations like “Only allow access to salespeople from managed devices on the wireless network between 8 a.m. and 6 p.m.” What type of access control system would be Susan's best choice?", options: ["A. ABAC", "B. RBAC", "C. DAC", "D. MAC"] },
+    { id: 46, text: "Nora's company operates servers on a five-year life cycle. When they reach their end of life according to that process, the servers are sent to an e-waste recycler. Which of the following is the most effective control that Nora could implement to ensure that a data breach does not occur due to remanent data?", options: ["A. Zero wipe the drives before the servers leave the organization.", "B. Remove the drives and shred them.", "C. Reformat the drives before the servers are sent to the e-waste company.", "D. Require certificates of disposal from the e-waste company."] },
+    { id: 47, text: "Chris is deploying a gigabit Ethernet network using Category 6 cable between two buildings. What is the maximum distance he can run the cable according to the Category 6 standard?", options: ["A. 50 meters", "B. 100 meters", "C. 200 meters", "D. 300 meters"] },
+    { id: 48, text: "Howard is a security analyst working with an experienced computer forensics investigator. The investigator asks him to retrieve a forensic drive controller, but Howard cannot locate a device in the storage room with this name. What is another name for a forensic drive controller?", options: ["A. RAID controller", "B. Write blocker", "C. SCSI terminator", "D. Forensic device analyzer"] },
+    { id: 49, text: "The web application that Saria's development team is working on needs to provide secure session management that can prevent hijacking of sessions using the cookies that the application relies on. Which of the following techniques would be the best for her to recommend to prevent this?", options: ["A. Set the Secure attribute for the cookies, thus forcing TLS.", "B. Set the Domain cookie attribute to example.com to limit cookie access to servers in the same domain.", "C. Set the Expires cookie attribute to less than a week.", "D. Set the HTTPOnly attribute to require only unencrypted sessions."] },
+    { id: 50, text: "Ben's team has been tasked with ensuring that devices that leave his organization do not contain organizational data. They have wiped and re-formatted drives in systems that are being sent to a third-party electronics recycler as part of the process, but a journalist recently reported that organization entrusted to Ben's company was recovered from drives bought from the recycler. What issue is Ben's team encountering, and what solution should they select to prevent it most effectively?", options: ["A. Data permanence, process certification", "B. Data remanence, drive destruction", "C. Data permanence, using a degausser", "D. Data remanence, zero fill"] },
+    { id: 51, text: "What access control scheme labels subjects and objects and allows subjects to access objects when the labels match?", options: ["A. DAC", "B. MAC", "C. Rule-based access control (RBAC)", "D. Role-based access control (RBAC)"] },
+    { id: 52, text: "A cloud-based service that provides account provisioning, management, authentication, authorization, reporting, and monitoring capabilities is known as what type of service?", options: ["A. PaaS", "B. IDaaS", "C. IaaS", "D. SaaS"] },
+    { id: 53, text: "Sally wants to secure her organization's VoIP systems. Which of the following attacks is one that she shouldn't have to worry about?", options: ["A. Eavesdropping", "B. Denial-of-service", "C. XSS", "D. Caller ID spoofing"] },
+    { id: 54, text: "Marty discovers that the access restrictions in his organization allow any user to log into the workstation assigned to any other user, even if they are from completely different departments. This type of access most directly violates which information security principle?", options: ["A. Separation of duties", "B. Two-person control", "C. Need to know", "D. Least privilege"] },
+    { id: 55, text: "Fred needs to transfer files between two servers on an untrusted network. Since he knows the network isn't trusted, he needs to select an encrypted protocol that can ensure that his data remains secure. What protocol should he choose?", options: ["A. SSH", "B. TCP", "C. SFTP", "D. IPsec"] },
+    { id: 56, text: "Manesh wants to help his organization build secure software. Which of the following is not a common security best practice for working with security frameworks and libraries?", options: ["A. Use internally developed libraries and frameworks whenever possible to reduce third-party threats.", "B. Identify and inventory all third-party libraries.", "C. Encapsulate libraries to prevent the use of functions that are not needed.", "D. Update libraries and components on a regular basis."] },
+    { id: 57, text: "If the client has already authenticated to the KDC, what does the client workstation send to the KDC at point A when it wants to access a resource? (Image: Kerberos diagram)", options: ["A. It resends the password.", "B. A TGR.", "C. Its TGT.", "D. A service ticket."] },
+    { id: 58, text: "What occurs between steps A and B?", options: ["A. The KDC verifies the validity of the TGT and whether the user has the right privileges for the requested resource.", "B. The KDC updates its access control list based on the data in the TGT.", "C. The KDC checks its service listing and prepares an updated TGT based on the service request.", "D. The KDC generates a service ticket to issue to the client."] },
+    { id: 59, text: "What system or systems does the service that is being accessed use to validate the ticket?", options: ["A. The KDC.", "B. The client workstation and the KDC.", "C. The client workstation supplies it in the form of a client-to-server ticket and an authenticator.", "D. The KVS."] },
+    { id: 60, text: "What does a service ticket (ST) provide in Kerberos authentication?", options: ["A. It serves as the authentication host.", "B. It provides proof that the subject is authorized to access an object.", "C. It provides proof that a subject has authenticated through a KDC and can request tickets to access other objects.", "D. It provides ticket granting services."] },
+    { id: 61, text: "Judy is preparing to conduct a business impact analysis. What should her first step be in the process?", options: ["A. Identify threats to the business.", "B. Identify risks to the organization.", "C. Identify business priorities.", "D. Conduct likelihood analysis."] },
+    { id: 62, text: "What is the most common risk that cellular phone hotspots create for business networks?", options: ["A. They can provide attackers with an unsecured network path into your network.", "B. They can be used like rogue access points for man-in-the-middle attacks.", "C. They allow wireless data to be intercepted.", "D. They are unencrypted and can be easily sniffed."] },
+    { id: 63, text: "Which one of the following fire suppression systems poses the greatest risk of accidental discharge that damages equipment in a data center?", options: ["A. Wet pipe", "B. Dry pipe", "C. Deluge", "D. Preaction"] },
+    { id: 64, text: "Amanda's healthcare provider maintains such data as details about her health, treatments, and medical billing. What type of data is this?", options: ["A. Protected health information", "B. Personally identifiable information", "C. Protected health insurance", "D. Individual protected data"] },
+    { id: 65, text: "What type of code review is best suited for identifying business logic flaws?", options: ["A. Mutation fuzzing", "B. Manual testing", "C. Generational fuzzing", "D. Interface testing"] },
+    { id: 66, text: "Something you know is an example of what type of authentication factor?", options: ["A. Type 1", "B. Type 2", "C. Type 3", "D. Type 4"] },
+    { id: 67, text: "Saria is the system owner for a healthcare organization. What responsibilities does she have related to the data that resides on or is processed by the systems she owns?", options: ["A. She has to classify the data.", "B. She has to make sure that appropriate security controls are in place to protect the data.", "C. She has to grant appropriate access to personnel.", "D. She bears sole responsibility for ensuring that data is protected at rest, in transit, and in use."] },
+    { id: 68, text: "During software testing, Jack diagrams how a hacker might approach the application he is reviewing and determines what requirements the hacker might have. He then tests how the system would respond to the attacker's likely behavior. What type of testing is Jack conducting?", options: ["A. Misuse case testing", "B. Use-case testing", "C. Hacker use-case testing", "D. Static code analysis"] },
+    { id: 69, text: "Rick's risk assessment for his company's web application noted that it could suffer from SQL injection attacks. Which of the following mitigation techniques would you recommend Rick apply to help reduce this risk? (Select all that apply.)", options: ["A. Stored procedures", "B. Escaping all user-supplied input", "C. Parameterized queries", "D. Input validation"] },
+    { id: 70, text: "Chris has been assigned to scan a system on all of its possible TCP and UDP ports. How many ports of each type must he scan to complete his assignment?", options: ["A. 65,536 TCP ports and 32,768 UDP ports", "B. 1,024 common TCP ports and 32,768 ephemeral UDP ports", "C. 65,536 TCP and 65,536 UDP ports", "D. 16,384 TCP ports, and 16,384 UDP ports"] },
+    { id: 71, text: "CVE and the NVD both provide information about what?", options: ["A. Vulnerabilities", "B. Markup languages", "C. Vulnerability assessment tools", "D. Penetration testing methodologies"] },
+    { id: 72, text: "Michelle wants to ensure that her company does not keep logs for longer than they need to. What type of policy should she write and implement to ensure this?", options: ["A. An EOL policy", "B. A data classification policy", "C. An EOS policy", "D. A record retention policy"] },
+    { id: 73, text: "Beth's company uses cloud-based infrastructure that uses a combination of policies and automated security controls to ensure security. The company deploys firewalls, endpoint security tools, and management capabilities to ensure that every virtual system is protected as it is brought online. What term describes this type of implementation?", options: ["A. Root of trust", "B. Software-defined security", "C. A policy engine", "D. Software-defined networks"] },
+    { id: 74, text: "What three important items should be considered if you are attempting to control the strength of signal for a wireless network as well as where it is accessible?", options: ["A. Antenna placement, antenna type, antenna power levels", "B. Antenna design, power levels, use of a captive portal", "C. Antenna placement, antenna design, use of a captive portal", "D. Power levels, antenna placement, FCC minimum strength requirements"] },
+    { id: 75, text: "What is the best way to ensure that data is unrecoverable from an SSD?", options: ["A. Use the built-in erase commands.", "B. Use a random pattern wipe of 1s and 0s.", "C. Physically destroy the drive.", "D. Degauss the drive."] },
+    { id: 76, text: "Alice sends a message to Bob and wants to ensure that Mal, a third party, does not read the contents of the message while in transit. What goal of cryptography is Alice attempting to achieve?", options: ["A. Confidentiality", "B. Integrity", "C. Authentication", "D. Nonrepudiation"] },
+    { id: 77, text: "Ian wants to ensure that his organization is using appropriate secure coding techniques. Which of the following is not a common practice for input validation?", options: ["A. Conduct data validation on a trusted system.", "B. Validate data length.", "C. Validate all client-provided data before it is processed.", "D. Convert all data to the same data type."] },
+    { id: 78, text: "The company that Gary works for processes credit cards and operates under an industry standard for credit card handling. Which of the following standards will his company need to comply with?", options: ["A. ISO27001", "B. FIPS 140", "C. PCI-DSS", "D. ISO 27002"] },
+    { id: 79, text: "James has opted to implement a NAC solution that uses a post-admission philosophy for its control of network connectivity. What type of issues can't a strictly post-admission policy handle?", options: ["A. Out-of-band monitoring", "B. Preventing an unpatched laptop from being exploited immediately after connecting to the network", "C. Denying access when user behavior doesn't match an authorization matrix", "D. Allowing a user access to a specific object when user behavior is allowed based on an authorization matrix"] },
+    { id: 80, text: "Ben has built an access control list that lists the objects that his users are allowed to access. When users attempt to access an object that they don't have rights to, they are denied access, even though there isn't a specific rule that prevents it. What access control principle is key to this behavior?", options: ["A. Least privilege", "B. Implicit deny", "C. Explicit deny", "D. Final rule fall-through"] },
+    { id: 81, text: "Mary is a security risk analyst for an insurance company. She is currently examining a scenario where a hacker might be able to modify the contents of directories on the web server due to a missing patch in the company's web application. In this scenario, what is the risk?", options: ["A. Unpatched web application", "B. Web defacement", "C. Hacker", "D. Operating system"] },
+    { id: 82, text: "The mean time to detect a compromise is what type of security measurement?", options: ["A. An MTO", "B. A technical control objective", "C. A compliance objective", "D. A KPI"] },
+    { id: 83, text: "Val is testing her organization's software using a tool that simulates an attacker's actions against it. What type of testing is Val conducting?", options: ["A. SAST", "B. LAST", "C. DAST", "D. FAST"] },
+    { id: 84, text: "In Jen's job as the network administrator for an industrial production facility, she is tasked with ensuring that the network is not susceptible to electromagnetic interference due to the large motors and other devices running on the production floor. What type of network cabling should she choose if this concern is more important than the cost and difficulty of installation?", options: ["A. 10Base2", "B. 100BaseT", "C. 1000BaseT", "D. Fiber optic"] },
+    { id: 85, text: "Bethany would like to put in place controls that provide an organized framework for company employees to suggest new website features that her team will develop. What change management process facilitates this? (Scenario: Jasper Diamonds)", options: ["A. Configuration control", "B. Change control", "C. Release control", "D. Request control"] },
+    { id: 86, text: "Bethany would also like to create a process that helps multiple developers work on code at the same time. What change management process facilitates this?", options: ["A. Configuration control", "B. Change control", "C. Release control", "D. Request control"] },
+    { id: 87, text: "Bethany is working with her colleagues to conduct user acceptance testing. What change management process includes this task?", options: ["A. Configuration control", "B. Change control", "C. Release control", "D. Request control"] },
+    { id: 88, text: "Bethany noticed that some problems arise when system administrators update libraries without informing developers. What change management process can assist with this problem?", options: ["A. Configuration control", "B. Change control", "C. Release control", "D. Request control"] },
+    { id: 89, text: "Asha's team wants to ensure that all of the functions of their software are tested. What are they ensuring?", options: ["A. Proper misuse case testing", "B. That a breach attack simulation is conducted", "C. Complete interface testing", "D. Complete coverage"] },
+    { id: 90, text: "Which one of the following is an example of risk transference?", options: ["A. Building a guard shack", "B. Purchasing insurance", "C. Erecting fences", "D. Relocating facilities"] },
+    { id: 91, text: "What protocol takes the place of certificate revocation lists and adds real-time status verification?", options: ["A. RTCP", "B. RTVP", "C. OCSP", "D. CSRTP"] },
+    { id: 92, text: "Xavier's company has been using an increasing number of cloud services, and he is concerned that the security policies that the company has implemented in its existing data center are not being followed in the cloud. Which of the following solutions is best suited to ensuring that policies are applied to all cloud services?", options: ["A. A CIPS", "B. A CASB", "C. A CSG", "D. A CDLP"] },
+    { id: 93, text: "What process makes TCP a connection-oriented protocol?", options: ["A. It works via network connections.", "B. It uses a handshake.", "C. It monitors for dropped connections.", "D. It uses a complex header."] },
+    { id: 94, text: "Susan wants to build a security awareness program for her organization but knows that keeping staff engaged is difficult. Which of the following techniques is often associated with the use of points and scores as part of the assessment process?", options: ["A. Gamification", "B. Phishing testing", "C. Security champions", "D. Social engineering evaluations"] },
+    { id: 95, text: "You are conducting a qualitative risk assessment for your organization. The two important risk elements that should weigh most heavily in your analysis of risk are probability and ________________.", options: ["A. Likelihood", "B. History", "C. Impact", "D. Cost"] },
+    { id: 96, text: "Using the OSI model, what format does the Data Link layer use to format messages received from higher up the stack?", options: ["A. A data stream", "B. A frame", "C. A segment", "D. A datagram"] },
+    { id: 97, text: "What is the maximum penalty that may be imposed by an ISC2 peer review board when considering a potential ethics violation?", options: ["A. Revocation of certification", "B. Termination of employment", "C. Financial penalty", "D. Suspension of certification"] },
+    { id: 98, text: "Which one of the following statements about the SDLC is correct?", options: ["A. The SDLC requires the use of an iterative approach to software development.", "B. The SDLC requires the use of a sequential approach to software development.", "C. The SDLC does not include training for end users and support staff.", "D. The waterfall methodology is compatible with the SDLC."] },
+    { id: 99, text: "In the diagram shown here, Harry is prevented from reading a file at a higher classification level than his security clearance. What security model prevents this behavior? (Image: Bell-LaPadula diagram)", options: ["A. Bell–LaPadula", "B. Biba", "C. Clark–Wilson", "D. Brewer–Nash"] },
+    { id: 100, text: "Sylvia's company's new application allows users to sign up for banking services. Sylvia needs to identify a way to ensure that users are who they claim to be. What is this process called?", options: ["A. Proofing", "B. Registration", "C. FIM", "D. Single sign-on"] },
+    { id: 101, text: "Travis is concerned about the security that his organization's use of Microsoft's BitLocker provides for systems. When are the systems most secure from data loss based on the encryption state of the drive if the systems are equipped with TPM and use full-disk encryption?", options: ["A. When they are booted up and running because the system monitors for drive access", "B. When the system is shutting down because keys are removed from memory", "C. When they are booting up because the TPM checks for a secure boot process", "D. When they are off because the drive is fully encrypted"] },
+    { id: 102, text: "Andrea wants to ensure that her virtualized networks are secure between virtual environments. She uses virtual machine clusters in multiple locations in her state with third-party Internet service providers between those locations. Which of the following solutions is best suited to protecting her traffic if she runs a flattened layer 2 network between those locations?", options: ["A. TLS", "B. BGP", "C. IPsec", "D. AES"] },
+    { id: 103, text: "What security considerations should Fred's company require for sending sensitive data over the cellular network? (Scenario: company cell phones)", options: ["A. They should use the same requirements as data over any public network.", "B. Cellular provider networks are private networks and should not require special consideration.", "C. Encrypt all traffic to ensure confidentiality.", "D. Require the use of WAP for all data sent from the phone."] },
+    { id: 104, text: "Fred intends to attend a major hacker conference this year and needs to connect to his employer's network during his time at the conference. What should he do when connecting to his cellular provider's 4G network while at the conference?", options: ["A. Continue normal usage.", "B. Discontinue all usage; towers can be spoofed.", "C. Only use trusted Wi-Fi networks.", "D. Connect to his company's encrypted VPN service."] },
+    { id: 105, text: "What are the most likely circumstances that would cause a remote wipe of a mobile phone to fail?", options: ["A. The phone has a passcode on it.", "B. The phone cannot contact a network.", "C. The provider has not unlocked the phone.", "D. The phone is in use."] },
+    { id: 106, text: "Elaine is developing a business continuity plan for her organization. What value should she seek to minimize?", options: ["A. AV", "B. SSL", "C. RTO", "D. MTO"] },
+    { id: 107, text: "Warren wants to conduct an internal security audit. He wants to use a broadly accepted audit framework so that he can more easily compare the results to other organizations. Which of the following options should he select as his base audit framework?", options: ["A. ITSM", "B. ATT&CK", "C. COBIT", "D. CIS"] },
+    { id: 108, text: "Place the list of disaster recovery test types in order of their potential operational impact on the business, starting with the least impactful and progressing through the most impactful. (1. Checklist review, 2. Parallel test, 3. Tabletop exercise, 4. Full interruption test)", options: ["A. 1, 2, 3, 4", "B. 1, 3, 2, 4", "C. 1, 3, 4, 2", "D. 2, 1, 3, 4"] },
+    { id: 109, text: "Jack's data center design calls for dual-power supplies in every critical server. What part of the CIA triad is he addressing with this design decision?", options: ["A. Confidentiality", "B. Integrity", "C. Availability", "D. None of the above"] },
+    { id: 110, text: "What step is missing from the IR process cycle diagram shown here? (Image: IR cycle with missing step)", options: ["A. Forensics", "B. Retribution", "C. Recovery", "D. Analysis"] },
+    { id: 111, text: "The company that Felipe works for has connected servers they have hosted in a third-party data center to vendor-owned systems using fiber-optic cables for a direct connection to them. What is this called?", options: ["A. Ingress", "B. Peering", "C. East/west", "D. Egress"] },
+    { id: 112, text: "Megan wants to ensure that the new software as a service provider that her company is signing a contract with will make sure the service works all the time without disruptions. Which of the following is often part of contracts to provide that assurance?", options: ["A. An SLA", "B. An RPA", "C. An NDA", "D. An MOU"] },
+    { id: 113, text: "Kyle wants to ensure that his organization's backups are stored securely in case of a natural disaster or other event. What type of solution should he choose if he needs to store backup tapes?", options: ["A. A cloud backup service", "B. A hot site", "C. A media storage facility", "D. A BaaS provider"] },
+    { id: 114, text: "Norm would like to conduct a disaster recovery test for his organization and wants to choose the most thorough type of test, recognizing that it may be quite disruptive. What type of test should Norm choose?", options: ["A. Full interruption test", "B. Parallel test", "C. Tabletop exercise", "D. Checklist review"] },
+    { id: 115, text: "Ed is building a network that supports IPv6 but needs to connect it to an IPv4 network. What type of device should Ed place between the networks?", options: ["A. A switch", "B. A router", "C. A bridge", "D. A gateway"] },
+    { id: 116, text: "Henry's company has deployed an extensive IoT infrastructure for building monitoring that includes environmental controls, occupancy sensors, and a variety of other sensors and controllers that help manage the building. Which of the following security concerns should Henry report as the most critical in his analysis of the IoT deployment?", options: ["A. The lack of local storage space for security logs that is common to IoT devices.", "B. The IoT devices may not have a separate administrative interface, allowing anybody on the same network to attempt to log into them and making brute-force attacks possible.", "C. The IoT devices may not support strong encryption for communications, exposing the log and sensor data to interception on the network.", "D. The long-term support and patching model for the IoT devices may create security and operational risks for the organization."] },
+    { id: 117, text: "Isaac wants to use a connectionless protocol to transfer data because he needs to optimize the speed of transmission over reliability. Which protocol should he select?", options: ["A. ICMP", "B. TCP", "C. UDP", "D. SNMP"] },
+    { id: 118, text: "Which one of the following actions is not required under the EU General Data Protection Regulation?", options: ["A. Organizations must allow individuals to opt out of information sharing.", "B. Organizations must provide individuals with lists of employees with access to information.", "C. Organizations must use proper mechanisms to protect data against unauthorized disclosure.", "D. Organizations must have a dispute resolution process for privacy issues."] },
+    { id: 119, text: "Tammy is selecting a disaster recovery facility for her organization. She would like to choose a facility that balances the time required to recover operations with the cost involved. What type of facility should she choose?", options: ["A. Hot site", "B. Warm site", "C. Cold site", "D. Red site"] },
+    { id: 120, text: "What layer of the OSI model is associated with datagrams?", options: ["A. Session", "B. Transport", "C. Network", "D. Data Link"] },
+    { id: 121, text: "Which one of the following is not a valid key length for the Advanced Encryption Standard?", options: ["A. 128 bits", "B. 192 bits", "C. 256 bits", "D. 384 bits"] },
+    { id: 122, text: "Which one of the following technologies provides a function interface that allows developers to directly interact with systems without knowing the implementation details of that system?", options: ["A. Data dictionary", "B. Object model", "C. Source code", "D. API"] },
+    { id: 123, text: "Ian wants to assess the security of his company's new SaaS provider. Which of the following options is the most likely option that he can realistically expect to be able to use to assess a major cloud provider's security?", options: ["A. Run a vulnerability scan against the provider's external services.", "B. Request a SOC 2 Type II report.", "C. Run a vulnerability scan against the provider's internal systems.", "D. Request a SOC 1 Type II report."] },
+    { id: 124, text: "Sharon wants to conduct a pass-the-hash attack. Which of the following is not a common means of acquiring NTLM hashes for the attack?", options: ["A. Dumping the system's SAM", "B. Dumping credentials from active memory", "C. Capturing network traffic", "D. Downloading the hashes from a third-party site"] },
+    { id: 125, text: "Match each one of the numbered protocols with the most accurate lettered description. Use each answer exactly once. Protocol: 1. TCP, 2. UDP, 3. DNS, 4. ARP. Description: A. Performs translations between MAC addresses and IP addresses, B. Performs translations between FQDNs and IP addresses, C. Transports data over a network in a connection-oriented fashion, D. Transports data over a network in a connectionless fashion.", options: [] }
+];
+
+// ANSWERS (single/multi-choice and mapping)
+const answersMap = {
+    1: "C", 2: "C", 3: "C", 4: "B", 5: "B", 6: "B", 7: "D", 8: "B", 9: "C", 10: "B",
+    11: "C", 12: "C", 13: "C", 14: "D", 15: "B", 16: "C", 17: "A", 18: "D", 19: "C", 20: "B",
+    21: "C", 22: "A", 23: "B", 24: "C", 25: "B", 26: "C", 27: "D", 28: "C", 29: "B", 30: "A",
+    31: "B", 32: "A", 33: "D", 34: "D", 35: "C", 36: "B", 37: "D", 38: "B", 39: "C", 40: "B",
+    41: "A", 42: "A", 43: "A", 44: "B", 45: "A", 46: "B", 47: "B", 48: "B", 49: "A", 50: "B",
+    51: "B", 52: "B", 53: "C", 54: "D", 55: "C", 56: "A", 57: "C", 58: "D", 59: "C", 60: "B",
+    61: "C", 62: "A", 63: "A", 64: "A", 65: "B", 66: "A", 67: "B", 68: "A", 69: "A, B, C, D", 70: "C",
+    71: "A", 72: "D", 73: "B", 74: "A", 75: "C", 76: "A", 77: "D", 78: "C", 79: "B", 80: "B",
+    81: "B", 82: "D", 83: "C", 84: "D", 85: "D", 86: "A", 87: "C", 88: "B", 89: "D", 90: "B",
+    91: "C", 92: "B", 93: "B", 94: "A", 95: "C", 96: "B", 97: "A", 98: "D", 99: "A", 100: "A",
+    101: "D", 102: "C", 103: "C", 104: "D", 105: "B", 106: "C", 107: "C", 108: "B", 109: "C", 110: "C",
+    111: "B", 112: "A", 113: "C", 114: "A", 115: "D", 116: "D", 117: "C", 118: "B", 119: "B", 120: "C",
+    121: "D", 122: "D", 123: "B", 124: "D"
+};
+
+// Mapping for Q125
+const mappingQ125 = [
+    { item: "TCP", correct: "C" },
+    { item: "UDP", correct: "D" },
+    { item: "DNS", correct: "B" },
+    { item: "ARP", correct: "A" }
+];
+
+// Render all questions
+const container = document.getElementById('questionsContainer');
+questionsData.forEach(q => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = `qcard-${q.id}`;
+    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 69);
+    const isMapping = (q.id === 125);
+    let optionsHtml = '';
+    if (isMapping) {
+        optionsHtml = `<table class="mapping-table"><thead><tr><th>Protocol</th><th>Match to description (A–D)</th></tr></thead><tbody>`;
+        mappingQ125.forEach((item, idx) => {
+            optionsHtml += `<tr>
+                <td><strong>${item.item}</strong></td>
+                <td><select class="map-select-125" data-index="${idx}">
+                        <option value="">-- select --</option>
+                        <option value="A">A. Performs translations between MAC addresses and IP addresses</option>
+                        <option value="B">B. Performs translations between FQDNs and IP addresses</option>
+                        <option value="C">C. Transports data over a network in a connection-oriented fashion</option>
+                        <option value="D">D. Transports data over a network in a connectionless fashion</option>
+                    </select>
+                </select></td>
+            </tr>`;
+        });
+        optionsHtml += `</tbody></table>`;
+    } else {
+        optionsHtml = `<div class="options">`;
+        q.options.forEach(opt => {
+            const letter = opt.charAt(0);
+            const inputType = isMultiple ? 'checkbox' : 'radio';
+            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+        });
+        optionsHtml += `</div>`;
+    }
+    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+    container.appendChild(card);
+});
+
+const submitBtn = document.getElementById('submitBtn');
+const exportBtn = document.getElementById('exportBtn');
+const modal = document.getElementById('summaryModal');
+const modalBody = document.getElementById('modalBody');
+const closeModal = document.querySelector('.close-modal');
+let currentResults = [];
+
+function getUserAnswers() {
+    let results = [];
+    for (let i = 1; i <= 125; i++) {
+        const qid = i;
+        let userAnswer = "";
+        let isCorrect = false;
+        let correctAnswerStr = "";
+        if (qid === 125) {
+            const selects = document.querySelectorAll('.map-select-125');
+            let answers = [];
+            selects.forEach(sel => answers.push(sel.value));
+            userAnswer = answers.join(', ') || "(no selection)";
+            const correct = mappingQ125.map(m => m.correct);
+            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+            correctAnswerStr = "TCP→C, UDP→D, DNS→B, ARP→A";
+        } else {
+            const qData = questionsData.find(q => q.id === qid);
+            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 69);
+            if (isMulti) {
+                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                userAnswer = selected.join(', ') || "(none)";
+                const correctRaw = answersMap[qid];
+                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                isCorrect = selected.length === correctArray.length && correctArray.every((v,i) => v === selected[i]);
+                correctAnswerStr = correctRaw;
+            } else {
+                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                userAnswer = radio ? radio.value : "(skipped)";
+                const correctLetter = answersMap[qid];
+                isCorrect = (radio && radio.value === correctLetter);
+                correctAnswerStr = correctLetter;
+            }
+        }
+        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+        results.push({ qid, userAnswer, correctAnswer: correctAnswerStr, isCorrect, status });
+        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+        if (hashtagSpan) {
+            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+            else hashtagSpan.innerHTML = " #️⃣ skipped";
+            hashtagSpan.className = `hashtag ${status}`;
+        }
+    }
+    return results;
+}
+
+function escapeHtml(str) {
+    if (str === undefined || str === null) return '';
+    return str.replace(/[&<>]/g, function(m) {
+        if (m === '&') return '&amp;';
+        if (m === '<') return '&lt;';
+        if (m === '>') return '&gt;';
+        return m;
+    });
+}
+
+function showModal(results) {
+    const total = results.length;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount/total*100)}%)</strong></p>`;
+    html += `<table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th></tr></thead><tbody>`;
+    results.forEach(r => {
+        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+        html += `<tr>
+            <td>${r.qid}</td>
+            <td>${escapeHtml(String(r.userAnswer))}</td>
+            <td>${escapeHtml(String(r.correctAnswer))}</td>
+            <td>${statusText}</td>
+        </tr>`;
+    });
+    html += `</tbody></table>`;
+    modalBody.innerHTML = html;
+    modal.style.display = 'flex';
+}
+
+function exportCSV(results) {
+    let csvRows = [["Question ID","User Answer","Correct Answer","Result"]];
+    results.forEach(r => {
+        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect")]);
+    });
+    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+    const blob = new Blob(["\uFEFF" + csvContent], {type: "text/csv;charset=utf-8;"});
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.href = url;
+    link.setAttribute("download", "practice_test4_results.csv");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+submitBtn.addEventListener('click', () => {
+    const results = getUserAnswers();
+    currentResults = results;
+    const correctCount = results.filter(r => r.isCorrect).length;
+    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/${results.length} (${Math.round(correctCount/results.length*100)}%)`;
+    showModal(results);
+});
+exportBtn.addEventListener('click', () => {
+    if (currentResults && currentResults.length) exportCSV(currentResults);
+    else alert("Please submit your answers first to generate CSV.");
+});
+document.getElementById('modalExportBtn').addEventListener('click', () => {
+    if (currentResults) exportCSV(currentResults);
+});
+closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+</script>
+</body>
+</html>
