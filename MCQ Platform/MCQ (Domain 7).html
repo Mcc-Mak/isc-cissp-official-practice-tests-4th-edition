@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
@@ -9,27 +10,32 @@
             box-sizing: border-box;
             font-family: system-ui, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
         }
+
         body {
             background: #f0f2f5;
             margin: 0;
             padding: 20px;
             color: #1e293b;
         }
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
+
         h1 {
             font-size: 1.8rem;
             margin-bottom: 0.25rem;
             color: #0f3b5c;
         }
+
         .sub {
             color: #2c5a7a;
             margin-bottom: 2rem;
             border-left: 4px solid #2c7da0;
             padding-left: 1rem;
         }
+
         .toolbar {
             background: white;
             border-radius: 20px;
@@ -44,9 +50,10 @@
             top: 10px;
             z-index: 10;
             backdrop-filter: blur(8px);
-            background: rgba(255,255,255,0.92);
+            background: rgba(255, 255, 255, 0.92);
             border: 1px solid #e2e8f0;
         }
+
         button {
             background: #1e6f5c;
             color: white;
@@ -58,13 +65,16 @@
             cursor: pointer;
             transition: all 0.2s;
         }
+
         button:hover {
             background: #0f5a49;
             transform: translateY(-1px);
         }
+
         .btn-export {
             background: #2b6e4e;
         }
+
         .score-area {
             font-size: 1.2rem;
             font-weight: 700;
@@ -73,18 +83,21 @@
             border-radius: 40px;
             color: #0e5e4a;
         }
+
         .questions-grid {
             display: flex;
             flex-direction: column;
             gap: 1.75rem;
         }
+
         .question-card {
             background: white;
             border-radius: 24px;
             padding: 1.3rem 1.8rem;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
             border: 1px solid #e2edf2;
         }
+
         .question-header {
             display: flex;
             gap: 12px;
@@ -94,6 +107,7 @@
             border-bottom: 2px solid #eef2f8;
             padding-bottom: 0.5rem;
         }
+
         .q-num {
             background: #d4e6f1;
             padding: 4px 12px;
@@ -102,12 +116,14 @@
             font-size: 0.8rem;
             color: #1a4d6b;
         }
+
         .q-text {
             font-weight: 600;
             font-size: 1rem;
             line-height: 1.4;
             color: #0f2f3f;
         }
+
         .hashtag {
             font-size: 0.8rem;
             margin-left: auto;
@@ -116,40 +132,48 @@
             border-radius: 40px;
             font-weight: 500;
         }
+
         .hashtag.correct {
             background: #c8e6df;
             color: #0b5345;
         }
+
         .hashtag.incorrect {
             background: #f8dddd;
             color: #9b2c2c;
         }
+
         .hashtag.skipped {
             background: #fff3bf;
             color: #856404;
         }
+
         .options {
             margin: 1rem 0 0.5rem 1.2rem;
             display: flex;
             flex-direction: column;
             gap: 0.6rem;
         }
+
         .option {
             display: flex;
             align-items: center;
             gap: 12px;
             flex-wrap: wrap;
         }
+
         .option input {
             margin: 0;
             width: 18px;
             height: 18px;
             accent-color: #2c7da0;
         }
+
         .option label {
             font-size: 0.95rem;
             color: #1e3b4a;
         }
+
         .mapping-table {
             margin: 1rem 0 0.5rem 1rem;
             border-collapse: collapse;
@@ -157,15 +181,19 @@
             width: 100%;
             max-width: 800px;
         }
-        .mapping-table td, .mapping-table th {
+
+        .mapping-table td,
+        .mapping-table th {
             border: 1px solid #cbdde6;
             padding: 10px 12px;
             vertical-align: middle;
         }
+
         .mapping-table th {
             background: #e7f0f5;
             font-weight: 600;
         }
+
         select {
             padding: 6px 12px;
             border-radius: 28px;
@@ -173,6 +201,7 @@
             background: white;
             font-size: 0.9rem;
         }
+
         .modal {
             display: none;
             position: fixed;
@@ -180,11 +209,12 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.5);
+            background: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             justify-content: center;
             align-items: center;
         }
+
         .modal-content {
             background: white;
             border-radius: 28px;
@@ -194,8 +224,9 @@
             overflow: auto;
             padding: 1.5rem;
             position: relative;
-            box-shadow: 0 20px 35px rgba(0,0,0,0.2);
+            box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
         }
+
         .close-modal {
             position: absolute;
             top: 12px;
@@ -204,312 +235,324 @@
             cursor: pointer;
             color: #777;
         }
+
         .result-table {
             width: 100%;
             border-collapse: collapse;
             font-size: 0.8rem;
             background: white;
         }
-        .result-table th, .result-table td {
+
+        .result-table th,
+        .result-table td {
             border: 1px solid #d4dee5;
             padding: 10px 8px;
             text-align: left;
             vertical-align: top;
         }
+
         .result-table th {
             background: #eef3f7;
         }
+
         footer {
             margin-top: 2rem;
             text-align: center;
             font-size: 0.75rem;
             color: #5b7c93;
         }
+
         @media (max-width: 760px) {
-            .question-card { padding: 1rem; }
-            .options { margin-left: 0.2rem; }
+            .question-card {
+                padding: 1rem;
+            }
+
+            .options {
+                margin-left: 0.2rem;
+            }
         }
     </style>
 </head>
+
 <body>
-<div class="container">
-    <h1>📘 Domain 7 – Security Operations</h1>
-    <div class="sub">100 questions • Single choice | Multiple‑select | Mapping (exact wording)</div>
+    <div class="container">
+        <h1>📘 Domain 7 – Security Operations</h1>
+        <div class="sub">100 questions • Single choice | Multiple‑select | Mapping (exact wording)</div>
 
-    <div class="toolbar">
-        <div>
-            <button id="submitBtn">✅ Submit & Score</button>
-            <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+        <div class="toolbar">
+            <div>
+                <button id="submitBtn">✅ Submit & Score</button>
+                <button id="exportBtn" class="btn-export" style="margin-left: 12px;">📎 Export CSV</button>
+            </div>
+            <div class="score-area" id="scoreDisplay">Not yet scored</div>
         </div>
-        <div class="score-area" id="scoreDisplay">Not yet scored</div>
+
+        <div id="questionsContainer" class="questions-grid"></div>
+        <footer>MCQ Platform — Domain 7. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
     </div>
 
-    <div id="questionsContainer" class="questions-grid"></div>
-    <footer>MCQ Platform — Domain 7. Hashtags appear after submission: ✅ correct / ❌ incorrect / ⚪ skipped.</footer>
-</div>
-
-<div id="summaryModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal">&times;</span>
-        <h3 id="modalTitle">Detailed Report</h3>
-        <div id="modalBody"></div>
-        <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+    <div id="summaryModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 id="modalTitle">Detailed Report</h3>
+            <div id="modalBody"></div>
+            <button id="modalExportBtn" class="btn-export" style="margin-top: 12px;">📎 Export CSV from Modal</button>
+        </div>
     </div>
-</div>
 
-<script>
-// =============================================================
-// DOMAIN 7 – QUESTIONS (exact wording from official CISSP practice)
-// Based on the XML provided earlier with answers from chapter 7
-// =============================================================
-const questionsData = [
-    { id: 1, text: "Mary is reviewing the availability controls for the system architecture shown here. What technology is shown that provides fault tolerance for the database servers? (Image: failover cluster diagram)", options: ["A. Failover cluster", "B. UPS", "C. Tape backup", "D. Cold site"] },
-    { id: 2, text: "Joe is the security administrator for an ERP system. He is preparing to create accounts for several new employees. What default access should he give to all of the new employees as he creates the accounts?", options: ["A. Read only", "B. Editor", "C. Administrator", "D. No access"] },
-    { id: 3, text: "Tim is configuring a privileged account management solution for his organization. Which one of the following is not a privileged administrative activity that should be automatically sent to a log of superuser actions?", options: ["A. Purging log entries", "B. Restoring a system from backup", "C. Logging into a workstation", "D. Managing user accounts"] },
-    { id: 4, text: "When one of the employees of Alice's company calls in for support, she uses a code word that the company agreed to use if employees were being forced to perform an action. What is this scenario called?", options: ["A. Social engineering", "B. Duress", "C. Force majeure", "D. Stockholm syndrome"] },
-    { id: 5, text: "Jordan is preparing to bring evidence into court after a cybersecurity incident investigation. He is responsible for preparing the physical artifacts, including affected servers and mobile devices. What type of evidence consists entirely of tangible items that may be brought into a court of law?", options: ["A. Documentary evidence", "B. Parol evidence", "C. Testimonial evidence", "D. Real evidence"] },
-    { id: 6, text: "Lauren wants to ensure that her users only run software that her organization has approved. What technology should she deploy?", options: ["A. Blacklisting", "B. Configuration management", "C. Whitelisting", "D. Graylisting"] },
-    { id: 7, text: "Colin is responsible for managing his organization's use of cybersecurity deception technologies. Which one of the following should he use on a honeypot system to consume an attacker's time while alerting administrators?", options: ["A. Honeynet", "B. Pseudo-flaw", "C. Warning banner", "D. Darknet"] },
-    { id: 8, text: "Toni responds to the desk of a user who reports slow system activity. Upon checking outbound network connections from that system, Toni notices a large amount of social media traffic originating from the system. The user does not use social media, and when Toni checks the accounts in question, she sees they contain strange messages that appear encrypted. What is the most likely cause of this traffic?", options: ["A. Other users are relaying social media requests through the user's computer.", "B. The user's computer is part of a botnet.", "C. The user is lying about her use of social media.", "D. Someone else is using the user's computer when she is not present."] },
-    { id: 9, text: "John deploys his website to multiple regions using load balancers around the world through his cloud infrastructure as a service provider. What availability concept is he using?", options: ["A. Multiple processing sites", "B. Warm sites", "C. Cold sites", "D. A honeynet"] },
-    { id: 10, text: "Jim would like to identify compromised systems on his network that may be participating in a botnet. He plans to do this by watching for connections made to known command-and-control servers. Which one of the following techniques would be most likely to provide this information if Jim has access to a list of known servers?", options: ["A. NetFlow records", "B. IDS logs", "C. Authentication logs", "D. RFC logs"] },
-    { id: 11, text: "As Gary decides what access permissions he should grant to each user, what principle should guide his decisions about default permissions?", options: ["A. Segregation of duties", "B. Least privilege", "C. Privilege creep", "D. Separation of privileges"] },
-    { id: 12, text: "As Gary designs the program, he uses the matrix shown here. What principle of information security does this matrix most directly help enforce? (Image: segregation of duties matrix)", options: ["A. Segregation of duties", "B. Privilege creep", "C. Two-person control", "D. Defense in depth"] },
-    { id: 13, text: "Gary is preparing to create an account for a new user and assign privileges to the HR database. What two elements of information must Gary verify before granting this access?", options: ["A. Credentials and need to know", "B. Clearance and need to know", "C. Password and clearance", "D. Password and biometric scan"] },
-    { id: 14, text: "Gary is preparing to develop controls around access to root encryption keys and would like to apply a principle of security designed specifically for very sensitive operations. Which principle should he apply?", options: ["A. Least privilege", "B. Defense in depth", "C. Security through obscurity", "D. Two-person control"] },
-    { id: 15, text: "How often should Gary and his team conduct a review of the privileged access that a user has to sensitive systems? (Select all that apply.)", options: ["A. On a periodic basis", "B. When a user leaves the organization", "C. When a user changes roles", "D. On a daily basis"] },
-    { id: 16, text: "Which one of the following terms is often used to describe a collection of unrelated patches released in a large collection?", options: ["A. Hotfix", "B. Update", "C. Security fix", "D. Service pack"] },
-    { id: 17, text: "Tonya is collecting evidence from a series of systems that were involved in a cybersecurity incident. A colleague suggests that she use a write blocker for the collection process. What is the function of this device?", options: ["A. Masking error conditions reported by the storage device", "B. Transmitting write commands to the storage device", "C. Intercepting and modifying or discarding commands sent to the storage device", "D. Preventing data from being returned by a read operation sent to the device"] },
-    { id: 18, text: "Lydia is processing access control requests for her organization. She comes across a request where the user does have the required security clearance, but there is no business justification for the access. Lydia denies this request. What security principle is she following?", options: ["A. Need to know", "B. Least privilege", "C. Segregation of duties", "D. Two-person control"] },
-    { id: 19, text: "Helen is tasked with implementing security controls in her organization that might be used to deter fraudulent insider activity. Which one of the following mechanisms would be LEAST useful to her work?", options: ["A. Job rotation", "B. Mandatory vacations", "C. Incident response", "D. Two-person control"] },
-    { id: 20, text: "Matt wants to ensure that critical network traffic from systems throughout his company is prioritized over web browsing and social media use at this company. What technology can he use to do this?", options: ["A. VLANs", "B. QoS", "C. VPN", "D. ISDN"] },
-    { id: 21, text: "Tom is responding to a recent security incident and is seeking information on the approval process for a recent modification to a system's security settings. Where would he most likely find this information?", options: ["A. Change log", "B. System log", "C. Security log", "D. Application log"] },
-    { id: 22, text: "Staff from Susan's company often travel internationally and require connectivity to corporate systems for their work. Susan believes that these users may be targeted for corporate espionage activities because of the technologies that her company is developing and wants to include advice in the security training provided to international travelers. What practice should Susan recommend that they adopt for connecting to networks while they travel?", options: ["A. Only connect to public Wi-Fi.", "B. Use a VPN for all connections.", "C. Only use websites that support TLS.", "D. Do not connect to networks while traveling."] },
-    { id: 23, text: "Ricky is seeking a list of information security vulnerabilities in applications, devices, and operating systems. Which one of the following threat intelligence sources would be most useful to him?", options: ["A. OWASP", "B. CIS", "C. Microsoft Security Bulletins", "D. CVE"] },
-    { id: 24, text: "Which of the following would normally be considered an example of a disaster when performing disaster recovery planning? (Select all that apply.)", options: ["A. Hacking incident", "B. Flood", "C. Fire", "D. Terrorism"] },
-    { id: 25, text: "Glenda would like to conduct a disaster recovery test and is seeking a test that will allow a review of the plan with no disruption to normal information system activities and as minimal a commitment of time as possible. What type of test should she choose?", options: ["A. Tabletop exercise", "B. Parallel test", "C. Full interruption test", "D. Read-through"] },
-    { id: 26, text: "Which one of the following is not an example of a backup tape rotation scheme?", options: ["A. Grandfather-Father-Son", "B. Meet-in-the-Middle", "C. Tower of Hanoi", "D. Six Cartridge Weekly"] },
-    { id: 27, text: "Helen is implementing a new security mechanism for granting employees administrative privileges in the accounting system. She designs the process so that both the employee's manager and the accounting manager must approve the request before the access is granted. What information security principle is Helen enforcing?", options: ["A. Least privilege", "B. Two-person control", "C. Job rotation", "D. Segregation of duties"] },
-    { id: 28, text: "Frank is considering the use of different types of evidence in an upcoming criminal matter. Which one of the following is not a requirement for evidence to be admissible in court?", options: ["A. The evidence must be relevant.", "B. The evidence must be material.", "C. The evidence must be tangible.", "D. The evidence must be competently acquired."] },
-    { id: 29, text: "Harold recently completed leading the postmortem review of a security incident. What documentation should he prepare next?", options: ["A. A lessons learned document", "B. A risk assessment", "C. A remediation list", "D. A mitigation checklist"] },
-    { id: 30, text: "Beth is creating a new cybersecurity incident response team (CSIRT) and would like to determine the appropriate team membership. Which of the following groups would she normally include? (Select all that apply.)", options: ["A. Information security", "B. Law enforcement", "C. Senior management", "D. Public affairs"] },
-    { id: 31, text: "Sam is responsible for backing up his company's primary file server. He configured a backup schedule that performs full backups every Monday evening at 9 p.m. and differential backups on other days of the week at that same time. Files change according to the information shown here. How many files will be copied in Wednesday's backup? (Image: file modification chart)", options: ["A. 2", "B. 3", "C. 5", "D. 6"] },
-    { id: 32, text: "Which one of the following security tools is not capable of generating an active response to a security event?", options: ["A. IPS", "B. Firewall", "C. IDS", "D. Antivirus software"] },
-    { id: 33, text: "Scott is responsible for disposing of disk drives that have been pulled from his company's SAN as they are retired. Which of the following options should he avoid if the data on the SAN is considered highly sensitive by his organization?", options: ["A. Destroy them physically.", "B. Sign a contract with the SAN vendor that requires appropriate disposal and provides a certification process.", "C. Reformat each drive before it leaves the organization.", "D. Use a secure wipe tool like DBAN."] },
-    { id: 34, text: "Which of the following topics is least likely to be included in a company's user security training and awareness program?", options: ["A. Insider threat", "B. Social media impact", "C. 2FA fatigue", "D. Secure router configuration guidelines"] },
-    { id: 35, text: "Which one of the following types of agreements is the most formal document that contains expectations about availability and other performance parameters between a service provider and a customer?", options: ["A. Service-level agreement (SLA)", "B. Operational-level agreement (OLA)", "C. Memorandum of understanding (MOU)", "D. Statement of work (SOW)"] },
-    { id: 36, text: "As the CIO of a large organization, Clara would like to adopt standard processes for managing IT activities. Which one of the following frameworks focuses on IT service management and includes topics such as change management, configuration management, and service-level agreements?", options: ["A. ITIL", "B. PMBOK", "C. PCI DSS", "D. TOGAF"] },
-    { id: 37, text: "Richard is experiencing issues with the quality of network service on his organization's network. The primary symptom is that packets are consistently taking too long to travel from their source to their destination. What term describes the issue Richard is facing?", options: ["A. Jitter", "B. Packet loss", "C. Interference", "D. Latency"] },
-    { id: 38, text: "Joe wants to test a program he suspects may contain malware. What technology can he use to isolate the program while it runs?", options: ["A. ASLR", "B. Sandboxing", "C. Clipping", "D. Process isolation"] },
-    { id: 39, text: "Which one of the following is an example of a non-natural disaster?", options: ["A. Hurricane", "B. Flood", "C. Mudslide", "D. Transformer explosion"] },
-    { id: 40, text: "Anne wants to gather information about security settings as well as build an overall view of her organization's assets by gathering data about a group of Windows 11 workstations spread throughout her company. What Windows tool is best suited to this type of configuration management task?", options: ["A. ConfigMgr", "B. Group Policy", "C. SCOM", "D. A custom PowerShell script"] },
-    { id: 41, text: "Javier is verifying that only IT system administrators have the ability to log on to servers used for administrative purposes. What principle of information security is he enforcing?", options: ["A. Need to know", "B. Least privilege", "C. Two-person control", "D. Transitive trust"] },
-    { id: 42, text: "Which one of the following is not a basic preventive measure that you can take to protect your systems and applications against attack?", options: ["A. Implement intrusion detection and prevention systems.", "B. Maintain current patch levels on all operating systems and applications.", "C. Remove unnecessary accounts and services.", "D. Conduct forensic imaging of all systems."] },
-    { id: 43, text: "Chas is a cybersecurity manager who is concerned that the cloud provider his organization relies upon for disaster recovery may not be able to meet their needs in the event that a disaster strikes multiple customers simultaneously. What type of agreement should Chas enter into with this provider?", options: ["A. Nondisclosure agreement", "B. Resource capacity agreement", "C. Mutual assistance agreement", "D. Business partnership agreement"] },
-    { id: 44, text: "Which one of the following is an example of a computer security incident?", options: ["A. Failure of a backup to complete properly", "B. System access recorded in a log", "C. Unauthorized vulnerability scan of a file server", "D. Update of antivirus signatures"] },
-    { id: 45, text: "Roland is a physical security specialist in an organization that has a large amount of expensive lab equipment that often moves around the facility. Which one of the following technologies would provide the most automation of an inventory control process in a cost-effective manner?", options: ["A. IPS", "B. Wi-Fi", "C. RFID", "D. Ethernet"] },
-    { id: 46, text: "Connor's company recently experienced a denial-of-service attack that Connor believes came from an inside source. If true, what type of event has the company experienced?", options: ["A. Espionage", "B. Confidentiality breach", "C. Sabotage", "D. Integrity breach"] },
-    { id: 47, text: "Evan detects an attack against a server in his organization and examines the TCP flags on a series of packets, shown in the following diagram. What type of attack most likely took place? (Image: SYN flood flags)", options: ["A. SYN flood", "B. Ping flood", "C. Smurf", "D. Fraggle"] },
-    { id: 48, text: "Florian is building a disaster recovery plan for his organization and would like to determine the amount of time that a particular IT service may be down without causing serious damage to business operations. What variable is Florian calculating?", options: ["A. RTO", "B. MTD", "C. RPO", "D. SLA"] },
-    { id: 49, text: "Which of the following would normally be classified as zero-day attacks?", options: ["A. An attacker who is new to the world of hacking", "B. A database attack that places the date 00/00/0000 in data tables in an attempt to exploit flaws in business logic", "C. An attack previously unknown to the security community", "D. An attack that sets the operating system date and time to 00/00/0000 and 00:00:00"] },
-    { id: 50, text: "Rob is conducting a forensic investigation and is looking for elements of trace digital evidence. Which one of the following principles applies most closely to his work?", options: ["A. Kerckhoff's principle", "B. Principle of least privilege", "C. Defense-in-depth principle", "D. Locard's principle"] },
-    { id: 51, text: "During an incident investigation, investigators meet with a system administrator who may have information about the incident but is not a suspect. What type of conversation is taking place during this meeting?", options: ["A. Interview", "B. Interrogation", "C. Both an interview and an interrogation", "D. Neither an interview nor an interrogation"] },
-    { id: 52, text: "What technique has been used to protect the intellectual property shown here? (Image: USGS watermark)", options: ["A. Steganography", "B. Clipping", "C. Sampling", "D. Watermarking"] },
-    { id: 53, text: "You are working to evaluate the risk of flood to an area as part of a business continuity planning (BCP) effort. You consult the flood maps from the Federal Emergency Management Agency (FEMA). According to those maps, the area lies within a 200-year flood plain. What is the annualized rate of occurrence (ARO) of a flood in that region?", options: ["A. 200", "B. 0.01", "C. 0.02", "D. 0.005"] },
-    { id: 54, text: "Which one of the following individuals poses the greatest risk to security in most well-defended organizations?", options: ["A. Political activist", "B. Malicious insider", "C. Script kiddie", "D. Thrill attacker"] },
-    { id: 55, text: "Veronica is considering the implementation of a database recovery mechanism recommended by a consultant. In the recommended approach, an automated process will move database backups from the primary facility to an off-site location each night. What type of database recovery technique is the consultant describing?", options: ["A. Remote journaling", "B. Remote mirroring", "C. Electronic vaulting", "D. Transaction logging"] },
-    { id: 56, text: "When designing an access control scheme, Hilda set up roles so that the same person does not have the ability to provision a new user account and assign superuser privileges to an account. What information security principle is Hilda following?", options: ["A. Least privilege", "B. Segregation of duties", "C. Job rotation", "D. Security through obscurity"] },
-    { id: 57, text: "Patrick was asked to implement a threat-hunting program for his organization. Which one of the following is the basic assumption of a threat-hunting program that he should use as he plans his work?", options: ["A. Security controls were designed using a defense-in-depth strategy.", "B. Audits may uncover control deficiencies.", "C. Attackers may already be present on the network.", "D. Defense mechanisms may contain unpatched vulnerabilities."] },
-    { id: 58, text: "Brian is developing the training program for his organization's disaster recovery program and would like to make sure that participants understand when disaster activity concludes. Which one of the following events marks the completion of a disaster recovery process?", options: ["A. Securing property and life safety", "B. Restoring operations in an alternate facility", "C. Restoring operations in the primary facility", "D. Standing down first responders"] },
-    { id: 59, text: "Melanie suspects that someone is using malicious software to steal computing cycles from her company. Which one of the following security tools would be in the best position to detect this type of incident?", options: ["A. NIDS", "B. Firewall", "C. HIDS", "D. DLP"] },
-    { id: 60, text: "Brandon observes that an authorized user of a system on his network recently misused his account to exploit a system vulnerability against a shared server that allowed him to gain root access to that server. What type of attack took place?", options: ["A. Denial-of-service", "B. Privilege escalation", "C. Reconnaissance", "D. Brute force"] },
-    { id: 61, text: "Carla has worked for her company for 15 years and has held a variety of different positions. Each time she changed positions, she gained new privileges associated with that position, but no privileges were ever taken away. What concept describes the sets of privileges she has accumulated?", options: ["A. Entitlement", "B. Privilege creep", "C. Transitivity", "D. Isolation"] },
-    { id: 62, text: "During what phase of the incident response process do administrators take action to limit the effect or scope of an incident?", options: ["A. Detection", "B. Response", "C. Mitigation", "D. Recovery"] },
-    { id: 63, text: "At this point in the incident response process, what term best describes what has occurred in Ann's organization? (Scenario: IDS alert – high inbound traffic)", options: ["A. Security occurrence", "B. Security incident", "C. Security event", "D. Security intrusion"] },
-    { id: 64, text: "Ann continues her investigation and realizes that the traffic generating the alert is abnormally high volumes of inbound UDP traffic on port 53. What service typically uses this port?", options: ["A. DNS", "B. SSH/SCP", "C. SSL/TLS", "D. HTTP"] },
-    { id: 65, text: "As Ann analyzes the traffic further, she realizes that the traffic is coming from many different sources and has overwhelmed the network, preventing legitimate uses. The inbound packets are responses to queries that she does not see in outbound traffic. The responses are abnormally large for their type. What type of attack should Ann suspect?", options: ["A. Reconnaissance", "B. Malicious code", "C. System penetration", "D. Denial of service"] },
-    { id: 66, text: "Now that Ann understands that an attack has taken place that violates her organization's security policy, what term best describes what has occurred in Ann's organization?", options: ["A. Security occurrence", "B. Security incident", "C. Security event", "D. Security intrusion"] },
-    { id: 67, text: "Frank is seeking to introduce a hacker's laptop in court as evidence against the hacker. The laptop does contain logs that indicate the hacker committed the crime, but the court ruled that the search of the apartment that resulted in police finding the laptop was unconstitutional. What admissibility criteria prevents Frank from introducing the laptop as evidence?", options: ["A. Materiality", "B. Relevance", "C. Hearsay", "D. Competence"] },
-    { id: 68, text: "Gordon suspects that a hacker has penetrated a system belonging to his company. The system does not contain any regulated information, and Gordon wants to conduct an investigation on behalf of his company. He has permission from his supervisor to conduct the investigation. Which of the following statements is true?", options: ["A. Gordon is legally required to contact law enforcement before beginning the investigation.", "B. Gordon may not conduct his own investigation.", "C. Gordon's investigation may include examining the contents of hard disks, network traffic, and any other systems or information belonging to the company.", "D. Gordon may ethically perform “hack back” activities after identifying the perpetrator."] },
-    { id: 69, text: "Which one of the following tools provides an organization with the greatest level of protection against a software vendor going out of business?", options: ["A. Service-level agreement", "B. Escrow agreement", "C. Mutual assistance agreement", "D. PCI DSS compliance agreement"] },
-    { id: 70, text: "Fran is considering new human resources policies for her bank that will deter fraud. She plans to implement a mandatory vacation policy. What is typically considered the shortest effective length of a mandatory vacation?", options: ["A. Two days", "B. Four days", "C. One week", "D. One month"] },
-    { id: 71, text: "Which of the following events would constitute a security incident? (Select all that apply.)", options: ["A. An attempted network intrusion", "B. A successful database intrusion", "C. A malware infection", "D. A successful attempt to access a file", "E. A violation of a confidentiality policy", "F. An unsuccessful attempt to remove information from a secured area"] },
-    { id: 72, text: "Amanda is configuring her organization's firewall to implement egress filtering. Which one of the following traffic types should be blocked by her organization's egress filtering policy? (Select all that apply.)", options: ["A. Traffic rapidly scanning many IP addresses on port 22", "B. Traffic with a broadcast destination", "C. Traffic with a source address from an external network", "D. Traffic with a destination address on an external network"] },
-    { id: 73, text: "Allie is responsible for reviewing authentication logs on her organization's network. She does not have the time to review all logs, so she decides to choose only records where there have been four or more invalid authentication attempts. What technique is Allie using to reduce the size of the pool?", options: ["A. Sampling", "B. Random selection", "C. Clipping", "D. Statistical analysis"] },
-    { id: 74, text: "You are performing an investigation into a potential bot infection on your network and want to perform a forensic analysis of the information that passed between different systems on your network and those on the Internet. You believe that the information was likely encrypted. You are beginning your investigation after the activity concluded. What would be the best and easiest way to obtain the source of this information?", options: ["A. Packet captures", "B. NetFlow data", "C. Intrusion detection system logs", "D. Centralized authentication records"] },
-    { id: 75, text: "Which one of the following tools helps system administrators by providing a standard, secure template of configuration settings for operating systems and applications?", options: ["A. Security guidelines", "B. Security policy", "C. Baseline configuration", "D. Running configuration"] },
-    { id: 76, text: "What type of disaster recovery test activates the alternate processing facility and uses it to conduct transactions but leaves the primary site up and running?", options: ["A. Full interruption test", "B. Parallel test", "C. Read-through", "D. Tabletop exercise"] },
-    { id: 77, text: "During which phase of the incident response process would an analyst receive an intrusion detection system alert and verify its accuracy?", options: ["A. Response", "B. Mitigation", "C. Detection", "D. Reporting"] },
-    { id: 78, text: "Kevin is developing a continuous security monitoring strategy for his organization. Which one of the following is not normally used when determining assessment and monitoring frequency?", options: ["A. Threat intelligence", "B. System categorization/impact level", "C. Security control operational burden", "D. Organizational risk tolerance"] },
-    { id: 79, text: "Hunter is reviewing his organization's monitoring strategy and identifying new technologies that they might deploy. His assessment reveals that the firm is not doing enough to monitor employee activity on endpoint devices. Which one of the following technologies would best meet his needs?", options: ["A. EDR", "B. IPS", "C. IDS", "D. UEBA"] },
-    { id: 80, text: "Bruce is seeing quite a bit of suspicious activity on his network. After consulting records in his SIEM, it appears that an outside entity is attempting to connect to all of his systems using a TCP connection on port 22. What type of scanning is the outsider likely engaging in?", options: ["A. FTP scanning", "B. Telnet scanning", "C. SSH scanning", "D. HTTP scanning"] },
-    { id: 81, text: "Dylan believes that a database server in his environment was compromised using a SQL injection attack. Which one of the following actions would Dylan most likely take during the remediation phase of the attack?", options: ["A. Rebuilding the database from backups", "B. Adding input validation to a web application", "C. Reviewing firewall logs", "D. Reviewing database logs"] },
-    { id: 82, text: "Roger recently accepted a new position as a security professional at a company that runs its entire IT infrastructure within an IaaS environment. Which one of the following would most likely be the responsibility of Roger's firm?", options: ["A. Configuring the network firewall", "B. Applying hypervisor updates", "C. Patching operating systems", "D. Wiping drives prior to disposal"] },
-    { id: 83, text: "What technique can application developers use to test applications in an isolated virtualized environment before allowing them on a production network?", options: ["A. Penetration testing", "B. Sandboxing", "C. White-box testing", "D. Black-box testing"] },
-    { id: 84, text: "Gina is the firewall administrator for a small business and recently installed a new firewall. After seeing signs of unusually heavy network traffic, she checked the intrusion detection system, which reported that a SYN flood attack was underway. What firewall configuration change can Gina make to most effectively prevent this attack?", options: ["A. Block SYN from known IPs.", "B. Block SYN from unknown IPs.", "C. Enable SYN-ACK spoofing at the firewall.", "D. Disable TCP."] },
-    { id: 85, text: "Nancy is leading an effort to modernize her organization's antimalware protection and would like to add endpoint detection and response (EDR) capabilities. Which of the following actions are normally supported by EDR systems? (Select all that apply.)", options: ["A. Analyzing endpoint memory, filesystem, and network activity for signs of malicious activity", "B. Automatically isolating possible malicious activity to contain the potential damage", "C. Conducting simulated phishing campaigns", "D. Integration with threat intelligence sources"] },
-    { id: 86, text: "Alan is assessing the potential for using machine learning and artificial intelligence in his cybersecurity program. Which of the following activities is most likely to benefit from this technology?", options: ["A. Intrusion detection", "B. Account provisioning", "C. Firewall rule modification", "D. Media sanitization"] },
-    { id: 87, text: "Timber Industries recently had a dispute with a customer. During a meeting with his account representative, the customer stood up and declared, “There is no other solution. We will have to take this matter to court.” He then left the room. When does Timber Industries have an obligation to begin preserving evidence?", options: ["A. Immediately", "B. Upon receipt of a notice of litigation from opposing attorneys", "C. Upon receipt of a subpoena", "D. Upon receipt of a court order"] },
-    { id: 88, text: "Candace is designing a backup strategy for her organization's file server. She would like to perform a backup every weekday that has the smallest possible storage footprint. What type of backup should she perform?", options: ["A. Incremental backup", "B. Full backup", "C. Differential backup", "D. Transaction log backup"] },
-    { id: 89, text: "Darcy is a computer security specialist who is assisting with the prosecution of a hacker. The prosecutor requests that Darcy give testimony in court about whether, in her opinion, the logs and other records in a case are indicative of a hacking attempt. What type of evidence is Darcy being asked to provide?", options: ["A. Expert opinion", "B. Direct evidence", "C. Real evidence", "D. Documentary evidence"] },
-    { id: 90, text: "Which one of the following techniques is not commonly used to remove unwanted remnant data from magnetic tapes?", options: ["A. Physical destruction", "B. Degaussing", "C. Overwriting", "D. Reformatting"] },
-    { id: 91, text: "Sally is building a new server for use in her environment and plans to implement RAID level 1 as a storage availability control. What is the minimum number of physical hard disks that she needs to implement this approach?", options: ["A. One", "B. Two", "C. Three", "D. Five"] },
-    { id: 92, text: "Jerome is conducting a forensic investigation and is reviewing database server logs to investigate query contents for evidence of SQL injection attacks. What type of analysis is he performing?", options: ["A. Hardware analysis", "B. Software analysis", "C. Network analysis", "D. Media analysis"] },
-    { id: 93, text: "Quigley Computing regularly ships tapes of backup data across the country to a secondary facility. These tapes contain confidential information. What is the most important security control that Quigley can use to protect these tapes?", options: ["A. Locked shipping containers", "B. Private couriers", "C. Data encryption", "D. Media rotation"] },
-    { id: 94, text: "Carolyn is concerned that users on her network may be storing sensitive information, such as Social Security numbers, on their hard drives without proper authorization or security controls. What third-party security service can she implement to best detect this activity?", options: ["A. IDS", "B. IPS", "C. DLP", "D. TLS"] },
-    { id: 95, text: "Gavin is the disaster recovery team leader for his organization, which is currently in the response phase of an incident that has severe customer impact. Gavin just received a phone call from a reporter asking for details on the root cause and an estimated recovery time. Gavin has this information at his fingertips. What should he do?", options: ["A. Provide the information to the reporter.", "B. Request a few minutes to gather the information and return the call.", "C. Refer the matter to the public relations department.", "D. Refuse to provide any information."] },
-    { id: 96, text: "Pauline is reviewing her organization's emergency management plans. What should be the highest priority when creating these plans?", options: ["A. Protection of mission-critical data", "B. Preservation of operational systems", "C. Collection of evidence", "D. Preservation of safety"] },
-    { id: 97, text: "Barry is the CIO of an organization that recently suffered a serious operational issue that required activation of the disaster recovery plan. He would like to conduct a lessons learned session to review the incident. Who would be the best facilitator for this session?", options: ["A. Barry, as chief information officer", "B. Chief information security officer", "C. Disaster recovery team leader", "D. External consultant"] },
-    { id: 98, text: "Brent is reviewing the controls that will protect his organization in the event of a sustained period of power loss. Which one of the following solutions would best meet his needs?", options: ["A. Redundant servers", "B. Uninterruptible power supply (UPS)", "C. Generator", "D. RAID"] },
-    { id: 99, text: "Match each of the numbered terms with its correct lettered definition: Terms: 1. Honeypot, 2. Honeynet, 3. Pseudo-flaw, 4. Darknet. Definitions: A. An intentionally designed vulnerability used to lure in an attacker, B. A network set up with intentional vulnerabilities, C. A system set up with intentional vulnerabilities, D. A monitored network without any hosts.", options: [] },
-    { id: 100, text: "Match each of the numbered types of recovery capabilities to their correct lettered definition: Terms: 1. Hot site, 2. Cold site, 3. Warm site, 4. Service bureau. Definitions: A. An organization that can provide on-site or off-site IT services in the event of a disaster, B. A site with dedicated storage and real-time data replication, often with shared equipment that allows restoration of service in a very short time, C. A site that relies on shared storage and backups for recovery, D. A rented space with power, cooling, and connectivity that can accept equipment as part of a recovery effort.", options: [] }
-];
+    <script>
+        // =============================================================
+        // DOMAIN 7 – QUESTIONS (exact wording from official CISSP practice)
+        // Based on the XML provided earlier with answers from chapter 7
+        // =============================================================
+        const questionsData = [
+            { id: 1, text: "Mary is reviewing the availability controls for the system architecture shown here. What technology is shown that provides fault tolerance for the database servers? (Image: failover cluster diagram)", options: ["A. Failover cluster", "B. UPS", "C. Tape backup", "D. Cold site"] },
+            { id: 2, text: "Joe is the security administrator for an ERP system. He is preparing to create accounts for several new employees. What default access should he give to all of the new employees as he creates the accounts?", options: ["A. Read only", "B. Editor", "C. Administrator", "D. No access"] },
+            { id: 3, text: "Tim is configuring a privileged account management solution for his organization. Which one of the following is not a privileged administrative activity that should be automatically sent to a log of superuser actions?", options: ["A. Purging log entries", "B. Restoring a system from backup", "C. Logging into a workstation", "D. Managing user accounts"] },
+            { id: 4, text: "When one of the employees of Alice's company calls in for support, she uses a code word that the company agreed to use if employees were being forced to perform an action. What is this scenario called?", options: ["A. Social engineering", "B. Duress", "C. Force majeure", "D. Stockholm syndrome"] },
+            { id: 5, text: "Jordan is preparing to bring evidence into court after a cybersecurity incident investigation. He is responsible for preparing the physical artifacts, including affected servers and mobile devices. What type of evidence consists entirely of tangible items that may be brought into a court of law?", options: ["A. Documentary evidence", "B. Parol evidence", "C. Testimonial evidence", "D. Real evidence"] },
+            { id: 6, text: "Lauren wants to ensure that her users only run software that her organization has approved. What technology should she deploy?", options: ["A. Blacklisting", "B. Configuration management", "C. Whitelisting", "D. Graylisting"] },
+            { id: 7, text: "Colin is responsible for managing his organization's use of cybersecurity deception technologies. Which one of the following should he use on a honeypot system to consume an attacker's time while alerting administrators?", options: ["A. Honeynet", "B. Pseudo-flaw", "C. Warning banner", "D. Darknet"] },
+            { id: 8, text: "Toni responds to the desk of a user who reports slow system activity. Upon checking outbound network connections from that system, Toni notices a large amount of social media traffic originating from the system. The user does not use social media, and when Toni checks the accounts in question, she sees they contain strange messages that appear encrypted. What is the most likely cause of this traffic?", options: ["A. Other users are relaying social media requests through the user's computer.", "B. The user's computer is part of a botnet.", "C. The user is lying about her use of social media.", "D. Someone else is using the user's computer when she is not present."] },
+            { id: 9, text: "John deploys his website to multiple regions using load balancers around the world through his cloud infrastructure as a service provider. What availability concept is he using?", options: ["A. Multiple processing sites", "B. Warm sites", "C. Cold sites", "D. A honeynet"] },
+            { id: 10, text: "Jim would like to identify compromised systems on his network that may be participating in a botnet. He plans to do this by watching for connections made to known command-and-control servers. Which one of the following techniques would be most likely to provide this information if Jim has access to a list of known servers?", options: ["A. NetFlow records", "B. IDS logs", "C. Authentication logs", "D. RFC logs"] },
+            { id: 11, text: "As Gary decides what access permissions he should grant to each user, what principle should guide his decisions about default permissions?", options: ["A. Segregation of duties", "B. Least privilege", "C. Privilege creep", "D. Separation of privileges"] },
+            { id: 12, text: "As Gary designs the program, he uses the matrix shown here. What principle of information security does this matrix most directly help enforce? (Image: segregation of duties matrix)", options: ["A. Segregation of duties", "B. Privilege creep", "C. Two-person control", "D. Defense in depth"] },
+            { id: 13, text: "Gary is preparing to create an account for a new user and assign privileges to the HR database. What two elements of information must Gary verify before granting this access?", options: ["A. Credentials and need to know", "B. Clearance and need to know", "C. Password and clearance", "D. Password and biometric scan"] },
+            { id: 14, text: "Gary is preparing to develop controls around access to root encryption keys and would like to apply a principle of security designed specifically for very sensitive operations. Which principle should he apply?", options: ["A. Least privilege", "B. Defense in depth", "C. Security through obscurity", "D. Two-person control"] },
+            { id: 15, text: "How often should Gary and his team conduct a review of the privileged access that a user has to sensitive systems? (Select all that apply.)", options: ["A. On a periodic basis", "B. When a user leaves the organization", "C. When a user changes roles", "D. On a daily basis"] },
+            { id: 16, text: "Which one of the following terms is often used to describe a collection of unrelated patches released in a large collection?", options: ["A. Hotfix", "B. Update", "C. Security fix", "D. Service pack"] },
+            { id: 17, text: "Tonya is collecting evidence from a series of systems that were involved in a cybersecurity incident. A colleague suggests that she use a write blocker for the collection process. What is the function of this device?", options: ["A. Masking error conditions reported by the storage device", "B. Transmitting write commands to the storage device", "C. Intercepting and modifying or discarding commands sent to the storage device", "D. Preventing data from being returned by a read operation sent to the device"] },
+            { id: 18, text: "Lydia is processing access control requests for her organization. She comes across a request where the user does have the required security clearance, but there is no business justification for the access. Lydia denies this request. What security principle is she following?", options: ["A. Need to know", "B. Least privilege", "C. Segregation of duties", "D. Two-person control"] },
+            { id: 19, text: "Helen is tasked with implementing security controls in her organization that might be used to deter fraudulent insider activity. Which one of the following mechanisms would be LEAST useful to her work?", options: ["A. Job rotation", "B. Mandatory vacations", "C. Incident response", "D. Two-person control"] },
+            { id: 20, text: "Matt wants to ensure that critical network traffic from systems throughout his company is prioritized over web browsing and social media use at this company. What technology can he use to do this?", options: ["A. VLANs", "B. QoS", "C. VPN", "D. ISDN"] },
+            { id: 21, text: "Tom is responding to a recent security incident and is seeking information on the approval process for a recent modification to a system's security settings. Where would he most likely find this information?", options: ["A. Change log", "B. System log", "C. Security log", "D. Application log"] },
+            { id: 22, text: "Staff from Susan's company often travel internationally and require connectivity to corporate systems for their work. Susan believes that these users may be targeted for corporate espionage activities because of the technologies that her company is developing and wants to include advice in the security training provided to international travelers. What practice should Susan recommend that they adopt for connecting to networks while they travel?", options: ["A. Only connect to public Wi-Fi.", "B. Use a VPN for all connections.", "C. Only use websites that support TLS.", "D. Do not connect to networks while traveling."] },
+            { id: 23, text: "Ricky is seeking a list of information security vulnerabilities in applications, devices, and operating systems. Which one of the following threat intelligence sources would be most useful to him?", options: ["A. OWASP", "B. CIS", "C. Microsoft Security Bulletins", "D. CVE"] },
+            { id: 24, text: "Which of the following would normally be considered an example of a disaster when performing disaster recovery planning? (Select all that apply.)", options: ["A. Hacking incident", "B. Flood", "C. Fire", "D. Terrorism"] },
+            { id: 25, text: "Glenda would like to conduct a disaster recovery test and is seeking a test that will allow a review of the plan with no disruption to normal information system activities and as minimal a commitment of time as possible. What type of test should she choose?", options: ["A. Tabletop exercise", "B. Parallel test", "C. Full interruption test", "D. Read-through"] },
+            { id: 26, text: "Which one of the following is not an example of a backup tape rotation scheme?", options: ["A. Grandfather-Father-Son", "B. Meet-in-the-Middle", "C. Tower of Hanoi", "D. Six Cartridge Weekly"] },
+            { id: 27, text: "Helen is implementing a new security mechanism for granting employees administrative privileges in the accounting system. She designs the process so that both the employee's manager and the accounting manager must approve the request before the access is granted. What information security principle is Helen enforcing?", options: ["A. Least privilege", "B. Two-person control", "C. Job rotation", "D. Segregation of duties"] },
+            { id: 28, text: "Frank is considering the use of different types of evidence in an upcoming criminal matter. Which one of the following is not a requirement for evidence to be admissible in court?", options: ["A. The evidence must be relevant.", "B. The evidence must be material.", "C. The evidence must be tangible.", "D. The evidence must be competently acquired."] },
+            { id: 29, text: "Harold recently completed leading the postmortem review of a security incident. What documentation should he prepare next?", options: ["A. A lessons learned document", "B. A risk assessment", "C. A remediation list", "D. A mitigation checklist"] },
+            { id: 30, text: "Beth is creating a new cybersecurity incident response team (CSIRT) and would like to determine the appropriate team membership. Which of the following groups would she normally include? (Select all that apply.)", options: ["A. Information security", "B. Law enforcement", "C. Senior management", "D. Public affairs"] },
+            { id: 31, text: "Sam is responsible for backing up his company's primary file server. He configured a backup schedule that performs full backups every Monday evening at 9 p.m. and differential backups on other days of the week at that same time. Files change according to the information shown here. How many files will be copied in Wednesday's backup? (Image: file modification chart)", options: ["A. 2", "B. 3", "C. 5", "D. 6"] },
+            { id: 32, text: "Which one of the following security tools is not capable of generating an active response to a security event?", options: ["A. IPS", "B. Firewall", "C. IDS", "D. Antivirus software"] },
+            { id: 33, text: "Scott is responsible for disposing of disk drives that have been pulled from his company's SAN as they are retired. Which of the following options should he avoid if the data on the SAN is considered highly sensitive by his organization?", options: ["A. Destroy them physically.", "B. Sign a contract with the SAN vendor that requires appropriate disposal and provides a certification process.", "C. Reformat each drive before it leaves the organization.", "D. Use a secure wipe tool like DBAN."] },
+            { id: 34, text: "Which of the following topics is least likely to be included in a company's user security training and awareness program?", options: ["A. Insider threat", "B. Social media impact", "C. 2FA fatigue", "D. Secure router configuration guidelines"] },
+            { id: 35, text: "Which one of the following types of agreements is the most formal document that contains expectations about availability and other performance parameters between a service provider and a customer?", options: ["A. Service-level agreement (SLA)", "B. Operational-level agreement (OLA)", "C. Memorandum of understanding (MOU)", "D. Statement of work (SOW)"] },
+            { id: 36, text: "As the CIO of a large organization, Clara would like to adopt standard processes for managing IT activities. Which one of the following frameworks focuses on IT service management and includes topics such as change management, configuration management, and service-level agreements?", options: ["A. ITIL", "B. PMBOK", "C. PCI DSS", "D. TOGAF"] },
+            { id: 37, text: "Richard is experiencing issues with the quality of network service on his organization's network. The primary symptom is that packets are consistently taking too long to travel from their source to their destination. What term describes the issue Richard is facing?", options: ["A. Jitter", "B. Packet loss", "C. Interference", "D. Latency"] },
+            { id: 38, text: "Joe wants to test a program he suspects may contain malware. What technology can he use to isolate the program while it runs?", options: ["A. ASLR", "B. Sandboxing", "C. Clipping", "D. Process isolation"] },
+            { id: 39, text: "Which one of the following is an example of a non-natural disaster?", options: ["A. Hurricane", "B. Flood", "C. Mudslide", "D. Transformer explosion"] },
+            { id: 40, text: "Anne wants to gather information about security settings as well as build an overall view of her organization's assets by gathering data about a group of Windows 11 workstations spread throughout her company. What Windows tool is best suited to this type of configuration management task?", options: ["A. ConfigMgr", "B. Group Policy", "C. SCOM", "D. A custom PowerShell script"] },
+            { id: 41, text: "Javier is verifying that only IT system administrators have the ability to log on to servers used for administrative purposes. What principle of information security is he enforcing?", options: ["A. Need to know", "B. Least privilege", "C. Two-person control", "D. Transitive trust"] },
+            { id: 42, text: "Which one of the following is not a basic preventive measure that you can take to protect your systems and applications against attack?", options: ["A. Implement intrusion detection and prevention systems.", "B. Maintain current patch levels on all operating systems and applications.", "C. Remove unnecessary accounts and services.", "D. Conduct forensic imaging of all systems."] },
+            { id: 43, text: "Chas is a cybersecurity manager who is concerned that the cloud provider his organization relies upon for disaster recovery may not be able to meet their needs in the event that a disaster strikes multiple customers simultaneously. What type of agreement should Chas enter into with this provider?", options: ["A. Nondisclosure agreement", "B. Resource capacity agreement", "C. Mutual assistance agreement", "D. Business partnership agreement"] },
+            { id: 44, text: "Which one of the following is an example of a computer security incident?", options: ["A. Failure of a backup to complete properly", "B. System access recorded in a log", "C. Unauthorized vulnerability scan of a file server", "D. Update of antivirus signatures"] },
+            { id: 45, text: "Roland is a physical security specialist in an organization that has a large amount of expensive lab equipment that often moves around the facility. Which one of the following technologies would provide the most automation of an inventory control process in a cost-effective manner?", options: ["A. IPS", "B. Wi-Fi", "C. RFID", "D. Ethernet"] },
+            { id: 46, text: "Connor's company recently experienced a denial-of-service attack that Connor believes came from an inside source. If true, what type of event has the company experienced?", options: ["A. Espionage", "B. Confidentiality breach", "C. Sabotage", "D. Integrity breach"] },
+            { id: 47, text: "Evan detects an attack against a server in his organization and examines the TCP flags on a series of packets, shown in the following diagram. What type of attack most likely took place? (Image: SYN flood flags)", options: ["A. SYN flood", "B. Ping flood", "C. Smurf", "D. Fraggle"] },
+            { id: 48, text: "Florian is building a disaster recovery plan for his organization and would like to determine the amount of time that a particular IT service may be down without causing serious damage to business operations. What variable is Florian calculating?", options: ["A. RTO", "B. MTD", "C. RPO", "D. SLA"] },
+            { id: 49, text: "Which of the following would normally be classified as zero-day attacks?", options: ["A. An attacker who is new to the world of hacking", "B. A database attack that places the date 00/00/0000 in data tables in an attempt to exploit flaws in business logic", "C. An attack previously unknown to the security community", "D. An attack that sets the operating system date and time to 00/00/0000 and 00:00:00"] },
+            { id: 50, text: "Rob is conducting a forensic investigation and is looking for elements of trace digital evidence. Which one of the following principles applies most closely to his work?", options: ["A. Kerckhoff's principle", "B. Principle of least privilege", "C. Defense-in-depth principle", "D. Locard's principle"] },
+            { id: 51, text: "During an incident investigation, investigators meet with a system administrator who may have information about the incident but is not a suspect. What type of conversation is taking place during this meeting?", options: ["A. Interview", "B. Interrogation", "C. Both an interview and an interrogation", "D. Neither an interview nor an interrogation"] },
+            { id: 52, text: "What technique has been used to protect the intellectual property shown here? (Image: USGS watermark)", options: ["A. Steganography", "B. Clipping", "C. Sampling", "D. Watermarking"] },
+            { id: 53, text: "You are working to evaluate the risk of flood to an area as part of a business continuity planning (BCP) effort. You consult the flood maps from the Federal Emergency Management Agency (FEMA). According to those maps, the area lies within a 200-year flood plain. What is the annualized rate of occurrence (ARO) of a flood in that region?", options: ["A. 200", "B. 0.01", "C. 0.02", "D. 0.005"] },
+            { id: 54, text: "Which one of the following individuals poses the greatest risk to security in most well-defended organizations?", options: ["A. Political activist", "B. Malicious insider", "C. Script kiddie", "D. Thrill attacker"] },
+            { id: 55, text: "Veronica is considering the implementation of a database recovery mechanism recommended by a consultant. In the recommended approach, an automated process will move database backups from the primary facility to an off-site location each night. What type of database recovery technique is the consultant describing?", options: ["A. Remote journaling", "B. Remote mirroring", "C. Electronic vaulting", "D. Transaction logging"] },
+            { id: 56, text: "When designing an access control scheme, Hilda set up roles so that the same person does not have the ability to provision a new user account and assign superuser privileges to an account. What information security principle is Hilda following?", options: ["A. Least privilege", "B. Segregation of duties", "C. Job rotation", "D. Security through obscurity"] },
+            { id: 57, text: "Patrick was asked to implement a threat-hunting program for his organization. Which one of the following is the basic assumption of a threat-hunting program that he should use as he plans his work?", options: ["A. Security controls were designed using a defense-in-depth strategy.", "B. Audits may uncover control deficiencies.", "C. Attackers may already be present on the network.", "D. Defense mechanisms may contain unpatched vulnerabilities."] },
+            { id: 58, text: "Brian is developing the training program for his organization's disaster recovery program and would like to make sure that participants understand when disaster activity concludes. Which one of the following events marks the completion of a disaster recovery process?", options: ["A. Securing property and life safety", "B. Restoring operations in an alternate facility", "C. Restoring operations in the primary facility", "D. Standing down first responders"] },
+            { id: 59, text: "Melanie suspects that someone is using malicious software to steal computing cycles from her company. Which one of the following security tools would be in the best position to detect this type of incident?", options: ["A. NIDS", "B. Firewall", "C. HIDS", "D. DLP"] },
+            { id: 60, text: "Brandon observes that an authorized user of a system on his network recently misused his account to exploit a system vulnerability against a shared server that allowed him to gain root access to that server. What type of attack took place?", options: ["A. Denial-of-service", "B. Privilege escalation", "C. Reconnaissance", "D. Brute force"] },
+            { id: 61, text: "Carla has worked for her company for 15 years and has held a variety of different positions. Each time she changed positions, she gained new privileges associated with that position, but no privileges were ever taken away. What concept describes the sets of privileges she has accumulated?", options: ["A. Entitlement", "B. Privilege creep", "C. Transitivity", "D. Isolation"] },
+            { id: 62, text: "During what phase of the incident response process do administrators take action to limit the effect or scope of an incident?", options: ["A. Detection", "B. Response", "C. Mitigation", "D. Recovery"] },
+            { id: 63, text: "At this point in the incident response process, what term best describes what has occurred in Ann's organization? (Scenario: IDS alert – high inbound traffic)", options: ["A. Security occurrence", "B. Security incident", "C. Security event", "D. Security intrusion"] },
+            { id: 64, text: "Ann continues her investigation and realizes that the traffic generating the alert is abnormally high volumes of inbound UDP traffic on port 53. What service typically uses this port?", options: ["A. DNS", "B. SSH/SCP", "C. SSL/TLS", "D. HTTP"] },
+            { id: 65, text: "As Ann analyzes the traffic further, she realizes that the traffic is coming from many different sources and has overwhelmed the network, preventing legitimate uses. The inbound packets are responses to queries that she does not see in outbound traffic. The responses are abnormally large for their type. What type of attack should Ann suspect?", options: ["A. Reconnaissance", "B. Malicious code", "C. System penetration", "D. Denial of service"] },
+            { id: 66, text: "Now that Ann understands that an attack has taken place that violates her organization's security policy, what term best describes what has occurred in Ann's organization?", options: ["A. Security occurrence", "B. Security incident", "C. Security event", "D. Security intrusion"] },
+            { id: 67, text: "Frank is seeking to introduce a hacker's laptop in court as evidence against the hacker. The laptop does contain logs that indicate the hacker committed the crime, but the court ruled that the search of the apartment that resulted in police finding the laptop was unconstitutional. What admissibility criteria prevents Frank from introducing the laptop as evidence?", options: ["A. Materiality", "B. Relevance", "C. Hearsay", "D. Competence"] },
+            { id: 68, text: "Gordon suspects that a hacker has penetrated a system belonging to his company. The system does not contain any regulated information, and Gordon wants to conduct an investigation on behalf of his company. He has permission from his supervisor to conduct the investigation. Which of the following statements is true?", options: ["A. Gordon is legally required to contact law enforcement before beginning the investigation.", "B. Gordon may not conduct his own investigation.", "C. Gordon's investigation may include examining the contents of hard disks, network traffic, and any other systems or information belonging to the company.", "D. Gordon may ethically perform “hack back” activities after identifying the perpetrator."] },
+            { id: 69, text: "Which one of the following tools provides an organization with the greatest level of protection against a software vendor going out of business?", options: ["A. Service-level agreement", "B. Escrow agreement", "C. Mutual assistance agreement", "D. PCI DSS compliance agreement"] },
+            { id: 70, text: "Fran is considering new human resources policies for her bank that will deter fraud. She plans to implement a mandatory vacation policy. What is typically considered the shortest effective length of a mandatory vacation?", options: ["A. Two days", "B. Four days", "C. One week", "D. One month"] },
+            { id: 71, text: "Which of the following events would constitute a security incident? (Select all that apply.)", options: ["A. An attempted network intrusion", "B. A successful database intrusion", "C. A malware infection", "D. A successful attempt to access a file", "E. A violation of a confidentiality policy", "F. An unsuccessful attempt to remove information from a secured area"] },
+            { id: 72, text: "Amanda is configuring her organization's firewall to implement egress filtering. Which one of the following traffic types should be blocked by her organization's egress filtering policy? (Select all that apply.)", options: ["A. Traffic rapidly scanning many IP addresses on port 22", "B. Traffic with a broadcast destination", "C. Traffic with a source address from an external network", "D. Traffic with a destination address on an external network"] },
+            { id: 73, text: "Allie is responsible for reviewing authentication logs on her organization's network. She does not have the time to review all logs, so she decides to choose only records where there have been four or more invalid authentication attempts. What technique is Allie using to reduce the size of the pool?", options: ["A. Sampling", "B. Random selection", "C. Clipping", "D. Statistical analysis"] },
+            { id: 74, text: "You are performing an investigation into a potential bot infection on your network and want to perform a forensic analysis of the information that passed between different systems on your network and those on the Internet. You believe that the information was likely encrypted. You are beginning your investigation after the activity concluded. What would be the best and easiest way to obtain the source of this information?", options: ["A. Packet captures", "B. NetFlow data", "C. Intrusion detection system logs", "D. Centralized authentication records"] },
+            { id: 75, text: "Which one of the following tools helps system administrators by providing a standard, secure template of configuration settings for operating systems and applications?", options: ["A. Security guidelines", "B. Security policy", "C. Baseline configuration", "D. Running configuration"] },
+            { id: 76, text: "What type of disaster recovery test activates the alternate processing facility and uses it to conduct transactions but leaves the primary site up and running?", options: ["A. Full interruption test", "B. Parallel test", "C. Read-through", "D. Tabletop exercise"] },
+            { id: 77, text: "During which phase of the incident response process would an analyst receive an intrusion detection system alert and verify its accuracy?", options: ["A. Response", "B. Mitigation", "C. Detection", "D. Reporting"] },
+            { id: 78, text: "Kevin is developing a continuous security monitoring strategy for his organization. Which one of the following is not normally used when determining assessment and monitoring frequency?", options: ["A. Threat intelligence", "B. System categorization/impact level", "C. Security control operational burden", "D. Organizational risk tolerance"] },
+            { id: 79, text: "Hunter is reviewing his organization's monitoring strategy and identifying new technologies that they might deploy. His assessment reveals that the firm is not doing enough to monitor employee activity on endpoint devices. Which one of the following technologies would best meet his needs?", options: ["A. EDR", "B. IPS", "C. IDS", "D. UEBA"] },
+            { id: 80, text: "Bruce is seeing quite a bit of suspicious activity on his network. After consulting records in his SIEM, it appears that an outside entity is attempting to connect to all of his systems using a TCP connection on port 22. What type of scanning is the outsider likely engaging in?", options: ["A. FTP scanning", "B. Telnet scanning", "C. SSH scanning", "D. HTTP scanning"] },
+            { id: 81, text: "Dylan believes that a database server in his environment was compromised using a SQL injection attack. Which one of the following actions would Dylan most likely take during the remediation phase of the attack?", options: ["A. Rebuilding the database from backups", "B. Adding input validation to a web application", "C. Reviewing firewall logs", "D. Reviewing database logs"] },
+            { id: 82, text: "Roger recently accepted a new position as a security professional at a company that runs its entire IT infrastructure within an IaaS environment. Which one of the following would most likely be the responsibility of Roger's firm?", options: ["A. Configuring the network firewall", "B. Applying hypervisor updates", "C. Patching operating systems", "D. Wiping drives prior to disposal"] },
+            { id: 83, text: "What technique can application developers use to test applications in an isolated virtualized environment before allowing them on a production network?", options: ["A. Penetration testing", "B. Sandboxing", "C. White-box testing", "D. Black-box testing"] },
+            { id: 84, text: "Gina is the firewall administrator for a small business and recently installed a new firewall. After seeing signs of unusually heavy network traffic, she checked the intrusion detection system, which reported that a SYN flood attack was underway. What firewall configuration change can Gina make to most effectively prevent this attack?", options: ["A. Block SYN from known IPs.", "B. Block SYN from unknown IPs.", "C. Enable SYN-ACK spoofing at the firewall.", "D. Disable TCP."] },
+            { id: 85, text: "Nancy is leading an effort to modernize her organization's antimalware protection and would like to add endpoint detection and response (EDR) capabilities. Which of the following actions are normally supported by EDR systems? (Select all that apply.)", options: ["A. Analyzing endpoint memory, filesystem, and network activity for signs of malicious activity", "B. Automatically isolating possible malicious activity to contain the potential damage", "C. Conducting simulated phishing campaigns", "D. Integration with threat intelligence sources"] },
+            { id: 86, text: "Alan is assessing the potential for using machine learning and artificial intelligence in his cybersecurity program. Which of the following activities is most likely to benefit from this technology?", options: ["A. Intrusion detection", "B. Account provisioning", "C. Firewall rule modification", "D. Media sanitization"] },
+            { id: 87, text: "Timber Industries recently had a dispute with a customer. During a meeting with his account representative, the customer stood up and declared, “There is no other solution. We will have to take this matter to court.” He then left the room. When does Timber Industries have an obligation to begin preserving evidence?", options: ["A. Immediately", "B. Upon receipt of a notice of litigation from opposing attorneys", "C. Upon receipt of a subpoena", "D. Upon receipt of a court order"] },
+            { id: 88, text: "Candace is designing a backup strategy for her organization's file server. She would like to perform a backup every weekday that has the smallest possible storage footprint. What type of backup should she perform?", options: ["A. Incremental backup", "B. Full backup", "C. Differential backup", "D. Transaction log backup"] },
+            { id: 89, text: "Darcy is a computer security specialist who is assisting with the prosecution of a hacker. The prosecutor requests that Darcy give testimony in court about whether, in her opinion, the logs and other records in a case are indicative of a hacking attempt. What type of evidence is Darcy being asked to provide?", options: ["A. Expert opinion", "B. Direct evidence", "C. Real evidence", "D. Documentary evidence"] },
+            { id: 90, text: "Which one of the following techniques is not commonly used to remove unwanted remnant data from magnetic tapes?", options: ["A. Physical destruction", "B. Degaussing", "C. Overwriting", "D. Reformatting"] },
+            { id: 91, text: "Sally is building a new server for use in her environment and plans to implement RAID level 1 as a storage availability control. What is the minimum number of physical hard disks that she needs to implement this approach?", options: ["A. One", "B. Two", "C. Three", "D. Five"] },
+            { id: 92, text: "Jerome is conducting a forensic investigation and is reviewing database server logs to investigate query contents for evidence of SQL injection attacks. What type of analysis is he performing?", options: ["A. Hardware analysis", "B. Software analysis", "C. Network analysis", "D. Media analysis"] },
+            { id: 93, text: "Quigley Computing regularly ships tapes of backup data across the country to a secondary facility. These tapes contain confidential information. What is the most important security control that Quigley can use to protect these tapes?", options: ["A. Locked shipping containers", "B. Private couriers", "C. Data encryption", "D. Media rotation"] },
+            { id: 94, text: "Carolyn is concerned that users on her network may be storing sensitive information, such as Social Security numbers, on their hard drives without proper authorization or security controls. What third-party security service can she implement to best detect this activity?", options: ["A. IDS", "B. IPS", "C. DLP", "D. TLS"] },
+            { id: 95, text: "Gavin is the disaster recovery team leader for his organization, which is currently in the response phase of an incident that has severe customer impact. Gavin just received a phone call from a reporter asking for details on the root cause and an estimated recovery time. Gavin has this information at his fingertips. What should he do?", options: ["A. Provide the information to the reporter.", "B. Request a few minutes to gather the information and return the call.", "C. Refer the matter to the public relations department.", "D. Refuse to provide any information."] },
+            { id: 96, text: "Pauline is reviewing her organization's emergency management plans. What should be the highest priority when creating these plans?", options: ["A. Protection of mission-critical data", "B. Preservation of operational systems", "C. Collection of evidence", "D. Preservation of safety"] },
+            { id: 97, text: "Barry is the CIO of an organization that recently suffered a serious operational issue that required activation of the disaster recovery plan. He would like to conduct a lessons learned session to review the incident. Who would be the best facilitator for this session?", options: ["A. Barry, as chief information officer", "B. Chief information security officer", "C. Disaster recovery team leader", "D. External consultant"] },
+            { id: 98, text: "Brent is reviewing the controls that will protect his organization in the event of a sustained period of power loss. Which one of the following solutions would best meet his needs?", options: ["A. Redundant servers", "B. Uninterruptible power supply (UPS)", "C. Generator", "D. RAID"] },
+            { id: 99, text: "Match each of the numbered terms with its correct lettered definition: Terms: 1. Honeypot, 2. Honeynet, 3. Pseudo-flaw, 4. Darknet. Definitions: A. An intentionally designed vulnerability used to lure in an attacker, B. A network set up with intentional vulnerabilities, C. A system set up with intentional vulnerabilities, D. A monitored network without any hosts.", options: [] },
+            { id: 100, text: "Match each of the numbered types of recovery capabilities to their correct lettered definition: Terms: 1. Hot site, 2. Cold site, 3. Warm site, 4. Service bureau. Definitions: A. An organization that can provide on-site or off-site IT services in the event of a disaster, B. A site with dedicated storage and real-time data replication, often with shared equipment that allows restoration of service in a very short time, C. A site that relies on shared storage and backups for recovery, D. A rented space with power, cooling, and connectivity that can accept equipment as part of a recovery effort.", options: [] }
+        ];
 
-// =============================================================
-// ANSWERS AND EXPLANATIONS (from official answer key)
-// =============================================================
-const answersMap = {
-    1: "A", 2: "D", 3: "C", 4: "B", 5: "D", 6: "C", 7: "B", 8: "B", 9: "A", 10: "A",
-    11: "B", 12: "A", 13: "B", 14: "D", 15: "A,B,C", 16: "D", 17: "C", 18: "A", 19: "C", 20: "B",
-    21: "A", 22: "B", 23: "D", 24: "A,B,C,D", 25: "D", 26: "B", 27: "B", 28: "C", 29: "A", 30: "A,C,D",
-    31: "C", 32: "C", 33: "C", 34: "D", 35: "A", 36: "A", 37: "D", 38: "B", 39: "D", 40: "A",
-    41: "B", 42: "D", 43: "B", 44: "C", 45: "C", 46: "C", 47: "A", 48: "B", 49: "C", 50: "D",
-    51: "A", 52: "D", 53: "D", 54: "B", 55: "C", 56: "B", 57: "C", 58: "C", 59: "C", 60: "B",
-    61: "B", 62: "C", 63: "C", 64: "A", 65: "D", 66: "B", 67: "D", 68: "C", 69: "B", 70: "C",
-    71: "A,B,C,E,F", 72: "A,B,C", 73: "C", 74: "B", 75: "C", 76: "B", 77: "C", 78: "C", 79: "D", 80: "C",
-    81: "B", 82: "C", 83: "B", 84: "C", 85: "A,B,D", 86: "A", 87: "A", 88: "A", 89: "A", 90: "D",
-    91: "B", 92: "B", 93: "C", 94: "C", 95: "C", 96: "D", 97: "D", 98: "C"
-};
+        // =============================================================
+        // ANSWERS AND EXPLANATIONS (from official answer key)
+        // =============================================================
+        const answersMap = {
+            1: "A", 2: "D", 3: "C", 4: "B", 5: "D", 6: "C", 7: "B", 8: "B", 9: "A", 10: "A",
+            11: "B", 12: "A", 13: "B", 14: "D", 15: "A,B,C", 16: "D", 17: "C", 18: "A", 19: "C", 20: "B",
+            21: "A", 22: "B", 23: "D", 24: "A,B,C,D", 25: "D", 26: "B", 27: "B", 28: "C", 29: "A", 30: "A,C,D",
+            31: "C", 32: "C", 33: "C", 34: "D", 35: "A", 36: "A", 37: "D", 38: "B", 39: "D", 40: "A",
+            41: "B", 42: "D", 43: "B", 44: "C", 45: "C", 46: "C", 47: "A", 48: "B", 49: "C", 50: "D",
+            51: "A", 52: "D", 53: "D", 54: "B", 55: "C", 56: "B", 57: "C", 58: "C", 59: "C", 60: "B",
+            61: "B", 62: "C", 63: "C", 64: "A", 65: "D", 66: "B", 67: "D", 68: "C", 69: "B", 70: "C",
+            71: "A,B,C,E,F", 72: "A,B,C", 73: "C", 74: "B", 75: "C", 76: "B", 77: "C", 78: "C", 79: "D", 80: "C",
+            81: "B", 82: "C", 83: "B", 84: "C", 85: "A,B,D", 86: "A", 87: "A", 88: "A", 89: "A", 90: "D",
+            91: "B", 92: "B", 93: "C", 94: "C", 95: "C", 96: "D", 97: "D", 98: "C"
+        };
 
-const explanations = {
-    1: "The illustration shows an example of a failover cluster, where DB1 and DB2 are both configured as database servers. At any given time, only one will function as the active database server, while the other remains ready to assume responsibility if the first one fails. While the environment may use UPS, tape backup, and cold sites as disaster recovery and business continuity controls, they are not shown in the diagram.",
-    2: "The principle of least privilege should guide Joe in this case. He should apply no access permissions by default and then give each user the necessary permissions to perform their job responsibilities. Read only, editor, and administrator permissions may be necessary for one or more of these users, but those permissions should be assigned based upon business need and not by default.",
-    3: "While most organizations would want to log attempts to log in to a workstation, this is not considered a privileged administrative activity and would go through normal logging processes.",
-    4: "Duress, or being under threat of violence or other constraints, is a concern for organizations such as banks, jewelry stores, or other organizations where an attacker may attempt to force an employee to perform actions. Organizations that expect that a scenario like this may occur will often use duress code words that let others know that they are performing actions under threat.",
-    5: "Real evidence consists of things that may actually be brought into a courtroom as evidence. For example, real evidence includes hard disks, weapons, and items containing fingerprints. Documentary evidence consists of written items that may or may not be in tangible form. Testimonial evidence is verbal testimony given by witnesses with relevant information. The parol evidence rule says that when an agreement is put into written form, the written document is assumed to contain all the terms of the agreement.",
-    6: "A whitelist of allowed applications will ensure that Lauren's users can run only the applications that she preapproves. Blacklists would require her to maintain a list of every application that she doesn't want to allow, which is an almost impossible task. Graylisting is not a technology option. Configuration management can be useful for making sure the right applications are on a PC but typically can't directly prevent users from running undesired applications or programs.",
-    7: "A pseudo-flaw is a false vulnerability in a system that may distract an attacker. A honeynet is a network of multiple honeypots that creates a more sophisticated environment for intruders to explore, rather than a feature Colin could use on a honeypot. A darknet is a segment of unused network address space that should have no network activity and, therefore, may be easily used to monitor for illicit activity. A warning banner is a legal tool used to notify intruders that they are not authorized to access a system.",
-    8: "Social media is commonly used as a command-and-control system for botnet activity. The most likely scenario here is that the user's computer was infected with malware and joined to a botnet. This accounts for both the unusual social media traffic and the slow system activity.",
-    9: "John's design provides multiple processing sites, distributing load to multiple regions. Not only does this provide business continuity and disaster recovery functionality, but it also means that his design will be more resilient to denial-of-service attacks.",
-    10: "NetFlow records contain an entry for every network communication session that took place on a network and can be compared to a list of known malicious hosts. IDS logs may contain a relevant record, but it is less likely because they would create log entries only if the traffic triggers the IDS, as opposed to NetFlow records, which encompass all communications. Authentication logs and RFC logs would not have records of any network traffic.",
-    11: "Gary should follow the least privilege principle and assign users only the permissions they need to perform their job responsibilities. Privilege creep is a term used to describe the unintentional accumulation of privileges over time. Segregation of duties and separation of privileges are principles used to secure sensitive processes.",
-    12: "The matrix shown in the figure is known as a segregation of duties matrix. It is used to ensure that one person does not obtain two privileges that would create a potential conflict. Privilege creep is a term used to describe the unintentional accumulation of privileges over time. Two-person control is used when two people must work together to perform a sensitive action. Defense in depth is a general security principle used to describe a philosophy of overlapping security controls.",
-    13: "Before granting access, Gary should verify that the user has a valid security clearance and a business need to know the information. Gary is performing an authorization task, so he does not need to verify the user's credentials, such as a password or biometric scan.",
-    14: "Gary should follow the principle of two-person control by requiring simultaneous action by two separate authorized individuals to gain access to the encryption keys. He should also apply the principles of least privilege and defense in depth, but these principles apply to all operations and are not specific to sensitive operations. Gary should avoid the security through obscurity principle, the reliance upon the secrecy of security mechanisms to provide security for a system or process.",
-    15: "Privileged access reviews are one of the most critical components of an organization's security program because they ensure that only authorized users have access to perform the most sensitive operations. They should take place whenever a user with privileged access leaves the organization or changes roles as well as on a regular, recurring basis. However, it is not reasonable to expect that these time-consuming reviews would take place on a daily basis.",
-    16: "Hotfixes, updates, and security fixes are all synonyms for single patches designed to correct a single problem. Service packs are collections of many different updates that serve as a major update to an operating system or application.",
-    17: "A forensic disk controller performs four functions. One of those, write blocking, intercepts write commands sent to the device and prevents them from modifying data on the device. The other three functions include returning data requested by a read operation, returning access-significant information from the device, and reporting errors from the device back to the forensic host.",
-    18: "Lydia is following the need to know principle. While the user may have the appropriate security clearance to access this information, there is no business justification provided, so she does not know that the user has an appropriate need to know the information.",
-    19: "Job rotation and mandatory vacations deter fraud by increasing the likelihood that it will be detected. Two-person control deters fraud by requiring collusion between two employees. Incident response does not normally serve as a deterrent mechanism.",
-    20: "Quality of service is a feature found on routers and other network devices that can prioritize specific network traffic. QoS policies define which traffic is prioritized, and traffic is then handled based on the policy.",
-    21: "The change log contains information about approved changes and the change management process. While other logs may contain details about the change's effect, the audit trail for change management would be found in the change log.",
-    22: "While it may be tempting to tell her staff to simply not connect to any network, Susan knows that they will need connectivity to do their work. Using a VPN to connect their laptops and mobile devices to a trusted network and ensuring that all traffic is tunneled through the VPN is her best bet to secure their Internet usage. Susan may also want to ensure that they take “clean” laptops and devices that do not contain sensitive information or documents and that those systems are fully wiped when they return.",
-    23: "The Common Vulnerabilities and Exposures (CVE) database contains standardized information on many different security issues. The Open Worldwide Application Security Project (OWASP) contains general guidance on web application security issues but does not track specific vulnerabilities or go beyond web applications. The Center for Internet Security (CIS) maintains benchmarks for securely configuring devices, operating systems, and applications. They do not track vulnerabilities. Microsoft Security Bulletins are also good sources of vulnerability information but are not comprehensive databases of known issues.",
-    24: "A disaster is any event that can disrupt normal IT operations and can be either natural or human made. Hacking and terrorism are examples of human-made disasters, while flooding and fire are examples of natural disasters.",
-    25: "The read-through is the least disruptive type of disaster recovery test. During a read-through, team members each review the contents of their disaster recovery checklists on their own and suggest any necessary changes. During a tabletop exercise, team members come together and discuss a specific scenario without making any changes to information systems. During a parallel test, the team actually activates the disaster recovery site for testing, but the primary site remains operational. During a full interruption test, the team takes down the primary site and confirms that the disaster recovery site is capable of handling regular operations. The full interruption test is the most thorough test but also the most disruptive.",
-    26: "The Grandfather-Father-Son, Tower of Hanoi, and Six Cartridge Weekly schemes are all different approaches to rotating backup media that balance reuse of media with data retention concerns. Meet-in-the-middle is a cryptographic attack against 2DES encryption.",
-    27: "In this scenario, Helen designed a process that requires the concurrence of two people to perform a sensitive action. This is an example of two-person control. This is different from segregation of duties, where one individual may not have two separate permissions that, when combined, might allow an unwanted action. Segregation of duties applied to a situation like this one might say that the same person may not have both the ability to initiate a request and the ability to approve a request. Least privilege says that an individual should have only the necessary permissions required to carry out their job function. Job rotation is a scheme that has users periodically shift job functions in order to detect malfeasance.",
-    28: "Evidence provided in court must be relevant to determining a fact in question, material to the case at hand, and competently obtained. Evidence does not need to be tangible. Witness testimony is an example of intangible evidence that may be offered in court.",
-    29: "A lessons learned document is often created and distributed to involved parties after a postmortem review to ensure that those who were involved in the incident and others who may benefit from the knowledge are aware of what they can do to prevent future issues and to improve response in the event that one occurs.",
-    30: "CSIRT representation normally includes at least representatives of senior management, information security professionals, legal representatives, public relations staff, human resources, and engineering/technical staff. Law enforcement personnel would not be included on such a team and would only be consulted as necessary.",
-    31: "In this scenario, all the files on the server will be backed up on Monday evening during the full backup. The differential backup on Wednesday will then copy all files modified since the last full backup. These include files 1, 2, 3, 5, and 6: a total of five files.",
-    32: "Intrusion detection systems (IDSs) provide only passive responses, such as alerting administrators to a suspected attack. Intrusion prevention systems and firewalls, on the other hand, may take action to block an attack attempt. Antivirus software also may engage in active response by quarantining suspect files.",
-    33: "Physical destruction, an appropriate contract with certification, and secure wiping are all reasonable options. In each case, a careful inventory and check should be done to ensure that each drive is handled appropriately. Reformatting drives can leave remnant data, making this a poor data life-cycle choice for drives that contain sensitive data.",
-    34: "Secure router configuration guidelines are typically more technical and specific to IT professionals, making them less likely to be included in a general security training and awareness program. These programs usually focus on broader and more universally applicable topics like insider threats, which address risks from employees or contractors; social media impact, which covers the risks of sharing information online; and 2FA fatigue, which relates to the weariness or complacency in using two-factor authentication. These are relevant to a wider audience and are crucial for overall organizational security awareness. In contrast, the specifics of router configuration are usually handled by specialized IT staff.",
-    35: "The service-level agreement (SLA) is between a service provider and a customer and documents in a formal manner expectations around availability, performance, and other parameters. An MOU may cover the same items but is not as formal a document. An OLA is between internal service organizations and does not involve customers. An SOW is an addendum to a contract describing work to be performed.",
-    36: "The ITIL framework focuses on IT service management. The Project Management Body of Knowledge (PMBOK) provides a common core of project management expertise. The Payment Card Industry Data Security Standard (PCI DSS) contains regulations for payment card security. The Open Group Architecture Framework (TOGAF) focuses on IT architecture issues.",
-    37: "Latency is a delay in the delivery of packets from their source to their destination. Jitter is a variation in the latency for different packets. Packet loss is the disappearance of packets in transit that requires retransmission. Interference is electrical noise or other disruptions that corrupt the contents of packets.",
-    38: "Running the program in a sandbox provides secure isolation that can prevent the malware from impacting other applications or systems. If Joe uses appropriate instrumentation, he can observe what the program does, what changes it makes, and any communications it may attempt. ASLR is a memory location randomization technology. Process isolation keeps processes from impacting each other. A sandbox typically provides greater utility in a scenario like this since it can be instrumented and managed in a way that better supports investigations. Clipping is a term often used in signal processing.",
-    39: "A transformer explosion is a failure of a human-made electrical component. Flooding, mudslides, and hurricanes are all examples of natural disasters.",
-    40: "Microsoft Configuration Manager (ConfigMgr) provides this capability and is designed to allow administrators to evaluate the configuration status of Windows workstations and servers, as well as providing asset management data. System Center Operations Manager (SCOM) is primarily used to monitor for health and performance. Group Policy can be used for a variety of tasks including deploying settings and software, and custom PowerShell scripts could do this but should not be required for a configuration check.",
-    41: "The principle of least privilege says that an individual should only have the privileges necessary to complete their job functions. Removing administrative privileges from nonadministrative users is an example of least privilege.",
-    42: "There is no need to conduct forensic imaging as a preventative measure. Rather, forensic imaging should be used during the incident response process. Maintaining patch levels, implementing intrusion detection/prevention, and removing unnecessary services and accounts are all basic preventive measures.",
-    43: "A resource capacity agreement is the most appropriate for Chas's concern, as it specifically addresses the availability of resources in a disaster scenario. This type of agreement ensures that the cloud provider has sufficient resources to meet the needs of their clients, even in the event of multiple simultaneous disasters. It directly tackles the issue of resource allocation and availability, which is Chas's primary concern. In contrast, a nondisclosure agreement is more about confidentiality and doesn't address resource capacity. A mutual assistance agreement typically involves agreements between organizations for support during emergencies but doesn't guarantee specific resource availability. A business partnership agreement is broader and may not specifically cover the detailed aspects of resource availability in disaster scenarios.",
-    44: "An incident negatively affects the confidentiality, integrity, or availability of information or assets and/or violates a security policy. A computer security incident is an incident that is the result of an attack or the result of malicious or intentional actions on the part of users. The unauthorized vulnerability scan of a server does violate security policy and may negatively affect the security of that system, so it qualifies as a security incident. The failure of a backup to complete properly jeopardizes availability and is, therefore, an incident, but not a computer security incident. The logging of system access and update of antivirus signatures are all routine actions that do not violate policy or jeopardize security, so they are all events rather than incidents.",
-    45: "Radio Frequency Identification (RFID) technology is a cost-effective way to track items around a facility. While Wi-Fi could be used for the same purpose, it would be much more expensive to implement.",
-    46: "An attack committed against an organization by an insider, such as an employee, is known as sabotage. Espionage and confidentiality breaches involve the theft of sensitive information, which is not alleged to have occurred in this case. Integrity breaches involve the unauthorized modification of information, which is not described in this scenario.",
-    47: "In a SYN flood attack, the attacker sends a large number of SYN packets to a system but does not respond to the SYN/ACK packets, attempting to overwhelm the attacked system's connection state table with half-open connections.",
-    48: "The maximum tolerable downtime (MTD) is the longest amount of time that an IT service or component may be unavailable without causing serious damage to the organization. The recovery time objective (RTO) is the amount of time expected to return an IT service or component to operation after a failure. The recovery point objective (RPO) identifies the maximum amount of data, measured in time, that may be lost during a recovery effort. Service-level agreements (SLAs) are written contracts that document service expectations.",
-    49: "Zero-day attacks are those that are previously unknown to the security community and, therefore, have no available patch. These are especially dangerous attacks because they may be highly effective until a solution becomes available. The other attacks described here are all known attacks and would not be classified as zero-day events.",
-    50: "Locard's principle is most relevant to Rob's forensic investigation for trace digital evidence, as it suggests that any contact between two objects results in an exchange of materials. In the context of digital forensics, this principle implies that there is always some form of digital trace or residue left behind when devices interact or when data is transferred. Kerckhoff's principle states that a system's security should not depend on the secrecy of its algorithm but rather on the secrecy of its keys. The principle of least privilege is a security concept in which a user is given the minimum levels of access—or permissions—needed to perform his job functions. Lastly, the defense-in-depth principle is a layered security approach that establishes multiple levels of defense to protect information. While these other three principles are important in cybersecurity, they do not directly relate to the collection and analysis of digital trace evidence like Locard's principle does.",
-    51: "Interviews occur when investigators meet with an individual who may have information relevant to their investigation but is not a suspect. If the individual is a suspect, then the meeting is an interrogation.",
-    52: "The image clearly contains the watermark of the U.S. Geological Survey (USGS), which ensures that anyone seeing the image knows its origin. It is not possible to tell from looking at the image whether steganography was used. Sampling and clipping are data analysis techniques and are not used to protect images.",
-    53: "The annualized rate of occurrence (ARO) is the expected number of times an incident will occur each year. In the case of a 200-year flood plain, planners should expect a flood once every 200 years. This is equivalent to a 1/200 chance of a flood in any given year, or 0.005 floods per year.",
-    54: "While all hackers with malicious intent pose a risk to the organization, the malicious insider poses the greatest risk to security because they likely have legitimate access to sensitive systems that may be used as a launching point for an attack. Other attackers do not begin with this advantage.",
-    55: "In an electronic vaulting approach, automated technology moves database backups from the primary database server to a remote site on a scheduled basis, typically daily. Transaction logging is not a recovery technique alone; it is a process for generating the logs used in remote journaling. Remote journaling transfers transaction logs to a remote site on a more frequent basis than electronic vaulting, typically hourly. Remote mirroring maintains a live database server at the backup site and mirrors all transactions at the primary site on the server at the backup site.",
-    56: "Hilda's design follows the principle of segregation of duties. Giving one user the ability to both create new accounts and grant administrative privileges combines two actions that would result in a significant security change that should be divided among two users.",
-    57: "While all of these assumptions are valid premises that Patrick might have going into the exercise, the basic assumption of a threat-hunting exercise is the so-called presumption of compromise. This means that Patrick should assume that attackers have already gained access to his system and then hunt for indicators of their presence.",
-    58: "The end goal of the disaster recovery process is restoring normal business operations in the primary facility. All of the other actions listed may take place during the disaster recovery process, but the process is not complete until the organization is once again functioning normally in its primary facilities.",
-    59: "A host-based intrusion detection system (HIDS) may be able to detect unauthorized processes running on a system. The other controls mentioned, network intrusion detection systems (NIDSs), firewalls, and DLP systems, are network-based and may not notice rogue processes.",
-    60: "The scenario describes a privilege escalation attack where a malicious insider with authorized access to a system misused that access to gain privileged credentials.",
-    61: "Carla's account has experienced privilege creep, where privileges accumulated over time. This condition is also known as aggregation and likely constitutes a violation of the least privilege principle.",
-    62: "The mitigation phase of incident response focuses on actions that can contain the damage incurred during an incident. This includes limiting the scope and/or effectiveness of the incident. The detection phase identifies that an incident is taking place. The response phase includes steps taken to assemble a team and triage the incident. At the conclusion of the recovery phase, normal operations are resumed.",
-    63: "At this point in the process, Ann has no reason to believe that any actual security compromise or policy violation took place, so this situation does not meet the criteria for a security incident or intrusion. Rather, the alert generated by the intrusion detection system is simply a security event requiring further investigation. Security occurrence is not a term commonly used in incident handling.",
-    64: "DNS traffic commonly uses port 53 for both TCP and UDP communications. SSH and SCP use TCP port 22. SSL and TLS do not have ports assigned to them but are commonly used for HTTPS traffic on port 443. Unencrypted web traffic over HTTP often uses port 80.",
-    65: "The attack described in this scenario has all the hallmarks of a denial-of-service attack. More specifically, Ann's organization is likely experiencing a DNS amplification attack where an attacker sends false requests to third-party DNS servers with a forged source IP address belonging to the targeted system. Because the attack uses UDP requests, there is no three-way handshake. The attack packets are carefully crafted to elicit a lengthy response from a short query. The purpose of these queries is to generate responses headed to the target system that are sufficiently large and numerous enough to overwhelm the targeted network or system.",
-    66: "Now that Ann suspects an attack against her organization, she has sufficient evidence to declare a security incident. The attack underway seems to have undermined the availability of her network, meeting one of the criteria for a security incident. This is an escalation beyond a security event but does not reach the level of an intrusion because there is no evidence that the attacker has even attempted to gain access to systems on Ann's network. Security occurrence is not a term commonly used in incident handling.",
-    67: "To be admissible, evidence must be relevant, material, and competent. The laptop in this case is clearly material because it contains logs related to the crime in question. It is also relevant because it provides evidence that ties the hacker to the crime. It is not competent because the evidence was not legally obtained.",
-    68: "Gordon may conduct his investigation as he wants and use any information that is legally available to him, including information and systems belonging to his employer. There is no obligation to contact law enforcement. However, Gordon may not perform “hack back” activities because those may constitute violations of the law and/or ISC2 Code of Ethics.",
-    69: "Software escrow agreements place a copy of the source code for a software package in the hands of an independent third party who will turn the code over to the customer if the vendor ceases business operations. Service-level agreements, mutual assistance agreements, and compliance agreements all lose some or all of their effectiveness if the vendor goes out of business.",
-    70: "Most security professionals recommend at least one, and preferably two, weeks of vacation to deter fraud. The idea is that fraudulent schemes will be uncovered during the time that the employee is away and does not have the access required to perpetuate a cover-up.",
-    71: "Any attempt to undermine the security of an organization or violation of a security policy is a security incident. All of the events described meet this definition and should be treated as an incident, with one exception. A successful attempt to access a file is certainly a security event, but it is not a security incident unless it is established that the individual accessing the file was not authorized to do so.",
-    72: "Egress filtering scans outbound traffic for potential security policy violations. This includes traffic that is likely malicious, such as an outbound SSH scan on port 22. It also includes traffic that appears to be part of an attack or misconfiguration, such as sending traffic to a broadcast destination address. Finally, it includes spoofed traffic generated by internal systems, which may bear a source address from an external network. The normal traffic that the firewall should expect to see is that bearing a destination address on an external network.",
-    73: "The two main methods of choosing records from a large pool for further analysis are sampling and clipping. Sampling uses statistical techniques to choose a sample that is representative of the entire pool, while clipping uses threshold values to select those records that exceed a predefined threshold because they may be of most interest to analysts. In this case, Allie is only selecting records that exceed an invalid login threshold, making this an example of clipping. She is not using statistical techniques to select a subset of records, so this is not an example of sampling.",
-    74: "NetFlow data contains information on the source, destination, and size of all network communications and is routinely saved as a matter of normal activity. Packet capture data would provide relevant information, but it must be captured during the suspicious activity and cannot be re-created after the fact unless the organization is already conducting 100% packet capture, which is rare. Additionally, the use of encryption limits the effectiveness of packet capture. Intrusion detection system logs would not likely contain relevant information because the encrypted traffic would probably not match intrusion signatures. Centralized authentication records would not contain information about network traffic.",
-    75: "Baseline configurations serve as the starting point for configuring secure systems and applications. They contain the security settings necessary to comply with an organization's security policy and may then be customized to meet the specific needs of an implementation. While security policies and guidelines may contain information needed to secure a system, they do not contain a set of configuration settings that may be applied to a system. The running configuration of a system is the set of currently applied settings, which may or may not be secure.",
-    76: "During a parallel test, the team actually activates the disaster recovery site for testing, but the primary site remains operational. During a full interruption test, the team takes down the primary site and confirms that the disaster recovery site is capable of handling regular operations. The full interruption test is the most thorough test but also the most disruptive. The read-through is the least disruptive type of disaster recovery test. During a read-through, team members each review the contents of their disaster recovery checklists on their own and suggest any necessary changes. During a tabletop exercise, team members come together and work through a specific scenario without making any changes to information systems.",
-    77: "Both the receipt of alerts and the verification of their accuracy occur during the Detection phase of the incident response process.",
-    78: "According to NIST SP 800-137, organizations should use the following factors to determine assessment and monitoring frequency: security control volatility, system categorizations/impact levels, security controls or specific assessment objects providing critical functions, security controls with identified weaknesses, organizational risk tolerance, threat information, vulnerability information, risk assessment results, the output of monitoring strategy reviews, and reporting requirements.",
-    79: "All of these technologies have the potential to monitor user behavior on endpoint devices. The key to answering this question correctly is realizing the emphasis on the user. Intrusion detection and prevention systems (IDSs/IPSs) focus on network and host behavior. Endpoint detection and response (EDR) systems focus on endpoint devices. User and entity behavior analytics (UEBA) solutions focus on the user and, therefore, would be the best way to meet Hunter's requirement.",
-    80: "SSH uses TCP port 22, so this attack is likely an attempt to scan for open or weakly secured SSH servers. FTP uses ports 20 and 21. Telnet uses port 23, and HTTP uses port 80.",
-    81: "Remediation activities seek to address the issue that caused the incident. In this case, that was a web application that was open to SQL injection attack. Adding input validation seeks to remediate this vulnerability. Rebuilding the database is a recovery action, while reviewing logs is done as part of the detection and response effort.",
-    82: "In an infrastructure-as-a-service environment, the vendor is responsible for hardware- and network-related responsibilities. These include configuring network firewalls, maintaining the hypervisor, and managing physical equipment. The customer retains responsibility for patching operating systems on its virtual machine instances.",
-    83: "Sandboxing is a technique where application developers (or the recipients of an untrusted application) may test the code in a virtualized environment that is isolated from production systems. White-box testing, black-box testing, and penetration testing are all common software testing techniques but do not require the use of an isolated system.",
-    84: "While it may not immediately seem like the obvious answer, many firewalls have a built-in anti–SYN flood defense that responds to SYNs on behalf of protected systems. Once the remote system proves to be a legitimate connection by continuing the three-way handshake, the rest of the TCP session is passed through. If the connection proves to be an attack, the firewall handles the additional load using appropriate mitigation techniques. Blocking SYNs from known or unknown IP addresses is likely to cause issues with systems that should be able to connect, and turning off TCP will break most modern network services!",
-    85: "EDR platforms do not conduct simulated phishing campaigns. The most common features of EDR systems are analyzing endpoint memory, filesystem, and network activity for signs of malicious activity; isolating possible malicious activity to contain the potential damage; integrating with threat intelligence sources; and integrating with other incident response mechanisms.",
-    86: "While any cybersecurity activity has the potential to benefit from machine learning and artificial intelligence capabilities, this technology really shines when used for pattern detection and anomaly detection problems. This is the type of activity performed by an intrusion detection system, and, therefore, this system would benefit the most from the use of ML/AI technology.",
-    87: "Companies have an obligation to preserve evidence whenever they believe that the threat of litigation is imminent. The statement made by this customer that “we will have to take this matter to court” is a clear threat of litigation and should trigger the preservation of any related documents and records.",
-    88: "Incremental backups provide the option that includes the smallest amount of data. In this case, that would be only the data modified since the most recent incremental backup. A differential backup would back up all data modified since the last full backup, which would be a substantial amount. The full backup would include all information on the server. Transaction log backups are specifically designed to support database servers and would not be effective on a file server.",
-    89: "Expert opinion evidence allows individuals to offer their opinion based upon the facts in evidence and their personal knowledge. Expert opinion evidence may be offered only if the court accepts the witness as an expert in a particular field. Direct evidence is when witnesses testify about their direct observations. Real evidence consists of tangible items brought into court as evidence. Documentary evidence consists of written records used as evidence in court.",
-    90: "The standard methods for clearing magnetic tapes, according to the NIST Guidelines for Media Sanitization, are overwriting the tape with nonsensitive data, degaussing, and physical destruction via shredding. Reformatting a tape does not remove remnant data.",
-    91: "RAID level 1, also known as disk mirroring, uses a minimum of two disks that contain identical information. If one disk fails, the other contains the data needed for the system to continue operation.",
-    92: "The analysis of application logs is one of the core tasks of software analysis. This is the correct answer because SQL injection attacks are application attacks.",
-    93: "Quigley may choose to use any or all of these security controls, but data encryption is, by far, the most important control. It protects the confidentiality of data stored on the tapes, which are most vulnerable to theft while in transit between two secure locations.",
-    94: "Data loss prevention (DLP) systems may identify sensitive information stored on endpoint systems or in transit over a network. This is their primary purpose. DLP systems are commonly available as a third-party managed service offering. Intrusion detection and prevention systems (IDSs/IPSs) may be used to identify some sensitive information using signatures built for that purpose, but this is not the primary role of those tools, and they would not be as effective as DLP systems at this task. TLS is a network encryption protocol that may be used to protect sensitive information, but it does not have any ability to identify sensitive information.",
-    95: "Disaster recovery teams should always refer media inquiries to the public relations team to ensure a coordinated, consistent response. They should not attempt to answer questions themselves.",
-    96: "All of these considerations are important when developing an emergency management plan. However, the safety of human life should always be the overwhelming priority, above all other considerations.",
-    97: "Barry should recruit an independent moderator to facilitate the session. Having a moderator who was not directly involved in the effort encourages honest and open feedback. While it is not necessary to use an external consultant, they may easily fill this role. While it is also possible to find a qualified internal employee to fill this position, it should not be someone who was involved in the incident response effort or has a major stake in the plan, such as Barry, the CISO, or the DR team leader.",
-    98: "Generators are capable of providing backup power for a sustained period of time in the event of a power loss, but they take time to activate. Uninterruptible power supplies (UPSs) provide immediate, battery-driven power for a short period of time to cover momentary losses of power, which would not cover a sustained period of power loss. RAID and redundant servers are high-availability controls but do not cover power loss scenarios."
-};
+        const explanations = {
+            1: "The illustration shows an example of a failover cluster, where DB1 and DB2 are both configured as database servers. At any given time, only one will function as the active database server, while the other remains ready to assume responsibility if the first one fails. While the environment may use UPS, tape backup, and cold sites as disaster recovery and business continuity controls, they are not shown in the diagram.",
+            2: "The principle of least privilege should guide Joe in this case. He should apply no access permissions by default and then give each user the necessary permissions to perform their job responsibilities. Read only, editor, and administrator permissions may be necessary for one or more of these users, but those permissions should be assigned based upon business need and not by default.",
+            3: "While most organizations would want to log attempts to log in to a workstation, this is not considered a privileged administrative activity and would go through normal logging processes.",
+            4: "Duress, or being under threat of violence or other constraints, is a concern for organizations such as banks, jewelry stores, or other organizations where an attacker may attempt to force an employee to perform actions. Organizations that expect that a scenario like this may occur will often use duress code words that let others know that they are performing actions under threat.",
+            5: "Real evidence consists of things that may actually be brought into a courtroom as evidence. For example, real evidence includes hard disks, weapons, and items containing fingerprints. Documentary evidence consists of written items that may or may not be in tangible form. Testimonial evidence is verbal testimony given by witnesses with relevant information. The parol evidence rule says that when an agreement is put into written form, the written document is assumed to contain all the terms of the agreement.",
+            6: "A whitelist of allowed applications will ensure that Lauren's users can run only the applications that she preapproves. Blacklists would require her to maintain a list of every application that she doesn't want to allow, which is an almost impossible task. Graylisting is not a technology option. Configuration management can be useful for making sure the right applications are on a PC but typically can't directly prevent users from running undesired applications or programs.",
+            7: "A pseudo-flaw is a false vulnerability in a system that may distract an attacker. A honeynet is a network of multiple honeypots that creates a more sophisticated environment for intruders to explore, rather than a feature Colin could use on a honeypot. A darknet is a segment of unused network address space that should have no network activity and, therefore, may be easily used to monitor for illicit activity. A warning banner is a legal tool used to notify intruders that they are not authorized to access a system.",
+            8: "Social media is commonly used as a command-and-control system for botnet activity. The most likely scenario here is that the user's computer was infected with malware and joined to a botnet. This accounts for both the unusual social media traffic and the slow system activity.",
+            9: "John's design provides multiple processing sites, distributing load to multiple regions. Not only does this provide business continuity and disaster recovery functionality, but it also means that his design will be more resilient to denial-of-service attacks.",
+            10: "NetFlow records contain an entry for every network communication session that took place on a network and can be compared to a list of known malicious hosts. IDS logs may contain a relevant record, but it is less likely because they would create log entries only if the traffic triggers the IDS, as opposed to NetFlow records, which encompass all communications. Authentication logs and RFC logs would not have records of any network traffic.",
+            11: "Gary should follow the least privilege principle and assign users only the permissions they need to perform their job responsibilities. Privilege creep is a term used to describe the unintentional accumulation of privileges over time. Segregation of duties and separation of privileges are principles used to secure sensitive processes.",
+            12: "The matrix shown in the figure is known as a segregation of duties matrix. It is used to ensure that one person does not obtain two privileges that would create a potential conflict. Privilege creep is a term used to describe the unintentional accumulation of privileges over time. Two-person control is used when two people must work together to perform a sensitive action. Defense in depth is a general security principle used to describe a philosophy of overlapping security controls.",
+            13: "Before granting access, Gary should verify that the user has a valid security clearance and a business need to know the information. Gary is performing an authorization task, so he does not need to verify the user's credentials, such as a password or biometric scan.",
+            14: "Gary should follow the principle of two-person control by requiring simultaneous action by two separate authorized individuals to gain access to the encryption keys. He should also apply the principles of least privilege and defense in depth, but these principles apply to all operations and are not specific to sensitive operations. Gary should avoid the security through obscurity principle, the reliance upon the secrecy of security mechanisms to provide security for a system or process.",
+            15: "Privileged access reviews are one of the most critical components of an organization's security program because they ensure that only authorized users have access to perform the most sensitive operations. They should take place whenever a user with privileged access leaves the organization or changes roles as well as on a regular, recurring basis. However, it is not reasonable to expect that these time-consuming reviews would take place on a daily basis.",
+            16: "Hotfixes, updates, and security fixes are all synonyms for single patches designed to correct a single problem. Service packs are collections of many different updates that serve as a major update to an operating system or application.",
+            17: "A forensic disk controller performs four functions. One of those, write blocking, intercepts write commands sent to the device and prevents them from modifying data on the device. The other three functions include returning data requested by a read operation, returning access-significant information from the device, and reporting errors from the device back to the forensic host.",
+            18: "Lydia is following the need to know principle. While the user may have the appropriate security clearance to access this information, there is no business justification provided, so she does not know that the user has an appropriate need to know the information.",
+            19: "Job rotation and mandatory vacations deter fraud by increasing the likelihood that it will be detected. Two-person control deters fraud by requiring collusion between two employees. Incident response does not normally serve as a deterrent mechanism.",
+            20: "Quality of service is a feature found on routers and other network devices that can prioritize specific network traffic. QoS policies define which traffic is prioritized, and traffic is then handled based on the policy.",
+            21: "The change log contains information about approved changes and the change management process. While other logs may contain details about the change's effect, the audit trail for change management would be found in the change log.",
+            22: "While it may be tempting to tell her staff to simply not connect to any network, Susan knows that they will need connectivity to do their work. Using a VPN to connect their laptops and mobile devices to a trusted network and ensuring that all traffic is tunneled through the VPN is her best bet to secure their Internet usage. Susan may also want to ensure that they take “clean” laptops and devices that do not contain sensitive information or documents and that those systems are fully wiped when they return.",
+            23: "The Common Vulnerabilities and Exposures (CVE) database contains standardized information on many different security issues. The Open Worldwide Application Security Project (OWASP) contains general guidance on web application security issues but does not track specific vulnerabilities or go beyond web applications. The Center for Internet Security (CIS) maintains benchmarks for securely configuring devices, operating systems, and applications. They do not track vulnerabilities. Microsoft Security Bulletins are also good sources of vulnerability information but are not comprehensive databases of known issues.",
+            24: "A disaster is any event that can disrupt normal IT operations and can be either natural or human made. Hacking and terrorism are examples of human-made disasters, while flooding and fire are examples of natural disasters.",
+            25: "The read-through is the least disruptive type of disaster recovery test. During a read-through, team members each review the contents of their disaster recovery checklists on their own and suggest any necessary changes. During a tabletop exercise, team members come together and discuss a specific scenario without making any changes to information systems. During a parallel test, the team actually activates the disaster recovery site for testing, but the primary site remains operational. During a full interruption test, the team takes down the primary site and confirms that the disaster recovery site is capable of handling regular operations. The full interruption test is the most thorough test but also the most disruptive.",
+            26: "The Grandfather-Father-Son, Tower of Hanoi, and Six Cartridge Weekly schemes are all different approaches to rotating backup media that balance reuse of media with data retention concerns. Meet-in-the-middle is a cryptographic attack against 2DES encryption.",
+            27: "In this scenario, Helen designed a process that requires the concurrence of two people to perform a sensitive action. This is an example of two-person control. This is different from segregation of duties, where one individual may not have two separate permissions that, when combined, might allow an unwanted action. Segregation of duties applied to a situation like this one might say that the same person may not have both the ability to initiate a request and the ability to approve a request. Least privilege says that an individual should have only the necessary permissions required to carry out their job function. Job rotation is a scheme that has users periodically shift job functions in order to detect malfeasance.",
+            28: "Evidence provided in court must be relevant to determining a fact in question, material to the case at hand, and competently obtained. Evidence does not need to be tangible. Witness testimony is an example of intangible evidence that may be offered in court.",
+            29: "A lessons learned document is often created and distributed to involved parties after a postmortem review to ensure that those who were involved in the incident and others who may benefit from the knowledge are aware of what they can do to prevent future issues and to improve response in the event that one occurs.",
+            30: "CSIRT representation normally includes at least representatives of senior management, information security professionals, legal representatives, public relations staff, human resources, and engineering/technical staff. Law enforcement personnel would not be included on such a team and would only be consulted as necessary.",
+            31: "In this scenario, all the files on the server will be backed up on Monday evening during the full backup. The differential backup on Wednesday will then copy all files modified since the last full backup. These include files 1, 2, 3, 5, and 6: a total of five files.",
+            32: "Intrusion detection systems (IDSs) provide only passive responses, such as alerting administrators to a suspected attack. Intrusion prevention systems and firewalls, on the other hand, may take action to block an attack attempt. Antivirus software also may engage in active response by quarantining suspect files.",
+            33: "Physical destruction, an appropriate contract with certification, and secure wiping are all reasonable options. In each case, a careful inventory and check should be done to ensure that each drive is handled appropriately. Reformatting drives can leave remnant data, making this a poor data life-cycle choice for drives that contain sensitive data.",
+            34: "Secure router configuration guidelines are typically more technical and specific to IT professionals, making them less likely to be included in a general security training and awareness program. These programs usually focus on broader and more universally applicable topics like insider threats, which address risks from employees or contractors; social media impact, which covers the risks of sharing information online; and 2FA fatigue, which relates to the weariness or complacency in using two-factor authentication. These are relevant to a wider audience and are crucial for overall organizational security awareness. In contrast, the specifics of router configuration are usually handled by specialized IT staff.",
+            35: "The service-level agreement (SLA) is between a service provider and a customer and documents in a formal manner expectations around availability, performance, and other parameters. An MOU may cover the same items but is not as formal a document. An OLA is between internal service organizations and does not involve customers. An SOW is an addendum to a contract describing work to be performed.",
+            36: "The ITIL framework focuses on IT service management. The Project Management Body of Knowledge (PMBOK) provides a common core of project management expertise. The Payment Card Industry Data Security Standard (PCI DSS) contains regulations for payment card security. The Open Group Architecture Framework (TOGAF) focuses on IT architecture issues.",
+            37: "Latency is a delay in the delivery of packets from their source to their destination. Jitter is a variation in the latency for different packets. Packet loss is the disappearance of packets in transit that requires retransmission. Interference is electrical noise or other disruptions that corrupt the contents of packets.",
+            38: "Running the program in a sandbox provides secure isolation that can prevent the malware from impacting other applications or systems. If Joe uses appropriate instrumentation, he can observe what the program does, what changes it makes, and any communications it may attempt. ASLR is a memory location randomization technology. Process isolation keeps processes from impacting each other. A sandbox typically provides greater utility in a scenario like this since it can be instrumented and managed in a way that better supports investigations. Clipping is a term often used in signal processing.",
+            39: "A transformer explosion is a failure of a human-made electrical component. Flooding, mudslides, and hurricanes are all examples of natural disasters.",
+            40: "Microsoft Configuration Manager (ConfigMgr) provides this capability and is designed to allow administrators to evaluate the configuration status of Windows workstations and servers, as well as providing asset management data. System Center Operations Manager (SCOM) is primarily used to monitor for health and performance. Group Policy can be used for a variety of tasks including deploying settings and software, and custom PowerShell scripts could do this but should not be required for a configuration check.",
+            41: "The principle of least privilege says that an individual should only have the privileges necessary to complete their job functions. Removing administrative privileges from nonadministrative users is an example of least privilege.",
+            42: "There is no need to conduct forensic imaging as a preventative measure. Rather, forensic imaging should be used during the incident response process. Maintaining patch levels, implementing intrusion detection/prevention, and removing unnecessary services and accounts are all basic preventive measures.",
+            43: "A resource capacity agreement is the most appropriate for Chas's concern, as it specifically addresses the availability of resources in a disaster scenario. This type of agreement ensures that the cloud provider has sufficient resources to meet the needs of their clients, even in the event of multiple simultaneous disasters. It directly tackles the issue of resource allocation and availability, which is Chas's primary concern. In contrast, a nondisclosure agreement is more about confidentiality and doesn't address resource capacity. A mutual assistance agreement typically involves agreements between organizations for support during emergencies but doesn't guarantee specific resource availability. A business partnership agreement is broader and may not specifically cover the detailed aspects of resource availability in disaster scenarios.",
+            44: "An incident negatively affects the confidentiality, integrity, or availability of information or assets and/or violates a security policy. A computer security incident is an incident that is the result of an attack or the result of malicious or intentional actions on the part of users. The unauthorized vulnerability scan of a server does violate security policy and may negatively affect the security of that system, so it qualifies as a security incident. The failure of a backup to complete properly jeopardizes availability and is, therefore, an incident, but not a computer security incident. The logging of system access and update of antivirus signatures are all routine actions that do not violate policy or jeopardize security, so they are all events rather than incidents.",
+            45: "Radio Frequency Identification (RFID) technology is a cost-effective way to track items around a facility. While Wi-Fi could be used for the same purpose, it would be much more expensive to implement.",
+            46: "An attack committed against an organization by an insider, such as an employee, is known as sabotage. Espionage and confidentiality breaches involve the theft of sensitive information, which is not alleged to have occurred in this case. Integrity breaches involve the unauthorized modification of information, which is not described in this scenario.",
+            47: "In a SYN flood attack, the attacker sends a large number of SYN packets to a system but does not respond to the SYN/ACK packets, attempting to overwhelm the attacked system's connection state table with half-open connections.",
+            48: "The maximum tolerable downtime (MTD) is the longest amount of time that an IT service or component may be unavailable without causing serious damage to the organization. The recovery time objective (RTO) is the amount of time expected to return an IT service or component to operation after a failure. The recovery point objective (RPO) identifies the maximum amount of data, measured in time, that may be lost during a recovery effort. Service-level agreements (SLAs) are written contracts that document service expectations.",
+            49: "Zero-day attacks are those that are previously unknown to the security community and, therefore, have no available patch. These are especially dangerous attacks because they may be highly effective until a solution becomes available. The other attacks described here are all known attacks and would not be classified as zero-day events.",
+            50: "Locard's principle is most relevant to Rob's forensic investigation for trace digital evidence, as it suggests that any contact between two objects results in an exchange of materials. In the context of digital forensics, this principle implies that there is always some form of digital trace or residue left behind when devices interact or when data is transferred. Kerckhoff's principle states that a system's security should not depend on the secrecy of its algorithm but rather on the secrecy of its keys. The principle of least privilege is a security concept in which a user is given the minimum levels of access—or permissions—needed to perform his job functions. Lastly, the defense-in-depth principle is a layered security approach that establishes multiple levels of defense to protect information. While these other three principles are important in cybersecurity, they do not directly relate to the collection and analysis of digital trace evidence like Locard's principle does.",
+            51: "Interviews occur when investigators meet with an individual who may have information relevant to their investigation but is not a suspect. If the individual is a suspect, then the meeting is an interrogation.",
+            52: "The image clearly contains the watermark of the U.S. Geological Survey (USGS), which ensures that anyone seeing the image knows its origin. It is not possible to tell from looking at the image whether steganography was used. Sampling and clipping are data analysis techniques and are not used to protect images.",
+            53: "The annualized rate of occurrence (ARO) is the expected number of times an incident will occur each year. In the case of a 200-year flood plain, planners should expect a flood once every 200 years. This is equivalent to a 1/200 chance of a flood in any given year, or 0.005 floods per year.",
+            54: "While all hackers with malicious intent pose a risk to the organization, the malicious insider poses the greatest risk to security because they likely have legitimate access to sensitive systems that may be used as a launching point for an attack. Other attackers do not begin with this advantage.",
+            55: "In an electronic vaulting approach, automated technology moves database backups from the primary database server to a remote site on a scheduled basis, typically daily. Transaction logging is not a recovery technique alone; it is a process for generating the logs used in remote journaling. Remote journaling transfers transaction logs to a remote site on a more frequent basis than electronic vaulting, typically hourly. Remote mirroring maintains a live database server at the backup site and mirrors all transactions at the primary site on the server at the backup site.",
+            56: "Hilda's design follows the principle of segregation of duties. Giving one user the ability to both create new accounts and grant administrative privileges combines two actions that would result in a significant security change that should be divided among two users.",
+            57: "While all of these assumptions are valid premises that Patrick might have going into the exercise, the basic assumption of a threat-hunting exercise is the so-called presumption of compromise. This means that Patrick should assume that attackers have already gained access to his system and then hunt for indicators of their presence.",
+            58: "The end goal of the disaster recovery process is restoring normal business operations in the primary facility. All of the other actions listed may take place during the disaster recovery process, but the process is not complete until the organization is once again functioning normally in its primary facilities.",
+            59: "A host-based intrusion detection system (HIDS) may be able to detect unauthorized processes running on a system. The other controls mentioned, network intrusion detection systems (NIDSs), firewalls, and DLP systems, are network-based and may not notice rogue processes.",
+            60: "The scenario describes a privilege escalation attack where a malicious insider with authorized access to a system misused that access to gain privileged credentials.",
+            61: "Carla's account has experienced privilege creep, where privileges accumulated over time. This condition is also known as aggregation and likely constitutes a violation of the least privilege principle.",
+            62: "The mitigation phase of incident response focuses on actions that can contain the damage incurred during an incident. This includes limiting the scope and/or effectiveness of the incident. The detection phase identifies that an incident is taking place. The response phase includes steps taken to assemble a team and triage the incident. At the conclusion of the recovery phase, normal operations are resumed.",
+            63: "At this point in the process, Ann has no reason to believe that any actual security compromise or policy violation took place, so this situation does not meet the criteria for a security incident or intrusion. Rather, the alert generated by the intrusion detection system is simply a security event requiring further investigation. Security occurrence is not a term commonly used in incident handling.",
+            64: "DNS traffic commonly uses port 53 for both TCP and UDP communications. SSH and SCP use TCP port 22. SSL and TLS do not have ports assigned to them but are commonly used for HTTPS traffic on port 443. Unencrypted web traffic over HTTP often uses port 80.",
+            65: "The attack described in this scenario has all the hallmarks of a denial-of-service attack. More specifically, Ann's organization is likely experiencing a DNS amplification attack where an attacker sends false requests to third-party DNS servers with a forged source IP address belonging to the targeted system. Because the attack uses UDP requests, there is no three-way handshake. The attack packets are carefully crafted to elicit a lengthy response from a short query. The purpose of these queries is to generate responses headed to the target system that are sufficiently large and numerous enough to overwhelm the targeted network or system.",
+            66: "Now that Ann suspects an attack against her organization, she has sufficient evidence to declare a security incident. The attack underway seems to have undermined the availability of her network, meeting one of the criteria for a security incident. This is an escalation beyond a security event but does not reach the level of an intrusion because there is no evidence that the attacker has even attempted to gain access to systems on Ann's network. Security occurrence is not a term commonly used in incident handling.",
+            67: "To be admissible, evidence must be relevant, material, and competent. The laptop in this case is clearly material because it contains logs related to the crime in question. It is also relevant because it provides evidence that ties the hacker to the crime. It is not competent because the evidence was not legally obtained.",
+            68: "Gordon may conduct his investigation as he wants and use any information that is legally available to him, including information and systems belonging to his employer. There is no obligation to contact law enforcement. However, Gordon may not perform “hack back” activities because those may constitute violations of the law and/or ISC2 Code of Ethics.",
+            69: "Software escrow agreements place a copy of the source code for a software package in the hands of an independent third party who will turn the code over to the customer if the vendor ceases business operations. Service-level agreements, mutual assistance agreements, and compliance agreements all lose some or all of their effectiveness if the vendor goes out of business.",
+            70: "Most security professionals recommend at least one, and preferably two, weeks of vacation to deter fraud. The idea is that fraudulent schemes will be uncovered during the time that the employee is away and does not have the access required to perpetuate a cover-up.",
+            71: "Any attempt to undermine the security of an organization or violation of a security policy is a security incident. All of the events described meet this definition and should be treated as an incident, with one exception. A successful attempt to access a file is certainly a security event, but it is not a security incident unless it is established that the individual accessing the file was not authorized to do so.",
+            72: "Egress filtering scans outbound traffic for potential security policy violations. This includes traffic that is likely malicious, such as an outbound SSH scan on port 22. It also includes traffic that appears to be part of an attack or misconfiguration, such as sending traffic to a broadcast destination address. Finally, it includes spoofed traffic generated by internal systems, which may bear a source address from an external network. The normal traffic that the firewall should expect to see is that bearing a destination address on an external network.",
+            73: "The two main methods of choosing records from a large pool for further analysis are sampling and clipping. Sampling uses statistical techniques to choose a sample that is representative of the entire pool, while clipping uses threshold values to select those records that exceed a predefined threshold because they may be of most interest to analysts. In this case, Allie is only selecting records that exceed an invalid login threshold, making this an example of clipping. She is not using statistical techniques to select a subset of records, so this is not an example of sampling.",
+            74: "NetFlow data contains information on the source, destination, and size of all network communications and is routinely saved as a matter of normal activity. Packet capture data would provide relevant information, but it must be captured during the suspicious activity and cannot be re-created after the fact unless the organization is already conducting 100% packet capture, which is rare. Additionally, the use of encryption limits the effectiveness of packet capture. Intrusion detection system logs would not likely contain relevant information because the encrypted traffic would probably not match intrusion signatures. Centralized authentication records would not contain information about network traffic.",
+            75: "Baseline configurations serve as the starting point for configuring secure systems and applications. They contain the security settings necessary to comply with an organization's security policy and may then be customized to meet the specific needs of an implementation. While security policies and guidelines may contain information needed to secure a system, they do not contain a set of configuration settings that may be applied to a system. The running configuration of a system is the set of currently applied settings, which may or may not be secure.",
+            76: "During a parallel test, the team actually activates the disaster recovery site for testing, but the primary site remains operational. During a full interruption test, the team takes down the primary site and confirms that the disaster recovery site is capable of handling regular operations. The full interruption test is the most thorough test but also the most disruptive. The read-through is the least disruptive type of disaster recovery test. During a read-through, team members each review the contents of their disaster recovery checklists on their own and suggest any necessary changes. During a tabletop exercise, team members come together and work through a specific scenario without making any changes to information systems.",
+            77: "Both the receipt of alerts and the verification of their accuracy occur during the Detection phase of the incident response process.",
+            78: "According to NIST SP 800-137, organizations should use the following factors to determine assessment and monitoring frequency: security control volatility, system categorizations/impact levels, security controls or specific assessment objects providing critical functions, security controls with identified weaknesses, organizational risk tolerance, threat information, vulnerability information, risk assessment results, the output of monitoring strategy reviews, and reporting requirements.",
+            79: "All of these technologies have the potential to monitor user behavior on endpoint devices. The key to answering this question correctly is realizing the emphasis on the user. Intrusion detection and prevention systems (IDSs/IPSs) focus on network and host behavior. Endpoint detection and response (EDR) systems focus on endpoint devices. User and entity behavior analytics (UEBA) solutions focus on the user and, therefore, would be the best way to meet Hunter's requirement.",
+            80: "SSH uses TCP port 22, so this attack is likely an attempt to scan for open or weakly secured SSH servers. FTP uses ports 20 and 21. Telnet uses port 23, and HTTP uses port 80.",
+            81: "Remediation activities seek to address the issue that caused the incident. In this case, that was a web application that was open to SQL injection attack. Adding input validation seeks to remediate this vulnerability. Rebuilding the database is a recovery action, while reviewing logs is done as part of the detection and response effort.",
+            82: "In an infrastructure-as-a-service environment, the vendor is responsible for hardware- and network-related responsibilities. These include configuring network firewalls, maintaining the hypervisor, and managing physical equipment. The customer retains responsibility for patching operating systems on its virtual machine instances.",
+            83: "Sandboxing is a technique where application developers (or the recipients of an untrusted application) may test the code in a virtualized environment that is isolated from production systems. White-box testing, black-box testing, and penetration testing are all common software testing techniques but do not require the use of an isolated system.",
+            84: "While it may not immediately seem like the obvious answer, many firewalls have a built-in anti–SYN flood defense that responds to SYNs on behalf of protected systems. Once the remote system proves to be a legitimate connection by continuing the three-way handshake, the rest of the TCP session is passed through. If the connection proves to be an attack, the firewall handles the additional load using appropriate mitigation techniques. Blocking SYNs from known or unknown IP addresses is likely to cause issues with systems that should be able to connect, and turning off TCP will break most modern network services!",
+            85: "EDR platforms do not conduct simulated phishing campaigns. The most common features of EDR systems are analyzing endpoint memory, filesystem, and network activity for signs of malicious activity; isolating possible malicious activity to contain the potential damage; integrating with threat intelligence sources; and integrating with other incident response mechanisms.",
+            86: "While any cybersecurity activity has the potential to benefit from machine learning and artificial intelligence capabilities, this technology really shines when used for pattern detection and anomaly detection problems. This is the type of activity performed by an intrusion detection system, and, therefore, this system would benefit the most from the use of ML/AI technology.",
+            87: "Companies have an obligation to preserve evidence whenever they believe that the threat of litigation is imminent. The statement made by this customer that “we will have to take this matter to court” is a clear threat of litigation and should trigger the preservation of any related documents and records.",
+            88: "Incremental backups provide the option that includes the smallest amount of data. In this case, that would be only the data modified since the most recent incremental backup. A differential backup would back up all data modified since the last full backup, which would be a substantial amount. The full backup would include all information on the server. Transaction log backups are specifically designed to support database servers and would not be effective on a file server.",
+            89: "Expert opinion evidence allows individuals to offer their opinion based upon the facts in evidence and their personal knowledge. Expert opinion evidence may be offered only if the court accepts the witness as an expert in a particular field. Direct evidence is when witnesses testify about their direct observations. Real evidence consists of tangible items brought into court as evidence. Documentary evidence consists of written records used as evidence in court.",
+            90: "The standard methods for clearing magnetic tapes, according to the NIST Guidelines for Media Sanitization, are overwriting the tape with nonsensitive data, degaussing, and physical destruction via shredding. Reformatting a tape does not remove remnant data.",
+            91: "RAID level 1, also known as disk mirroring, uses a minimum of two disks that contain identical information. If one disk fails, the other contains the data needed for the system to continue operation.",
+            92: "The analysis of application logs is one of the core tasks of software analysis. This is the correct answer because SQL injection attacks are application attacks.",
+            93: "Quigley may choose to use any or all of these security controls, but data encryption is, by far, the most important control. It protects the confidentiality of data stored on the tapes, which are most vulnerable to theft while in transit between two secure locations.",
+            94: "Data loss prevention (DLP) systems may identify sensitive information stored on endpoint systems or in transit over a network. This is their primary purpose. DLP systems are commonly available as a third-party managed service offering. Intrusion detection and prevention systems (IDSs/IPSs) may be used to identify some sensitive information using signatures built for that purpose, but this is not the primary role of those tools, and they would not be as effective as DLP systems at this task. TLS is a network encryption protocol that may be used to protect sensitive information, but it does not have any ability to identify sensitive information.",
+            95: "Disaster recovery teams should always refer media inquiries to the public relations team to ensure a coordinated, consistent response. They should not attempt to answer questions themselves.",
+            96: "All of these considerations are important when developing an emergency management plan. However, the safety of human life should always be the overwhelming priority, above all other considerations.",
+            97: "Barry should recruit an independent moderator to facilitate the session. Having a moderator who was not directly involved in the effort encourages honest and open feedback. While it is not necessary to use an external consultant, they may easily fill this role. While it is also possible to find a qualified internal employee to fill this position, it should not be someone who was involved in the incident response effort or has a major stake in the plan, such as Barry, the CISO, or the DR team leader.",
+            98: "Generators are capable of providing backup power for a sustained period of time in the event of a power loss, but they take time to activate. Uninterruptible power supplies (UPSs) provide immediate, battery-driven power for a short period of time to cover momentary losses of power, which would not cover a sustained period of power loss. RAID and redundant servers are high-availability controls but do not cover power loss scenarios."
+        };
 
-// Mapping for Q99
-const mappingQ99 = [
-    { item: "Honeypot", correct: "C" },
-    { item: "Honeynet", correct: "B" },
-    { item: "Pseudo-flaw", correct: "A" },
-    { item: "Darknet", correct: "D" }
-];
+        // Mapping for Q99
+        const mappingQ99 = [
+            { item: "Honeypot", correct: "C" },
+            { item: "Honeynet", correct: "B" },
+            { item: "Pseudo-flaw", correct: "A" },
+            { item: "Darknet", correct: "D" }
+        ];
 
-const mappingQ100 = [
-    { item: "Hot site", correct: "B" },
-    { item: "Cold site", correct: "D" },
-    { item: "Warm site", correct: "C" },
-    { item: "Service bureau", correct: "A" }
-];
+        const mappingQ100 = [
+            { item: "Hot site", correct: "B" },
+            { item: "Cold site", correct: "D" },
+            { item: "Warm site", correct: "C" },
+            { item: "Service bureau", correct: "A" }
+        ];
 
-// Render questions
-const container = document.getElementById('questionsContainer');
-questionsData.forEach(q => {
-    const card = document.createElement('div');
-    card.className = 'question-card';
-    card.id = `qcard-${q.id}`;
-    const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 15 || q.id === 24 || q.id === 30 || q.id === 71 || q.id === 72 || q.id === 85);
-    const isMapping = (q.id === 99 || q.id === 100);
-    let optionsHtml = '';
-    if (isMapping && q.id === 99) {
-        optionsHtml = `<table class="mapping-table"><thead><tr><th>Term</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
-        mappingQ99.forEach((item, idx) => {
-            optionsHtml += `<tr>
+        // Render questions
+        const container = document.getElementById('questionsContainer');
+        questionsData.forEach(q => {
+            const card = document.createElement('div');
+            card.className = 'question-card';
+            card.id = `qcard-${q.id}`;
+            const isMultiple = q.options.length > 0 && (q.text.includes("(Select all that apply.)") || q.id === 15 || q.id === 24 || q.id === 30 || q.id === 71 || q.id === 72 || q.id === 85);
+            const isMapping = (q.id === 99 || q.id === 100);
+            let optionsHtml = '';
+            if (isMapping && q.id === 99) {
+                optionsHtml = `<table class="mapping-table"><thead><tr><th>Term</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
+                mappingQ99.forEach((item, idx) => {
+                    optionsHtml += `<tr>
                 <td><strong>${item.item}</strong></td>
                 <td><select class="map-select-99" data-index="${idx}">
                     <option value="">-- select --</option>
@@ -519,12 +562,12 @@ questionsData.forEach(q => {
                     <option value="D">D. A monitored network without any hosts</option>
                 </select></table>
             </tr>`;
-        });
-        optionsHtml += `</tbody></table>`;
-    } else if (isMapping && q.id === 100) {
-        optionsHtml = `<table class="mapping-table"><thead><tr><th>Recovery Capability</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
-        mappingQ100.forEach((item, idx) => {
-            optionsHtml += `<tr>
+                });
+                optionsHtml += `</tbody></table>`;
+            } else if (isMapping && q.id === 100) {
+                optionsHtml = `<table class="mapping-table"><thead><tr><th>Recovery Capability</th><th>Match to definition (A–D)</th></tr></thead><tbody>`;
+                mappingQ100.forEach((item, idx) => {
+                    optionsHtml += `<tr>
                 <td><strong>${item.item}</strong></td>
                 <td><select class="map-select-100" data-index="${idx}">
                     <option value="">-- select --</option>
@@ -534,149 +577,151 @@ questionsData.forEach(q => {
                     <option value="D">D. A rented space with power, cooling, and connectivity that can accept equipment as part of a recovery effort</option>
                 </select></td>
             </tr>`;
-        });
-        optionsHtml += `</tbody></table>`;
-    } else {
-        optionsHtml = `<div class="options">`;
-        q.options.forEach(opt => {
-            const letter = opt.charAt(0);
-            const inputType = isMultiple ? 'checkbox' : 'radio';
-            const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
-            optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
-        });
-        optionsHtml += `</div>`;
-    }
-    card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
-    container.appendChild(card);
-});
-
-const submitBtn = document.getElementById('submitBtn');
-const exportBtn = document.getElementById('exportBtn');
-const modal = document.getElementById('summaryModal');
-const modalBody = document.getElementById('modalBody');
-const closeModal = document.querySelector('.close-modal');
-let currentResults = [];
-
-function getUserAnswers() {
-    let results = [];
-    for (let i = 1; i <= 100; i++) {
-        const qid = i;
-        let userAnswer = "";
-        let isCorrect = false;
-        let correctAnswerStr = "";
-        let explanation = explanations[qid] || "No explanation available.";
-        if (qid === 99) {
-            const selects = document.querySelectorAll('.map-select-99');
-            let answers = [];
-            selects.forEach(sel => answers.push(sel.value));
-            userAnswer = answers.join(', ') || "(no selection)";
-            const correct = mappingQ99.map(m => m.correct);
-            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
-            correctAnswerStr = "Honeypot→C, Honeynet→B, Pseudo-flaw→A, Darknet→D";
-        } else if (qid === 100) {
-            const selects = document.querySelectorAll('.map-select-100');
-            let answers = [];
-            selects.forEach(sel => answers.push(sel.value));
-            userAnswer = answers.join(', ') || "(no selection)";
-            const correct = mappingQ100.map(m => m.correct);
-            isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
-            correctAnswerStr = "Hot site→B, Cold site→D, Warm site→C, Service bureau→A";
-        } else {
-            const qData = questionsData.find(q => q.id === qid);
-            const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 15 || qid === 24 || qid === 30 || qid === 71 || qid === 72 || qid === 85);
-            if (isMulti) {
-                const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
-                const selected = Array.from(checkboxes).map(cb => cb.value).sort();
-                userAnswer = selected.join(', ') || "(none)";
-                const correctRaw = answersMap[qid];
-                const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
-                isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
-                correctAnswerStr = correctRaw;
+                });
+                optionsHtml += `</tbody></table>`;
             } else {
-                const radio = document.querySelector(`input[name="q${qid}"]:checked`);
-                userAnswer = radio ? radio.value : "(skipped)";
-                const correctLetter = answersMap[qid];
-                isCorrect = (radio && radio.value === correctLetter);
-                correctAnswerStr = correctLetter;
+                optionsHtml = `<div class="options">`;
+                q.options.forEach(opt => {
+                    const letter = opt.charAt(0);
+                    const inputType = isMultiple ? 'checkbox' : 'radio';
+                    const nameAttr = isMultiple ? `q${q.id}_chk` : `q${q.id}`;
+                    optionsHtml += `<div class="option"><input type="${inputType}" name="${nameAttr}" value="${letter}" id="q${q.id}_${letter}"> <label for="q${q.id}_${letter}">${opt}</label></div>`;
+                });
+                optionsHtml += `</div>`;
             }
-        }
-        const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
-        results.push({ qid, userAnswer, correctAnswer: (qid === 99 || qid === 100) ? correctAnswerStr : (answersMap[qid] || "Mapping"), isCorrect, status, explanation });
-        const hashtagSpan = document.getElementById(`hashtag-${qid}`);
-        if (hashtagSpan) {
-            if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
-            else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
-            else hashtagSpan.innerHTML = " #️⃣ skipped";
-            hashtagSpan.className = `hashtag ${status}`;
-        }
-    }
-    return results;
-}
+            card.innerHTML = `<div class="question-header"><span class="q-num">Q${q.id}</span><span class="q-text">${q.text}</span><span class="hashtag" id="hashtag-${q.id}"></span></div>${optionsHtml}`;
+            container.appendChild(card);
+        });
 
-function escapeHtml(str) {
-    if (str === undefined || str === null) return '';
-    return str.replace(/[&<>]/g, function(m) {
-        if (m === '&') return '&amp;';
-        if (m === '<') return '&lt;';
-        if (m === '>') return '&gt;';
-        return m;
-    });
-}
+        const submitBtn = document.getElementById('submitBtn');
+        const exportBtn = document.getElementById('exportBtn');
+        const modal = document.getElementById('summaryModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeModal = document.querySelector('.close-modal');
+        let currentResults = [];
 
-function showModal(results) {
-    const total = results.length;
-    const correctCount = results.filter(r => r.isCorrect).length;
-    let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
-    html += `<div style="overflow-x: auto;"><table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th><th>Explanation</th></tr></thead><tbody>`;
-    results.forEach(r => {
-        const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
-        html += `<tr>
+        function getUserAnswers() {
+            let results = [];
+            for (let i = 1; i <= 100; i++) {
+                const qid = i;
+                let userAnswer = "";
+                let isCorrect = false;
+                let correctAnswerStr = "";
+                let explanation = explanations[qid] || "No explanation available.";
+                if (qid === 99) {
+                    const selects = document.querySelectorAll('.map-select-99');
+                    let answers = [];
+                    selects.forEach(sel => answers.push(sel.value));
+                    userAnswer = answers.join(', ') || "(no selection)";
+                    const correct = mappingQ99.map(m => m.correct);
+                    isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+                    correctAnswerStr = "Honeypot→C, Honeynet→B, Pseudo-flaw→A, Darknet→D";
+                } else if (qid === 100) {
+                    const selects = document.querySelectorAll('.map-select-100');
+                    let answers = [];
+                    selects.forEach(sel => answers.push(sel.value));
+                    userAnswer = answers.join(', ') || "(no selection)";
+                    const correct = mappingQ100.map(m => m.correct);
+                    isCorrect = answers.length === correct.length && answers.every((v, idx) => v === correct[idx]);
+                    correctAnswerStr = "Hot site→B, Cold site→D, Warm site→C, Service bureau→A";
+                } else {
+                    const qData = questionsData.find(q => q.id === qid);
+                    const isMulti = qData && (qData.text.includes("(Select all that apply.)") || qid === 15 || qid === 24 || qid === 30 || qid === 71 || qid === 72 || qid === 85);
+                    if (isMulti) {
+                        const checkboxes = document.querySelectorAll(`input[name="q${qid}_chk"]:checked`);
+                        const selected = Array.from(checkboxes).map(cb => cb.value).sort();
+                        userAnswer = selected.join(', ') || "(none)";
+                        const correctRaw = answersMap[qid];
+                        const correctArray = correctRaw.split(',').map(s => s.trim()).sort();
+                        isCorrect = selected.length === correctArray.length && correctArray.every((v, i) => v === selected[i]);
+                        correctAnswerStr = correctRaw;
+                    } else {
+                        const radio = document.querySelector(`input[name="q${qid}"]:checked`);
+                        userAnswer = radio ? radio.value : "(skipped)";
+                        const correctLetter = answersMap[qid];
+                        isCorrect = (radio && radio.value === correctLetter);
+                        correctAnswerStr = correctLetter;
+                    }
+                }
+                const status = (userAnswer === "(skipped)" ? "skipped" : (isCorrect ? "correct" : "incorrect"));
+                results.push({ qid, userAnswer, correctAnswer: (qid === 99 || qid === 100) ? correctAnswerStr : (answersMap[qid] || "Mapping"), isCorrect, status, explanation });
+                const hashtagSpan = document.getElementById(`hashtag-${qid}`);
+                if (hashtagSpan) {
+                    if (status === "correct") hashtagSpan.innerHTML = " #️⃣ correct";
+                    else if (status === "incorrect") hashtagSpan.innerHTML = " #️⃣ incorrect";
+                    else hashtagSpan.innerHTML = " #️⃣ skipped";
+                    hashtagSpan.className = `hashtag ${status}`;
+                }
+            }
+            return results;
+        }
+
+        function escapeHtml(str) {
+            if (str === undefined || str === null) return '';
+            return str.replace(/[&<>]/g, function (m) {
+                if (m === '&') return '&amp;';
+                if (m === '<') return '&lt;';
+                if (m === '>') return '&gt;';
+                return m;
+            });
+        }
+
+        function showModal(results) {
+            document.querySelectorAll(`input`).forEach(e => e.disabled = true);
+            const total = results.length;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
+            html += `<div style="overflow-x: auto;"><table class="result-table"><thead><tr><th>Q#</th><th>Your Answer</th><th>Correct Answer</th><th>Result</th><th>Explanation</th></tr></thead><tbody>`;
+            results.forEach(r => {
+                const statusText = r.isCorrect ? `<span class="hashtag correct">Correct</span>` : (r.userAnswer === "(skipped)" ? `<span class="hashtag skipped">Skipped</span>` : `<span class="hashtag incorrect">Incorrect</span>`);
+                html += `<tr>
             <td style="white-space: nowrap;">${r.qid}</td>
             <td>${escapeHtml(r.userAnswer)}</td>
             <td>${escapeHtml(r.correctAnswer)}</td>
             <td>${statusText}</td>
             <td>${escapeHtml(r.explanation)}</td>
         </tr>`;
-    });
-    html += `</tbody></table></div>`;
-    modalBody.innerHTML = html;
-    modal.style.display = 'flex';
-}
+            });
+            html += `</tbody></table></div>`;
+            modalBody.innerHTML = html;
+            modal.style.display = 'flex';
+        }
 
-function exportCSV(results) {
-    let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result", "Explanation"]];
-    results.forEach(r => {
-        csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect"), r.explanation]);
-    });
-    const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
-    const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    const url = URL.createObjectURL(blob);
-    link.href = url;
-    link.setAttribute("download", "domain7_results.csv");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-}
+        function exportCSV(results) {
+            let csvRows = [["Question ID", "User Answer", "Correct Answer", "Result", "Explanation"]];
+            results.forEach(r => {
+                csvRows.push([r.qid, r.userAnswer, r.correctAnswer, r.isCorrect ? "Correct" : (r.userAnswer === "(skipped)" ? "Skipped" : "Incorrect"), r.explanation]);
+            });
+            const csvContent = csvRows.map(row => row.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(",")).join("\n");
+            const blob = new Blob(["\uFEFF" + csvContent], { type: "text/csv;charset=utf-8;" });
+            const link = document.createElement("a");
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.setAttribute("download", "domain7_results.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+        }
 
-submitBtn.addEventListener('click', () => {
-    const results = getUserAnswers();
-    currentResults = results;
-    const correctCount = results.filter(r => r.isCorrect).length;
-    document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/100 (${Math.round(correctCount / 100 * 100)}%)`;
-    showModal(results);
-});
+        submitBtn.addEventListener('click', () => {
+            const results = getUserAnswers();
+            currentResults = results;
+            const correctCount = results.filter(r => r.isCorrect).length;
+            document.getElementById('scoreDisplay').innerHTML = `✅ Score: ${correctCount}/100 (${Math.round(correctCount / 100 * 100)}%)`;
+            showModal(results);
+        });
 
-exportBtn.addEventListener('click', () => {
-    if (currentResults && currentResults.length) exportCSV(currentResults);
-    else alert("Please submit your answers first to generate CSV.");
-});
-document.getElementById('modalExportBtn').addEventListener('click', () => {
-    if (currentResults) exportCSV(currentResults);
-});
-closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
-window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
-</script>
+        exportBtn.addEventListener('click', () => {
+            if (currentResults && currentResults.length) exportCSV(currentResults);
+            else alert("Please submit your answers first to generate CSV.");
+        });
+        document.getElementById('modalExportBtn').addEventListener('click', () => {
+            if (currentResults) exportCSV(currentResults);
+        });
+        closeModal.addEventListener('click', () => { modal.style.display = 'none'; });
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    </script>
 </body>
+
 </html>

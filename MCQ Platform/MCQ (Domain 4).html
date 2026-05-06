@@ -552,7 +552,7 @@
 
         function escapeHtml(str) {
             if (str === undefined || str === null) return '';
-            return str.replace(/[&<>]/g, function(m) {
+            return str.replace(/[&<>]/g, function (m) {
                 if (m === '&') return '&amp;';
                 if (m === '<') return '&lt;';
                 if (m === '>') return '&gt;';
@@ -562,6 +562,7 @@
 
         // Actually, the above is incomplete. Let's rewrite correctly.
         function showModal(results) {
+            document.querySelectorAll(`input`).forEach(e => e.disabled = true);
             const total = results.length;
             const correctCount = results.filter(r => r.isCorrect).length;
             let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
