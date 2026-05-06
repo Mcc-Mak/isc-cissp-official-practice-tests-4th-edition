@@ -635,7 +635,7 @@
         }
 
         function showModal(results) {
-            document.querySelectorAll(`input`).forEach(e => e.disabled = true);
+            document.querySelectorAll(`input,select`).forEach(e => e.disabled = true);
             const total = results.length;
             const correctCount = results.filter(r => r.isCorrect).length;
             let html = `<p><strong>Score: ${correctCount}/${total} (${Math.round(correctCount / total * 100)}%)</strong></p>`;
