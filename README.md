@@ -40,3 +40,21 @@ Create a `MCQ Platform.html` to provide a `MCQ Platform` for `Domain 1`.
 - Score after submission
 - Show summary report for the results, and also allow to export as CSV
 ```
+## Fulfillment of CISSP working experiences
+1. About `what I built`
+- 🔴 `Year 1` to `Year3`
+  - Develop a **web application** served as a booking appointment system by **C# .NET**
+  - Develop a **window form** served as a query system in **C#**
+  - Develop a **window form** served as a socket server in **Java**
+  - Code for a **web application** served as a workflow system in **Java** (in **Springboot**) collaboratively
+- 🔴 `Year 4` to `Year 6`
+  - Develop a **web application** served as a earthquake information dissemination application in **HTML**/**JS**/**CSS** (in **LAMP**), including input validation for earthquake data entry
+  - Develop a **web application** served as a locally felt information application via **JS** (in **MERN**), including assuring secure API in internal network protected by organization firewall
+  - Fulfill **adhoc tasks** for normal operations of the other systems
+2. About `how I secured it`
+- 🔴 `Year 1` to `Year 3`
+  - **Secure Software Lifecycle Management:** Managed the security of a **.NET** booking system and **Java-based** workflow application by implementing **_parameterized queries_** to protect against SQL injection and common web vulnerabilities (`Domain 8`).
+- 🔴 `Year 4` to `Year 6`
+  - **Application Security Testing & Validation:** Led the development earthquake information system for internal use, implementing rigorous **_client-side input validation_** and **_input encoding_** to mitigate Cross-Site Scripting (XSS) and injection risks (`Domain 8`).
+  - **Network and API Security:** Architected and **_secured internal APIs_** within a **MERN** stack environment, ensuring secure communication through firewall policy alignment, network segmentation, and endpoint protection within the organizational perimeter (`Domain 4`).
+  - **Security Operations & Maintenance:** Performed **_continuous security monitoring_** and ad-hoc **_vulnerability remediation_** for legacy systems to ensure ongoing availability and resilience of critical information dissemination services (`Domain 7`).
