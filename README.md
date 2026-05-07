@@ -43,14 +43,14 @@ Create a `MCQ Platform.html` to provide a `MCQ Platform` for `Domain 1`.
 ## Fulfillment of CISSP working experiences
 1. About `what I built`
 - 🔴 `Year 1` to `Year3`
-  - Develop a **web application** served as a booking appointment system by **C# .NET**
-  - Develop a **window form** served as a query system in **C#**
-  - Develop a **window form** served as a socket server in **Java**
-  - Code for a **web application** served as a workflow system in **Java** (in **Springboot**) collaboratively
+  - Develop a **web application** served as a _booking appointment system_ by **C# .NET**
+  - Develop a **window form** served as a _query system_ in **C#**
+  - Develop a **window form** served as a _socket server_ in **Java**
+  - Code for a **web application** served as a _workflow system_ in **Java** (in **Springboot**) collaboratively
 - 🔴 `Year 4` to `Year 6`
-  - Develop a **web application** served as a earthquake information dissemination application in **HTML**/**JS**/**CSS** (in **LAMP**), including input validation for earthquake data entry
-  - Develop a **web application** served as a locally felt information application via **JS** (in **MERN**), including assuring secure API in internal network protected by organization firewall
-  - Fulfill **adhoc tasks** for normal operations of the other systems
+  - Develop a **web application** served as a _earthquake information dissemination application_ in **HTML**/**JS**/**CSS** (in **LAMP**), including input validation for earthquake data entry
+  - Develop a **web application** served as a _locally felt information application_ via **JS** (in **MERN**), including assuring secure API in internal network protected by organization firewall
+  - Fulfill **adhoc tasks** for _normal operations of the other systems_
 2. About `how I secured it`
 - 🔴 `Year 1` to `Year 3`
   - **Secure Software Lifecycle Management:** Managed the security of a **.NET** booking system and **Java-based** workflow application by implementing **_parameterized queries_** to protect against SQL injection and common web vulnerabilities (`Domain 8`).
