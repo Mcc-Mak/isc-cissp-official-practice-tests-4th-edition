@@ -1,7 +1,7 @@
 # isc-cissp-official-practice-tests-4th-edition
 ## ISC2 CISSP Certified Information Systems Security Professional Official Practice Tests (4th Edition)
 1. Login to `VitalSource` as `martinmcc5804@gmail.com`
-2. Scrape from web: `https://bookshelf.vitalsource.com/reader/books/9781394255085?library_return_url=https%3A%2F%2Fbookshelf.vitalsource.com%2Fhome%2Fdashboard`
+2. Scrape from web: https://bookshelf.vitalsource.com/reader/books/9781394255085?library_return_url=https%3A%2F%2Fbookshelf.vitalsource.com%2Fhome%2Fdashboard
 - `Questions`
 ```
 const text = Object.keys([...new Array(100)])
