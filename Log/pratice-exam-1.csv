@@ -1,7 +1,7 @@
 "CISSP Quiz Results"
 "Title","Practice Test 1"
 "Date","6/3/2026, 5:26:48 PM"
-"Score","86/123 (70%)"
+"Score","87/123 (71%)"
 
 "Question ID","Question","Your Answer","Correct Answer","Result","Explanation"
 "1","Lisa is attempting to prevent her network from being targeted by IP spoofing attacks as well as prev","A. Block packets with internal source addresses fr","A. Block packets with internal source addresses fr","Incorrect","Packets with public IP addresses will routinely be allowed to enter the network, so you should not c"
@@ -125,5 +125,5 @@
 "119","In what cloud computing model does the customer build a cloud computing environment in their own dat","B. Private cloud","B. Private cloud","Correct","In the private cloud computing model, the cloud computing environment is dedicated to a single organ"
 "120","Which one of the following technologies is designed to prevent a web server going offline from becom","A. Load balancing","A. Load balancing","Correct","Load balancing helps to ensure that a failed server will not take a website or service offline. Dual"
 "121","Alice wants to send Bob a message with the confidence that Bob will know the message was not altered","D. Integrity","D. Integrity","Correct","Integrity ensures that unauthorized changes are not made to data while stored or in transit."
-"122","What network topology is shown here? (Image: ring topology)","C. A star","A. A ring","Incorrect","A star topology uses a central connection device. Ethernet networks may look like a star, but they a"
+"122","What network topology is shown here? (Image: ring topology)","C. A star","C. A star","Correct","A star topology uses a central connection device. Ethernet networks may look like a star, but they a"
 "123","Monica is developing a software application that calculates an individual's body mass index for use ","C. Limit check","C. Limit check","Correct","Input validation ensures that the data provided to a program as input matches the expected parameter"
