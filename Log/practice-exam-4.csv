@@ -1,7 +1,7 @@
 "CISSP Quiz Results"
 "Title","Practice Test 4"
 "Date","6/8/2026, 12:32:44 PM"
-"Score","97/124 (79%)"
+"Score","98/124 (79%)"
 
 "Question ID","Question","Your Answer","Correct Answer","Result","Explanation"
 "1","What type of access control is intended to discover unwanted or unauthorized activity by providing i","C. Detective","C. Detective","Correct","Detective access controls operate after the fact and are intended to detect or discover unwanted acc"
@@ -109,7 +109,7 @@
 "103","What security considerations should Fred's company require for sending sensitive data over the cellu","C. Encrypt all traffic to ensure confidentiality.","A. They should use the same requirements as data o","Incorrect","Cellular networks have the same issues that any public network does. Encryption requirements should "
 "104","Fred intends to attend a major hacker conference this year and needs to connect to his employer's ne","D. Connect to his company's encrypted VPN service.","D. Connect to his company's encrypted VPN service.","Correct","Fred's best option is to use an encrypted, trusted VPN service to tunnel all of his data usage. Trus"
 "105","What are the most likely circumstances that would cause a remote wipe of a mobile phone to fail?","B. The phone cannot contact a network.","B. The phone cannot contact a network.","Correct","Remote wipe tools are a useful solution, but they work only if the phone can access either a cellula"
-"106","Elaine is developing a business continuity plan for her organization. What value should she seek to ","C. RTO","A. AV","Incorrect","The goal of business continuity planning exercises is to reduce the amount of time required to resto"
+"106","Elaine is developing a business continuity plan for her organization. What value should she seek to ","C. RTO","C. RTO","Correct","The goal of business continuity planning exercises is to reduce the amount of time required to resto"
 "107","Warren wants to conduct an internal security audit. He wants to use a broadly accepted audit framewo","D. CIS","C. COBIT","Incorrect","The COBIT, or Control Objectives for Information and related Technologies, framework describes commo"
 "108","Place the list of disaster recovery test types in order of their potential operational impact on the","B. 1, 3, 2, 4","B. 1, 3, 2, 4","Correct","The disaster recovery test types, listed in order of their potential impact on the business from the"
 "109","Jack's data center design calls for dual-power supplies in every critical server. What part of the C","C. Availability","C. Availability","Correct","Redundancy is part of many availability designs. Dual power supplies allow multiple levels of availa"
